@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2024-03-15T12:00:00.000Z",
+  "root": "postcards",
+  "total": 3,
+  "folders": {
+    "postcards/europe": [
+      {
+        "public_id": "postcards/europe/paris",
+        "title": "Paris",
+        "description": "Eiffel Tower at sunset",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg"
+      },
+      {
+        "public_id": "postcards/europe/rome",
+        "title": "Rome",
+        "description": "Colosseum",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg"
+      }
+    ],
+    "postcards/asia": [
+      {
+        "public_id": "postcards/asia/tokyo",
+        "title": "Tokyo",
+        "description": "Shibuya crossing",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg"
+      }
+    ]
+  }
+}
