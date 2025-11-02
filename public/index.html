@@ -5,6 +5,7 @@
   <title>Card Gallery</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/img/amarantha-logo.svg">
   <style>
     :root {
       --deep-olive: #435339;
@@ -169,6 +170,58 @@
       overflow: hidden;
     }
 
+    .profile-hero {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 36px 18px;
+      background: linear-gradient(135deg, rgba(67, 83, 57, 0.08) 0%, rgba(205, 187, 153, 0.2) 100%);
+      border-bottom: 1px solid rgba(67, 83, 57, 0.18);
+    }
+
+    .profile-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(67, 83, 57, 0.35);
+      flex-shrink: 0;
+      box-shadow: 0 10px 24px rgba(33, 49, 29, 0.2);
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .profile-copy h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .profile-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .profile-mark {
+      margin-left: auto;
+      width: 78px;
+      height: 78px;
+      opacity: 0.85;
+    }
+
     #contentHeader {
       padding: 32px 36px 16px;
       display: flex;
@@ -253,14 +306,14 @@
     .image-grid {
       flex: 1;
       overflow-y: auto;
-      padding: 28px 36px 40px;
+      padding: 24px 36px 40px;
       display: grid;
-      gap: 28px;
+      gap: 20px;
       align-items: start;
     }
 
     .album-grid {
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
 
     .image-grid {
@@ -275,7 +328,7 @@
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.2s ease, border-color 0.2s ease;
-      height: 250px;
+      height: 300px;
     }
 
     .album-card:hover {
@@ -289,8 +342,9 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      gap: 3px;
+      gap: 4px;
       background: #d4dbc6;
+      grid-auto-rows: 130px;
     }
 
     .album-thumb {
@@ -667,6 +721,16 @@
       </div>
     </aside>
     <main id="content">
+      <section class="profile-hero">
+        <div class="profile-avatar">
+          <img src="assets/img/amarantha-avatar.svg" alt="Portrait of amarantha with her dog">
+        </div>
+        <div class="profile-copy">
+          <h1>amarantha’s albums for swap</h1>
+          <p>Hand-picked postcard sets ready for fellow collectors and mail art friends.</p>
+        </div>
+        <img class="profile-mark" src="assets/img/amarantha-logo.svg" alt="amarantha wordmark">
+      </section>
       <div id="contentHeader">
         <div class="header-left">
           <a id="backLink" class="back-link" href="#">Back to albums list</a>
