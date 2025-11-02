@@ -9,14 +9,16 @@
         "title": "Paris",
         "description": "Eiffel Tower at sunset",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
-        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg"
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": ["Cityscapes", "Landmarks"]
       },
       {
         "public_id": "postcards/europe/rome",
         "title": "Rome",
         "description": "Colosseum",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
-        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg"
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": ["Landmarks", "Heritage"]
       }
     ],
     "postcards/asia": [
@@ -25,7 +27,8 @@
         "title": "Tokyo",
         "description": "Shibuya crossing",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
-        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg"
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": ["Cityscapes", "Nightlife"]
       }
     ]
   }

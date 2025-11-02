@@ -1,13 +1,13 @@
 # cardgallery
-postcards gallery
+Postcards gallery.
 
-## Local quick preview
+## Быстрый локальный просмотр
 
-1. Populate `public/gallery.json` with mock data:
-   - `npm install`
-   - `npm run mock` (copies `mock-data/sample.json` → `public/gallery.json`)
-   - или `npm run mock -- mock-data/another.json` для другого файла.
-2. Открой `public/index.html` в браузере (двойной клик) или через локальный сервер (`npx serve public`).
-3. Обновляй JSON → перезагружай страницу.
+1. Установи зависимости (нужны только для скриптов):  
+   `npm install`
+2. Скопируй тестовые данные:  
+   - `npm run mock` — использует `mock-data/sample.json` и `mock-data/tags.sample.json`  
+   - `npm run mock -- mock-data/asia.json mock-data/tags.sample.json` — свои файлы (2‑й аргумент необязателен)
+3. Подними статический сервер из `public/` (например, `python -m http.server 8000 -d public`) и открой `http://localhost:8000`.
 
-Создавай свои наборы данных в `mock-data/`, потом быстро переключайся между ними теми же командами.
+Генератор `scripts/use-mock.mjs` проверяет JSON и закидывает его в `public/gallery.json` и `public/tags.json`. Если хочешь держать собственные моки локально — создай их в `mock-data/` и вызывай `npm run mock` с путём до файла.

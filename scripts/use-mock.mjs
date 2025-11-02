@@ -3,30 +3,50 @@ import path from 'path';
 
 const rootDir = process.cwd();
 const publicDir = path.join(rootDir, 'public');
-const targetFile = path.join(publicDir, 'gallery.json');
+const galleryTarget = path.join(publicDir, 'gallery.json');
+const tagsTarget = path.join(publicDir, 'tags.json');
 
-const [,, mockPathArg] = process.argv;
-const mockPath = mockPathArg || path.join(rootDir, 'mock-data', 'sample.json');
+const args = process.argv.slice(2);
+const dataSource = resolvePath(args[0] || path.join('mock-data', 'sample.json'));
+const defaultTags = path.join(rootDir, 'mock-data', 'tags.sample.json');
+const tagsSource = args[1] ? resolvePath(args[1]) : (fs.existsSync(defaultTags) ? defaultTags : null);
+
+function resolvePath(input) {
+  return path.isAbsolute(input) ? input : path.join(rootDir, input);
+}
 
 function exitWithError(message) {
   console.error(message);
   process.exit(1);
 }
 
-if (!fs.existsSync(mockPath)) {
-  exitWithError(`Mock file not found: ${mockPath}`);
+function ensureJsonReadable(filePath, label) {
+  if (!fs.existsSync(filePath)) {
+    exitWithError(`${label} not found: ${filePath}`);
+  }
+  try {
+    const raw = fs.readFileSync(filePath, 'utf8');
+    JSON.parse(raw);
+  } catch (err) {
+    exitWithError(`${label} is invalid JSON: ${err.message}`);
+  }
 }
 
-try {
-  const data = fs.readFileSync(mockPath, 'utf8');
-  JSON.parse(data);
-} catch (err) {
-  exitWithError(`Mock JSON is invalid: ${err.message}`);
+ensureJsonReadable(dataSource, 'Mock gallery');
+if (tagsSource) {
+  ensureJsonReadable(tagsSource, 'Tag map');
 }
 
 if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir, { recursive: true });
 }
 
-fs.copyFileSync(mockPath, targetFile);
-console.log(`Mock gallery copied to ${targetFile}`);
+fs.copyFileSync(dataSource, galleryTarget);
+console.log(`Mock gallery copied to ${galleryTarget}`);
+
+if (tagsSource) {
+  fs.copyFileSync(tagsSource, tagsTarget);
+  console.log(`Tag map copied to ${tagsTarget}`);
+} else if (fs.existsSync(tagsTarget)) {
+  console.log('Note: tags.json already exists. Keeping current tag map.');
+}

@@ -6,196 +6,1015 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
-    body { margin:0; font-family:sans-serif; background:#f8f8f8; }
-    #container { display:flex; height:100vh; }
-    #folders { width:240px; background:#fff; border-right:1px solid #ddd; overflow-y:auto; padding:16px 0; }
-    #folders ul { list-style:none; padding:0; margin:0; }
-    #folders li { cursor:pointer; padding:8px 24px; border-radius:4px; margin-bottom:2px; }
-    #folders li.active { background:#e0e7ff; font-weight:bold; }
-    #gallery { flex:1; padding:24px; overflow-y:auto; }
-    .folder-title { font-size:1.2em; margin-bottom:12px; color:#555; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
-    .card { background:#fff; border-radius:8px; box-shadow:0 2px 8px #0001; padding:12px; display:flex; flex-direction:column; align-items:center; }
-    .card img { width:100%; max-width:220px; height:auto; border-radius:6px; margin-bottom:8px; background:#eee; }
-    .card .title { font-weight:bold; margin-bottom:4px; }
-    .card .desc { color:#666; font-size:0.95em; margin-bottom:6px; }
-    .card .folder { font-size:0.85em; color:#888; }
-    /* Lightbox overlay */
-    .lightbox-overlay { position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:9999; }
-    .lightbox-overlay.show { display:flex; }
-    .lightbox-content { position:relative; max-width:92vw; max-height:90vh; display:flex; flex-direction:column; align-items:center; }
-    .lightbox-frame { position:relative; display:inline-block; max-width:92vw; max-height:82vh; }
-    .lightbox-media { max-width:92vw; max-height:82vh; border-radius:8px; box-shadow:0 6px 24px rgba(0,0,0,.4); opacity:0; transition: opacity .2s ease; }
-    .lightbox-media.loaded { opacity:1; }
-    .lightbox-caption { color:#eee; margin-top:10px; text-align:center; max-width:86vw; }
-    .lightbox-close { position:absolute; top:-20px; right:-20px; width:56px; height:56px; border-radius:50%; background:#000c; color:#fff; border:1px solid #fff3; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:28px; }
-    .lightbox-close:hover { background:#111c; }
-    .lightbox-nav { position:absolute; top:50%; left:8px; right:8px; display:flex; justify-content:space-between; transform:translateY(-50%); pointer-events:none; }
-    .lightbox-btn { pointer-events:auto; width:72px; height:72px; display:flex; align-items:center; justify-content:center; color:#fff; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.35); border-radius:50%; cursor:pointer; opacity:.95; backdrop-filter: blur(2px); }
-    .lightbox-btn:hover { opacity:1; }
-    .lightbox-btn svg { width:40px; height:40px; fill:#fff; }
-    @media (max-width:600px) {
-      #container { flex-direction:column; }
-      #folders { width:100%; border-right:none; border-bottom:1px solid #ddd; }
-      #gallery { padding:12px; }
+    :root {
+      --bg: #f3f5f9;
+      --card-bg: #ffffff;
+      --accent: #3b82f6;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; }
+
+    #app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    #sidebar {
+      width: 260px;
+      background: var(--card-bg);
+      border-right: 1px solid var(--border);
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      overflow-y: auto;
+    }
+
+    .sidebar-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .sidebar-subtitle {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .sidebar-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: #eef2ff;
+      color: #3730a3;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .sidebar-action:hover {
+      transform: translateY(-1px);
+      background: #e0e7ff;
+    }
+
+    .sidebar-action.active {
+      background: #dbeafe;
+      border-color: rgba(37, 99, 235, 0.35);
+    }
+
+    #tagList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tag-filter {
+      appearance: none;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+    }
+
+    .tag-filter:hover {
+      background: rgba(59, 130, 246, 0.12);
+    }
+
+    .tag-filter.active {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: #1d4ed8;
+      font-weight: 600;
+    }
+
+    #content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #contentHeader {
+      padding: 32px 36px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 100%);
+      backdrop-filter: blur(6px);
+    }
+
+    #contentHeader h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    #contentHeader p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(255,255,255,0.8);
+      color: var(--text);
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .button-link:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    .album-grid,
+    .image-grid {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 36px 40px;
+      display: grid;
+      gap: 28px;
+    }
+
+    .album-grid {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+
+    .image-grid {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    .album-card {
+      position: relative;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+    }
+
+    .album-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.14);
+    }
+
+    .album-previews {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 96px;
+      gap: 4px;
+      padding: 16px;
+      flex: 1;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e0f2fe 100%);
+    }
+
+    .album-thumb {
+      position: relative;
+      background: rgba(148, 163, 184, 0.15);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .album-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .album-card:hover .album-thumb img {
+      transform: scale(1.04);
+    }
+
+    .album-thumb.placeholder::after {
+      content: "●";
+      font-size: 12px;
+      color: rgba(148, 163, 184, 0.6);
+    }
+
+    .album-overlay {
+      position: relative;
+      padding: 18px 20px 16px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.02) 0%, rgba(15, 23, 42, 0.12) 100%);
+      backdrop-filter: blur(4px);
+    }
+
+    .album-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+    }
+
+    .album-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      gap: 14px;
+    }
+
+    .photo-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
+    }
+
+    .photo-thumb {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: rgba(226, 232, 240, 0.7);
+    }
+
+    .photo-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.25s ease;
+    }
+
+    .photo-card:hover .photo-thumb img {
+      transform: scale(1.04);
+    }
+
+    .photo-thumb-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 14px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.6) 100%);
+      color: #f8fafc;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .photo-meta {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .photo-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .photo-desc {
+      margin: 0;
+      font-size: 0.93rem;
+      color: var(--muted);
+    }
+
+    .photo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .tag-chip {
+      appearance: none;
+      border: none;
+      background: rgba(59, 130, 246, 0.14);
+      color: #1d4ed8;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .tag-chip:hover {
+      background: rgba(59, 130, 246, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+      font-size: 1rem;
+      background: rgba(255,255,255,0.9);
+      border: 1px dashed rgba(148, 163, 184, 0.3);
+      border-radius: var(--radius-lg);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Lightbox */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 32px;
+    }
+
+    .lightbox-overlay.show {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 92vw;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(15, 23, 42, 0.7);
+      color: #f8fafc;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(15, 23, 42, 0.85);
+      transform: translateY(-2px);
+    }
+
+    .lightbox-media {
+      max-width: 92vw;
+      max-height: 70vh;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.35);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .lightbox-media.loaded {
+      opacity: 1;
+    }
+
+    .lightbox-info {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 18px 24px;
+      border-radius: var(--radius-lg);
+      color: #f8fafc;
+      max-width: 78vw;
+      backdrop-filter: blur(6px);
+    }
+
+    .lightbox-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .lightbox-desc {
+      margin: 8px 0 0;
+      font-size: 0.95rem;
+      color: rgba(248, 250, 252, 0.8);
+    }
+
+    .lightbox-tags {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      left: 32px;
+      right: 32px;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .lightbox-btn {
+      pointer-events: auto;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(15, 23, 42, 0.55);
+      transform: translateY(-2px);
+    }
+
+    .lightbox-btn svg {
+      width: 36px;
+      height: 36px;
+      fill: #f8fafc;
+    }
+
+    @media (max-width: 1024px) {
+      #sidebar {
+        display: none;
+      }
+
+      #contentHeader {
+        padding: 24px 24px 12px;
+      }
+
+      .album-grid,
+      .image-grid {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .album-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lightbox-nav {
+        left: 12px;
+        right: 12px;
+      }
+
+      .lightbox-btn {
+        width: 56px;
+        height: 56px;
+      }
+
+      .lightbox-btn svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .lightbox-close {
+        width: 48px;
+        height: 48px;
+        top: -16px;
+        right: -16px;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="container">
-    <nav id="folders"></nav>
-    <main id="gallery"></main>
+  <div id="app">
+    <aside id="sidebar">
+      <div>
+        <h1 class="sidebar-title">Card Gallery</h1>
+      </div>
+      <div>
+        <div class="sidebar-subtitle">Browse</div>
+        <button id="allAlbumsBtn" class="sidebar-action" type="button">Albums overview</button>
+      </div>
+      <div>
+        <div class="sidebar-subtitle">Tags</div>
+        <div id="tagList"></div>
+      </div>
+    </aside>
+    <main id="content">
+      <div id="contentHeader">
+        <div>
+          <h2 id="viewTitle">Albums</h2>
+          <p id="viewSubtitle">Overview of all albums</p>
+        </div>
+        <div class="header-actions" id="headerActions"></div>
+      </div>
+      <section id="albumsView" class="album-grid"></section>
+      <section id="imagesView" class="image-grid hidden"></section>
+    </main>
   </div>
-  <!-- Lightbox overlay -->
+
   <div id="lightbox" class="lightbox-overlay" aria-hidden="true">
     <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Image preview" id="lightboxContent">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">×</button>
-      <div class="lightbox-frame">
-        <img id="lightboxImg" class="lightbox-media" alt="Preview image">
-        <div class="lightbox-nav">
-          <button class="lightbox-btn" id="lightboxPrev" aria-label="Previous image">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-          </button>
-          <button class="lightbox-btn" id="lightboxNext" aria-label="Next image">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.59 16.59 1.41 1.41 6-6-6-6-1.41 1.41L13.17 12z"/></svg>
-          </button>
-        </div>
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
+      <img id="lightboxImg" class="lightbox-media" alt="Preview image">
+      <div class="lightbox-info" id="lightboxInfo">
+        <h3 class="lightbox-title" id="lightboxTitle"></h3>
+        <p class="lightbox-desc" id="lightboxDescription"></p>
+        <div class="lightbox-tags" id="lightboxTags"></div>
       </div>
-      <div id="lightboxCaption" class="lightbox-caption" aria-live="polite"></div>
+    </div>
+    <div class="lightbox-nav">
+      <button class="lightbox-btn" id="lightboxPrev" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <button class="lightbox-btn" id="lightboxNext" aria-label="Next image">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.59 16.59 1.41 1.41 6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+      </button>
     </div>
   </div>
+
   <script>
     let galleryData = null;
-    let currentFolder = null;
+    let tagLabels = {};
+    let albums = [];
+    let tagIndex = new Map();
+    let tagList = [];
     let currentItems = [];
+    let currentContext = { type: 'albums', value: null };
     let currentIndex = -1;
+    let ignoreHashChange = false;
+    const ALBUM_VIEWS_KEY = 'cardgallery_album_views';
+    let albumViews = loadAlbumViews();
 
-    function createFolderTree(folders, root) {
-      const ul = document.createElement('ul');
-      Object.keys(folders).sort().forEach(folder => {
-        const li = document.createElement('li');
-        li.textContent = folder.replace(new RegExp('^' + root + '/?'), '') || '(root)';
-        li.dataset.folder = folder;
-        li.onclick = () => showFolder(folder);
-        if (folder === currentFolder) li.classList.add('active');
-        ul.appendChild(li);
-      });
-      return ul;
+    const sidebarTagList = document.getElementById('tagList');
+    const allAlbumsBtn = document.getElementById('allAlbumsBtn');
+    const albumsView = document.getElementById('albumsView');
+    const imagesView = document.getElementById('imagesView');
+    const viewTitle = document.getElementById('viewTitle');
+    const viewSubtitle = document.getElementById('viewSubtitle');
+    const headerActions = document.getElementById('headerActions');
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDescription = document.getElementById('lightboxDescription');
+    const lightboxTags = document.getElementById('lightboxTags');
+
+    function loadAlbumViews() {
+      try {
+        const raw = localStorage.getItem(ALBUM_VIEWS_KEY);
+        if (!raw) return {};
+        return JSON.parse(raw);
+      } catch {
+        return {};
+      }
     }
 
-    function showFolder(folder) {
-      currentFolder = folder;
-      document.querySelectorAll('#folders li').forEach(li => {
-        li.classList.toggle('active', li.dataset.folder === folder);
-      });
-      const items = galleryData.folders[folder] || [];
-      currentItems = items;
-      const gallery = document.getElementById('gallery');
-      gallery.innerHTML = '';
-      const title = document.createElement('div');
-      title.className = 'folder-title';
-      title.textContent = folder.replace(new RegExp('^' + galleryData.root + '/?'), '') || '(root)';
-      gallery.appendChild(title);
+    function saveAlbumViews() {
+      try {
+        localStorage.setItem(ALBUM_VIEWS_KEY, JSON.stringify(albumViews));
+      } catch {
+        // Silent fail (e.g. private mode)
+      }
+    }
 
-      const grid = document.createElement('div');
-      grid.className = 'grid';
-      items.forEach((it, idx) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        const a = document.createElement('a');
-        a.href = it.url; // keep href for fallback/open in new tab via context menu
-        const img = document.createElement('img');
-        img.src = it.thumb;
-        img.alt = it.title || it.description || it.public_id;
-        img.loading = 'lazy';
-        a.appendChild(img);
-        // Open lightbox instead of navigating
-        a.addEventListener('click', (e) => {
-          e.preventDefault();
-          openLightbox(idx);
+    function incrementAlbumView(id) {
+      albumViews[id] = (albumViews[id] || 0) + 1;
+      saveAlbumViews();
+      return albumViews[id];
+    }
+
+    function getAlbumViews(id) {
+      return albumViews[id] || 0;
+    }
+
+    function inferAlbumName(folder) {
+      if (!folder) return 'Album';
+      const parts = folder.split('/');
+      return parts[parts.length - 1]
+        .replace(/[-_]+/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase()) || 'Album';
+    }
+
+    function inferTitle(publicId) {
+      if (!publicId) return 'Untitled';
+      const base = publicId.split('/').pop() || publicId;
+      return base
+        .replace(/[-_]+/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+    }
+
+    function normalizeItem(raw, folder) {
+      const title = raw.title?.trim() || inferTitle(raw.public_id || '');
+      const description = raw.description?.trim() || '';
+      const tags = Array.isArray(raw.tags) ? raw.tags : [];
+      return {
+        ...raw,
+        folder,
+        title,
+        description,
+        tags,
+        displayTags: tags.map((tag) => ({
+          code: tag,
+          label: tagLabels[tag] || tag
+        }))
+      };
+    }
+
+    function buildTagIndex(items) {
+      tagIndex = new Map();
+      items.forEach((item) => {
+        item.tags.forEach((tag) => {
+          if (!tagIndex.has(tag)) {
+            tagIndex.set(tag, []);
+          }
+          tagIndex.get(tag).push(item);
         });
-        card.appendChild(a);
-
-        if (it.title) {
-          const t = document.createElement('div');
-          t.className = 'title';
-          t.textContent = it.title;
-          card.appendChild(t);
-        }
-        if (it.description) {
-          const d = document.createElement('div');
-          d.className = 'desc';
-          d.textContent = it.description;
-          card.appendChild(d);
-        }
-        const f = document.createElement('div');
-        f.className = 'folder';
-        f.textContent = folder.replace(new RegExp('^' + galleryData.root + '/?'), '');
-        card.appendChild(f);
-
-        grid.appendChild(card);
       });
-      gallery.appendChild(grid);
+      tagList = Array.from(tagIndex.keys())
+        .sort((a, b) => (tagLabels[a] || a).localeCompare(tagLabels[b] || b, undefined, { sensitivity: 'base' }));
     }
+
+    function renderTagList() {
+      sidebarTagList.innerHTML = '';
+      if (!tagList.length) {
+        const note = document.createElement('div');
+        note.style.color = 'var(--muted)';
+        note.style.fontSize = '0.9rem';
+        note.textContent = 'Теги появятся, как только они будут доступны.';
+        sidebarTagList.appendChild(note);
+        return;
+      }
+
+      tagList.forEach((tag) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tag-filter';
+        btn.dataset.tag = tag;
+        btn.textContent = tagLabels[tag] || tag;
+        btn.addEventListener('click', () => navigateToTag(tag));
+        sidebarTagList.appendChild(btn);
+      });
+      updateActiveFilters();
+    }
+
+    function updateActiveFilters() {
+      document.querySelectorAll('.tag-filter').forEach((btn) => {
+        btn.classList.toggle('active', currentContext.type === 'tag' && btn.dataset.tag === currentContext.value);
+      });
+      allAlbumsBtn.classList.toggle('active', currentContext.type === 'albums');
+    }
+
+    function renderAlbums() {
+      albumsView.innerHTML = '';
+      if (!albums.length) {
+        albumsView.innerHTML = '<div class="empty-state">Альбомы пока не найдены.</div>';
+        return;
+      }
+
+      albums.forEach((album) => {
+        const card = document.createElement('article');
+        card.className = 'album-card';
+
+        const previews = document.createElement('div');
+        previews.className = 'album-previews';
+        const items = album.items.slice(0, 5);
+        for (let i = 0; i < 5; i++) {
+          const item = items[i];
+          const cell = document.createElement('div');
+          cell.className = 'album-thumb';
+          if (item) {
+            const img = document.createElement('img');
+            img.src = item.thumb;
+            img.alt = item.title;
+            cell.appendChild(img);
+          } else {
+            cell.classList.add('placeholder');
+          }
+          previews.appendChild(cell);
+        }
+
+        const overlay = document.createElement('div');
+        overlay.className = 'album-overlay';
+        const name = document.createElement('div');
+        name.className = 'album-name';
+        name.textContent = album.name;
+
+        const meta = document.createElement('div');
+        meta.className = 'album-meta';
+        const count = document.createElement('span');
+        count.textContent = `${album.items.length} photos`;
+        const views = document.createElement('span');
+        views.textContent = `Views: ${getAlbumViews(album.id)}`;
+        meta.append(count, views);
+
+        overlay.append(name, meta);
+        card.append(previews, overlay);
+        card.addEventListener('click', () => navigateToAlbum(album.id));
+
+        albumsView.appendChild(card);
+      });
+    }
+
+    function renderImageGrid(items) {
+      currentItems = items;
+      imagesView.innerHTML = '';
+
+      if (!items.length) {
+        imagesView.innerHTML = '<div class="empty-state">Нет изображений для отображения.</div>';
+        return;
+      }
+
+      items.forEach((item, index) => {
+        const card = document.createElement('article');
+        card.className = 'photo-card';
+
+        const thumb = document.createElement('div');
+        thumb.className = 'photo-thumb';
+        const img = document.createElement('img');
+        img.src = item.thumb || item.url;
+        img.alt = item.title;
+        thumb.appendChild(img);
+
+        const overlay = document.createElement('div');
+        overlay.className = 'photo-thumb-title';
+        overlay.textContent = item.title;
+        thumb.appendChild(overlay);
+        thumb.addEventListener('click', (event) => {
+          event.preventDefault();
+          openLightbox(index);
+        });
+
+        const meta = document.createElement('div');
+        meta.className = 'photo-meta';
+
+        const title = document.createElement('h3');
+        title.className = 'photo-title';
+        title.textContent = item.title;
+
+        const desc = document.createElement('p');
+        desc.className = 'photo-desc';
+        desc.textContent = item.description || '';
+        if (!item.description) {
+          desc.classList.add('hidden');
+        }
+
+        const tagContainer = document.createElement('div');
+        tagContainer.className = 'photo-tags';
+        item.displayTags.forEach((tag) => {
+          tagContainer.appendChild(createTagChip(tag));
+        });
+
+        meta.append(title);
+        if (item.description) meta.append(desc);
+        if (item.displayTags.length) meta.append(tagContainer);
+
+        card.append(thumb, meta);
+        imagesView.appendChild(card);
+      });
+    }
+
+    function createTagChip(tag) {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'tag-chip';
+      chip.textContent = tag.label;
+      chip.addEventListener('click', (event) => {
+        event.stopPropagation();
+        handleTagSelection(tag.code);
+      });
+      return chip;
+    }
+
+    function showAlbums(updateHash = false) {
+      currentContext = { type: 'albums', value: null };
+      viewTitle.textContent = 'Albums';
+      viewSubtitle.textContent = 'Overview of all albums';
+      headerActions.innerHTML = '';
+      albumsView.classList.remove('hidden');
+      imagesView.classList.add('hidden');
+      renderAlbums();
+      updateActiveFilters();
+      if (updateHash) {
+        navigateHash('albums');
+      }
+    }
+
+    function showAlbum(albumId, updateHash = false) {
+      const album = albums.find((a) => a.id === albumId);
+      if (!album) {
+        showAlbums(true);
+        return;
+      }
+
+      currentContext = { type: 'album', value: albumId };
+      const totalViews = incrementAlbumView(albumId);
+      viewTitle.textContent = album.name;
+      viewSubtitle.textContent = `${album.items.length} photos · Views: ${totalViews}`;
+
+      headerActions.innerHTML = '';
+      const backBtn = document.createElement('button');
+      backBtn.type = 'button';
+      backBtn.className = 'button-link';
+      backBtn.textContent = 'Back to albums';
+      backBtn.addEventListener('click', () => showAlbums(true));
+      headerActions.appendChild(backBtn);
+
+      albumsView.classList.add('hidden');
+      imagesView.classList.remove('hidden');
+      renderImageGrid(album.items);
+      updateActiveFilters();
+
+      if (updateHash) {
+        navigateHash('album', albumId);
+      }
+    }
+
+    function showTag(tagCode, updateHash = false) {
+      if (!tagIndex.has(tagCode)) {
+        showAlbums(true);
+        return;
+      }
+      currentContext = { type: 'tag', value: tagCode };
+      const items = tagIndex.get(tagCode);
+      const label = tagLabels[tagCode] || tagCode;
+
+      viewTitle.textContent = label;
+      viewSubtitle.textContent = `${items.length} photos with this tag`;
+
+      headerActions.innerHTML = '';
+      const clearBtn = document.createElement('button');
+      clearBtn.type = 'button';
+      clearBtn.className = 'button-link';
+      clearBtn.textContent = 'Back to albums';
+      clearBtn.addEventListener('click', () => showAlbums(true));
+      headerActions.appendChild(clearBtn);
+
+      albumsView.classList.add('hidden');
+      imagesView.classList.remove('hidden');
+      renderImageGrid(items);
+      updateActiveFilters();
+
+      if (updateHash) {
+        navigateHash('tag', tagCode);
+      }
+    }
+
+    function handleTagSelection(tagCode) {
+      closeLightbox();
+      showTag(tagCode, true);
+    }
+
+    function navigateToAlbum(albumId) {
+      showAlbum(albumId, true);
+    }
+
+    function navigateToTag(tagCode) {
+      showTag(tagCode, true);
+    }
+
+    function navigateHash(view, value) {
+      ignoreHashChange = true;
+      if (view === 'albums') {
+        location.hash = '';
+      } else {
+        location.hash = `#${view}=${encodeURIComponent(value)}`;
+      }
+    }
+
+    function parseHash() {
+      const hash = location.hash.replace('#', '');
+      if (!hash) return { view: 'albums', value: null };
+      const [rawKey, rawValue] = hash.split('=');
+      if (!rawKey || !rawValue) return { view: 'albums', value: null };
+      return { view: rawKey, value: decodeURIComponent(rawValue) };
+    }
+
+    window.addEventListener('hashchange', () => {
+      if (ignoreHashChange) {
+        ignoreHashChange = false;
+        return;
+      }
+      const { view, value } = parseHash();
+      if (view === 'album' && value) showAlbum(value);
+      else if (view === 'tag' && value) showTag(value);
+      else showAlbums();
+    });
 
     function transformUrlForPreview(url) {
-      // Insert Cloudinary transformations after '/upload/' if present
       try {
         const marker = '/upload/';
-        const i = url.indexOf(marker);
-        if (i !== -1) {
-          const prefix = url.substring(0, i + marker.length);
-          const suffix = url.substring(i + marker.length);
-          // Limit size for screen, auto format & quality
+        const idx = url.indexOf(marker);
+        if (idx !== -1) {
+          const prefix = url.substring(0, idx + marker.length);
+          const suffix = url.substring(idx + marker.length);
           return prefix + 'c_limit,f_auto,q_auto,w_1600/' + suffix;
         }
-      } catch (e) {}
-      return url; // fallback
+      } catch (err) {
+        console.warn('Failed to transform URL', err);
+      }
+      return url;
     }
 
     function renderLightbox(idx) {
-      const it = currentItems[idx];
-      if (!it) return;
-      const img = document.getElementById('lightboxImg');
-      img.classList.remove('loaded');
-      const cap = document.getElementById('lightboxCaption');
-      cap.textContent = '';
+      const item = currentItems[idx];
+      if (!item) return;
+      currentIndex = idx;
 
-      const previewUrl = transformUrlForPreview(it.url);
+      const previewUrl = transformUrlForPreview(item.url);
+      lightboxImg.classList.remove('loaded');
+      lightboxTitle.textContent = item.title;
+      lightboxDescription.textContent = item.description || '';
+      lightboxDescription.classList.toggle('hidden', !item.description);
+
+      lightboxTags.innerHTML = '';
+      item.displayTags.forEach((tag) => {
+        lightboxTags.appendChild(createTagChip(tag));
+      });
+      lightboxTags.classList.toggle('hidden', !item.displayTags.length);
+
       const pre = new Image();
       pre.onload = () => {
-        img.src = previewUrl;
-        img.alt = it.title || it.description || it.public_id || 'Preview image';
-        img.classList.add('loaded');
-        const parts = [];
-        if (it.title) parts.push(it.title);
-        if (it.description) parts.push(it.description);
-        cap.textContent = parts.join(' — ');
+        lightboxImg.src = previewUrl;
+        lightboxImg.alt = item.title || 'Preview image';
+        lightboxImg.classList.add('loaded');
       };
       pre.onerror = () => {
-        img.src = previewUrl; // still try to show
-        img.classList.add('loaded');
-        cap.textContent = it.title || it.description || '';
+        lightboxImg.src = previewUrl;
+        lightboxImg.classList.add('loaded');
       };
       pre.src = previewUrl;
     }
 
     function openLightbox(idx) {
-      currentIndex = idx;
-      renderLightbox(currentIndex);
-      const overlay = document.getElementById('lightbox');
-      overlay.classList.add('show');
-      overlay.setAttribute('aria-hidden', 'false');
-      // prevent background scroll
+      renderLightbox(idx);
+      lightbox.classList.add('show');
+      lightbox.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
-      // focus close for accessibility
       document.getElementById('lightboxClose').focus({ preventScroll: true });
     }
 
     function closeLightbox() {
-      const overlay = document.getElementById('lightbox');
-      overlay.classList.remove('show');
-      overlay.setAttribute('aria-hidden', 'true');
+      lightbox.classList.remove('show');
+      lightbox.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       currentIndex = -1;
     }
@@ -212,41 +1031,92 @@
       renderLightbox(currentIndex);
     }
 
-    // Wire controls once DOM is ready
-    window.addEventListener('DOMContentLoaded', () => {
+    function initialiseEvents() {
       const overlay = document.getElementById('lightbox');
       const content = document.getElementById('lightboxContent');
       document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-      document.getElementById('lightboxNext').addEventListener('click', (e) => { e.stopPropagation(); nextItem(); });
-      document.getElementById('lightboxPrev').addEventListener('click', (e) => { e.stopPropagation(); prevItem(); });
-      // Click outside content closes
-      overlay.addEventListener('click', (e) => {
-        if (!content.contains(e.target)) closeLightbox();
+      document.getElementById('lightboxNext').addEventListener('click', (event) => {
+        event.stopPropagation();
+        nextItem();
       });
-      // Keyboard controls
-      window.addEventListener('keydown', (e) => {
+      document.getElementById('lightboxPrev').addEventListener('click', (event) => {
+        event.stopPropagation();
+        prevItem();
+      });
+      overlay.addEventListener('click', (event) => {
+        if (!content.contains(event.target)) closeLightbox();
+      });
+      window.addEventListener('keydown', (event) => {
         if (!overlay.classList.contains('show')) return;
-        if (e.key === 'Escape') closeLightbox();
-        else if (e.key === 'ArrowRight') nextItem();
-        else if (e.key === 'ArrowLeft') prevItem();
+        if (event.key === 'Escape') closeLightbox();
+        if (event.key === 'ArrowRight') nextItem();
+        if (event.key === 'ArrowLeft') prevItem();
       });
-    });
+    }
 
-    fetch('gallery.json')
-      .then(r => r.json())
-      .then(data => {
-        galleryData = data;
-        const foldersNav = document.getElementById('folders');
-        foldersNav.innerHTML = '';
-        foldersNav.appendChild(createFolderTree(data.folders, data.root));
-        // Show first folder or root
-        const firstFolder = Object.keys(data.folders)[0] || data.root;
-        showFolder(firstFolder);
-      })
-      .catch(err => {
-        document.getElementById('gallery').textContent = 'Failed to load gallery.';
-        console.error(err);
-      });
+    function initialiseSidebar() {
+      allAlbumsBtn.addEventListener('click', () => showAlbums(true));
+    }
+
+    function initialiseGallery(data) {
+      const folders = data.folders || {};
+      const albumEntries = Object.keys(folders);
+      albums = albumEntries
+        .map((folder) => {
+          const items = (folders[folder] || []).map((item) => normalizeItem(item, folder));
+          return {
+            id: folder,
+            name: inferAlbumName(folder.replace(new RegExp('^' + (data.root || '') + '/?'), '')),
+            items
+          };
+        })
+        .filter((album) => album.items.length > 0)
+        .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+
+      const allItems = albums.flatMap((album) => album.items);
+      buildTagIndex(allItems);
+      renderTagList();
+
+      const { view, value } = parseHash();
+      if (view === 'album' && value) {
+        showAlbum(value);
+      } else if (view === 'tag' && value) {
+        showTag(value);
+      } else {
+        showAlbums();
+      }
+    }
+
+    function fetchTags() {
+      return fetch('tags.json')
+        .then((response) => {
+          if (!response.ok) throw new Error('Tag file not found');
+          return response.json();
+        })
+        .catch(() => ({}));
+    }
+
+    function bootstrap() {
+      initialiseEvents();
+      initialiseSidebar();
+      Promise.all([
+        fetch('gallery.json').then((response) => response.json()),
+        fetchTags()
+      ])
+        .then(([gallery, tags]) => {
+          galleryData = gallery;
+          tagLabels = tags || {};
+          initialiseGallery(galleryData);
+        })
+        .catch((error) => {
+          console.error(error);
+          viewTitle.textContent = 'Failed to load gallery';
+          viewSubtitle.textContent = 'Please check that gallery.json is available.';
+          albumsView.innerHTML = '<div class="empty-state">Failed to load gallery data.</div>';
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', bootstrap);
   </script>
 </body>
 </html>
