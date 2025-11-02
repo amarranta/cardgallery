@@ -20,6 +20,18 @@
     .card .title { font-weight:bold; margin-bottom:4px; }
     .card .desc { color:#666; font-size:0.95em; margin-bottom:6px; }
     .card .folder { font-size:0.85em; color:#888; }
+    /* Lightbox overlay */
+    .lightbox-overlay { position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:9999; }
+    .lightbox-overlay.show { display:flex; }
+    .lightbox-content { position:relative; max-width:92vw; max-height:90vh; display:flex; flex-direction:column; align-items:center; }
+    .lightbox-media { max-width:92vw; max-height:82vh; border-radius:8px; box-shadow:0 6px 24px rgba(0,0,0,.4); }
+    .lightbox-caption { color:#eee; margin-top:10px; text-align:center; max-width:86vw; }
+    .lightbox-close { position:absolute; top:-14px; right:-14px; width:36px; height:36px; border-radius:50%; background:#000c; color:#fff; border:1px solid #fff3; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; }
+    .lightbox-close:hover { background:#111c; }
+    .lightbox-nav { position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); pointer-events:none; }
+    .lightbox-btn { pointer-events:auto; width:48px; height:64px; display:flex; align-items:center; justify-content:center; color:#fff; background:transparent; border:none; cursor:pointer; opacity:.85; }
+    .lightbox-btn:hover { opacity:1; }
+    .lightbox-btn svg { width:28px; height:28px; fill:#fff; }
     @media (max-width:600px) {
       #container { flex-direction:column; }
       #folders { width:100%; border-right:none; border-bottom:1px solid #ddd; }
@@ -32,9 +44,27 @@
     <nav id="folders"></nav>
     <main id="gallery"></main>
   </div>
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox-overlay" aria-hidden="true">
+    <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Image preview" id="lightboxContent">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">×</button>
+      <img id="lightboxImg" class="lightbox-media" alt="Preview image">
+      <div id="lightboxCaption" class="lightbox-caption"></div>
+      <div class="lightbox-nav">
+        <button class="lightbox-btn" id="lightboxPrev" aria-label="Previous image">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="lightbox-btn" id="lightboxNext" aria-label="Next image">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.59 16.59 1.41 1.41 6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
   <script>
     let galleryData = null;
     let currentFolder = null;
+    let currentItems = [];
+    let currentIndex = -1;
 
     function createFolderTree(folders, root) {
       const ul = document.createElement('ul');
@@ -55,6 +85,7 @@
         li.classList.toggle('active', li.dataset.folder === folder);
       });
       const items = galleryData.folders[folder] || [];
+      currentItems = items;
       const gallery = document.getElementById('gallery');
       gallery.innerHTML = '';
       const title = document.createElement('div');
@@ -64,18 +95,21 @@
 
       const grid = document.createElement('div');
       grid.className = 'grid';
-      items.forEach(it => {
+      items.forEach((it, idx) => {
         const card = document.createElement('div');
         card.className = 'card';
         const a = document.createElement('a');
-        a.href = it.url;
-        a.target = '_blank';
-        a.rel = 'noopener';
+        a.href = it.url; // keep href for fallback/open in new tab via context menu
         const img = document.createElement('img');
         img.src = it.thumb;
         img.alt = it.title || it.description || it.public_id;
         img.loading = 'lazy';
         a.appendChild(img);
+        // Open lightbox instead of navigating
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          openLightbox(idx);
+        });
         card.appendChild(a);
 
         if (it.title) {
@@ -99,6 +133,86 @@
       });
       gallery.appendChild(grid);
     }
+
+    function transformUrlForPreview(url) {
+      // Insert Cloudinary transformations after '/upload/' if present
+      try {
+        const marker = '/upload/';
+        const i = url.indexOf(marker);
+        if (i !== -1) {
+          const prefix = url.substring(0, i + marker.length);
+          const suffix = url.substring(i + marker.length);
+          // Limit size for screen, auto format & quality
+          return prefix + 'c_limit,f_auto,q_auto,w_1600/' + suffix;
+        }
+      } catch (e) {}
+      return url; // fallback
+    }
+
+    function renderLightbox(idx) {
+      const it = currentItems[idx];
+      if (!it) return;
+      const img = document.getElementById('lightboxImg');
+      img.src = transformUrlForPreview(it.url);
+      img.alt = it.title || it.description || it.public_id || 'Preview image';
+      const cap = document.getElementById('lightboxCaption');
+      const parts = [];
+      if (it.title) parts.push(it.title);
+      if (it.description) parts.push(it.description);
+      cap.textContent = parts.join(' — ');
+    }
+
+    function openLightbox(idx) {
+      currentIndex = idx;
+      renderLightbox(currentIndex);
+      const overlay = document.getElementById('lightbox');
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden', 'false');
+      // prevent background scroll
+      document.body.style.overflow = 'hidden';
+      // focus close for accessibility
+      document.getElementById('lightboxClose').focus({ preventScroll: true });
+    }
+
+    function closeLightbox() {
+      const overlay = document.getElementById('lightbox');
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      currentIndex = -1;
+    }
+
+    function nextItem() {
+      if (!currentItems.length) return;
+      currentIndex = (currentIndex + 1) % currentItems.length;
+      renderLightbox(currentIndex);
+    }
+
+    function prevItem() {
+      if (!currentItems.length) return;
+      currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+      renderLightbox(currentIndex);
+    }
+
+    // Wire controls once DOM is ready
+    window.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.getElementById('lightbox');
+      const content = document.getElementById('lightboxContent');
+      document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+      document.getElementById('lightboxNext').addEventListener('click', (e) => { e.stopPropagation(); nextItem(); });
+      document.getElementById('lightboxPrev').addEventListener('click', (e) => { e.stopPropagation(); prevItem(); });
+      // Click outside content closes
+      overlay.addEventListener('click', (e) => {
+        if (!content.contains(e.target)) closeLightbox();
+      });
+      // Keyboard controls
+      window.addEventListener('keydown', (e) => {
+        if (!overlay.classList.contains('show')) return;
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowRight') nextItem();
+        else if (e.key === 'ArrowLeft') prevItem();
+      });
+    });
 
     fetch('gallery.json')
       .then(r => r.json())
