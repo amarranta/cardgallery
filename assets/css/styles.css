@@ -1,0 +1,8 @@
+body { background: #f8f8f8; }
+.folder-title { font-size:1.2em; margin-bottom:12px; color:#555; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
+.card { background:#fff; border-radius:8px; box-shadow:0 2px 8px #0001; padding:12px; display:flex; flex-direction:column; align-items:center; }
+.card img { width:100%; max-width:220px; height:auto; border-radius:6px; margin-bottom:8px; background:#eee; }
+.card .title { font-weight:bold; margin-bottom:4px; }
+.card .desc { color:#666; font-size:0.95em; margin-bottom:6px; }
+.card .folder { font-size:0.85em; color:#888; }

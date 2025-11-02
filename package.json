@@ -1,0 +1,13 @@
+{
+  "name": "cardgallery",
+  "version": "1.0.0",
+  "description": "Static card gallery site powered by Cloudinary and GitHub Pages.",
+  "main": "build-gallery.mjs",
+  "type": "module",
+  "scripts": {
+    "build": "node build-gallery.mjs"
+  },
+  "dependencies": {
+    "cloudinary": "^1.39.2"
+  }
+}
