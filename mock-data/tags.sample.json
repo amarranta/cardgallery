@@ -1,14 +1,15 @@
 {
   "Cityscapes": "Cityscapes",
-  "Landmarks": "Landmarks",
-  "Heritage": "World Heritage",
   "Nightlife": "Nightlife",
-  "BlueCats": "Blue Cats",
-  "Vintage": "Vintage",
-  "Wildlife": "Wildlife",
-  "Waterfronts": "Waterfronts",
-  "Misty": "Misty Mornings",
+  "Heritage": "World Heritage",
   "StreetScenes": "Street Scenes",
   "ColorPop": "Color Pop",
-  "Futuristic": "Futuristic"
+  "Futuristic": "Futuristic",
+  "Wildlife": "Wildlife",
+  "Botanical": "Botanical",
+  "Architecture": "Architecture",
+  "Seaside": "Seaside",
+  "Mountain": "Mountain Views",
+  "Interiors": "Cozy Interiors",
+  "Festive": "Festive"
 }

@@ -1,74 +1,956 @@
 {
-  "generatedAt": "2024-03-15T12:00:00.000Z",
+  "generatedAt": "2025-11-02T19:41:25.246Z",
   "root": "postcards",
-  "total": 8,
+  "total": 84,
   "folders": {
-    "postcards/europe": [
+    "postcards/collection-01": [
       {
-        "public_id": "postcards/europe/paris",
-        "title": "Paris",
-        "description": "Eiffel Tower at sunset",
+        "public_id": "postcards/collection-01/item-01",
+        "title": "Collection 01 #01",
+        "description": "Sample card 01 from album 01.",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
-        "tags": ["Cityscapes", "Landmarks"]
+        "tags": [
+          "Architecture",
+          "Interiors"
+        ]
       },
       {
-        "public_id": "postcards/europe/rome",
-        "title": "Rome",
-        "description": "Colosseum",
+        "public_id": "postcards/collection-01/item-02",
+        "title": "Collection 01 #02",
+        "description": "Sample card 02 from album 01.",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
-        "tags": ["Landmarks", "Heritage"]
+        "tags": [
+          "Seaside",
+          "Festive"
+        ]
       },
       {
-        "public_id": "postcards/europe/amsterdam",
-        "title": "Amsterdam",
-        "description": "Canals at dusk",
+        "public_id": "postcards/collection-01/item-03",
+        "title": "Collection 01 #03",
+        "description": "Sample card 03 from album 01.",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
-        "tags": ["Cityscapes", "Waterfronts"]
+        "tags": [
+          "Mountain",
+          "Cityscapes"
+        ]
       },
       {
-        "public_id": "postcards/europe/prague",
-        "title": "Prague",
-        "description": "Charles Bridge morning fog",
+        "public_id": "postcards/collection-01/item-04",
+        "title": "Collection 01 #04",
+        "description": "Sample card 04 from album 01.",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
-        "tags": ["Heritage", "Misty"]
+        "tags": [
+          "Interiors",
+          "Nightlife"
+        ]
       },
       {
-        "public_id": "postcards/europe/lisbon",
-        "title": "Lisbon",
-        "description": "Tram 28 in Alfama",
+        "public_id": "postcards/collection-01/item-05",
+        "title": "Collection 01 #05",
+        "description": "Sample card 05 from album 01.",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
-        "tags": ["StreetScenes", "ColorPop"]
+        "tags": [
+          "Festive",
+          "Heritage"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-06",
+        "title": "Collection 01 #06",
+        "description": "Sample card 06 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Cityscapes",
+          "StreetScenes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-07",
+        "title": "Collection 01 #07",
+        "description": "Sample card 07 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Nightlife",
+          "ColorPop"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-08",
+        "title": "Collection 01 #08",
+        "description": "Sample card 08 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Heritage",
+          "Futuristic"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-09",
+        "title": "Collection 01 #09",
+        "description": "Sample card 09 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "StreetScenes",
+          "Wildlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-10",
+        "title": "Collection 01 #10",
+        "description": "Sample card 10 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "ColorPop",
+          "Botanical"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-11",
+        "title": "Collection 01 #11",
+        "description": "Sample card 11 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Futuristic",
+          "Architecture"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-12",
+        "title": "Collection 01 #12",
+        "description": "Sample card 12 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Wildlife",
+          "Seaside"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-13",
+        "title": "Collection 01 #13",
+        "description": "Sample card 13 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Botanical",
+          "Mountain"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-14",
+        "title": "Collection 01 #14",
+        "description": "Sample card 14 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Architecture",
+          "Interiors"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-15",
+        "title": "Collection 01 #15",
+        "description": "Sample card 15 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Seaside",
+          "Festive"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-16",
+        "title": "Collection 01 #16",
+        "description": "Sample card 16 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Mountain",
+          "Cityscapes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-17",
+        "title": "Collection 01 #17",
+        "description": "Sample card 17 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Interiors",
+          "Nightlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-18",
+        "title": "Collection 01 #18",
+        "description": "Sample card 18 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Festive",
+          "Heritage"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-19",
+        "title": "Collection 01 #19",
+        "description": "Sample card 19 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Cityscapes",
+          "StreetScenes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-20",
+        "title": "Collection 01 #20",
+        "description": "Sample card 20 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Nightlife",
+          "ColorPop"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-21",
+        "title": "Collection 01 #21",
+        "description": "Sample card 21 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Heritage",
+          "Futuristic"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-22",
+        "title": "Collection 01 #22",
+        "description": "Sample card 22 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "StreetScenes",
+          "Wildlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-23",
+        "title": "Collection 01 #23",
+        "description": "Sample card 23 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "ColorPop",
+          "Botanical"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-24",
+        "title": "Collection 01 #24",
+        "description": "Sample card 24 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Futuristic",
+          "Architecture"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-25",
+        "title": "Collection 01 #25",
+        "description": "Sample card 25 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Wildlife",
+          "Seaside"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-26",
+        "title": "Collection 01 #26",
+        "description": "Sample card 26 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Botanical",
+          "Mountain"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-27",
+        "title": "Collection 01 #27",
+        "description": "Sample card 27 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Architecture",
+          "Interiors"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-28",
+        "title": "Collection 01 #28",
+        "description": "Sample card 28 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Seaside",
+          "Festive"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-29",
+        "title": "Collection 01 #29",
+        "description": "Sample card 29 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Mountain",
+          "Cityscapes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-30",
+        "title": "Collection 01 #30",
+        "description": "Sample card 30 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Interiors",
+          "Nightlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-31",
+        "title": "Collection 01 #31",
+        "description": "Sample card 31 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Festive",
+          "Heritage"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-32",
+        "title": "Collection 01 #32",
+        "description": "Sample card 32 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Cityscapes",
+          "StreetScenes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-33",
+        "title": "Collection 01 #33",
+        "description": "Sample card 33 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Nightlife",
+          "ColorPop"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-34",
+        "title": "Collection 01 #34",
+        "description": "Sample card 34 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Heritage",
+          "Futuristic"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-35",
+        "title": "Collection 01 #35",
+        "description": "Sample card 35 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "StreetScenes",
+          "Wildlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-36",
+        "title": "Collection 01 #36",
+        "description": "Sample card 36 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "ColorPop",
+          "Botanical"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-37",
+        "title": "Collection 01 #37",
+        "description": "Sample card 37 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Futuristic",
+          "Architecture"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-38",
+        "title": "Collection 01 #38",
+        "description": "Sample card 38 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Wildlife",
+          "Seaside"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-39",
+        "title": "Collection 01 #39",
+        "description": "Sample card 39 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Botanical",
+          "Mountain"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-01/item-40",
+        "title": "Collection 01 #40",
+        "description": "Sample card 40 from album 01.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Architecture",
+          "Interiors"
+        ]
       }
     ],
-    "postcards/asia": [
+    "postcards/collection-02": [
       {
-        "public_id": "postcards/asia/tokyo",
-        "title": "Tokyo",
-        "description": "Shibuya crossing",
+        "public_id": "postcards/collection-02/item-01",
+        "title": "Collection 02 #01",
+        "description": "Sample card 01 from album 02.",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
-        "tags": ["Cityscapes", "Nightlife"]
+        "tags": [
+          "Heritage",
+          "Futuristic"
+        ]
       },
       {
-        "public_id": "postcards/asia/seoul",
-        "title": "Seoul",
-        "description": "Bukchon Hanok rooftops",
+        "public_id": "postcards/collection-02/item-02",
+        "title": "Collection 02 #02",
+        "description": "Sample card 02 from album 02.",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
-        "tags": ["Heritage", "Cityscapes"]
+        "tags": [
+          "StreetScenes",
+          "Wildlife"
+        ]
       },
       {
-        "public_id": "postcards/asia/singapore",
-        "title": "Singapore",
-        "description": "Gardens by the Bay at night",
+        "public_id": "postcards/collection-02/item-03",
+        "title": "Collection 02 #03",
+        "description": "Sample card 03 from album 02.",
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
-        "tags": ["Nightlife", "Futuristic"]
+        "tags": [
+          "ColorPop",
+          "Botanical"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-02/item-04",
+        "title": "Collection 02 #04",
+        "description": "Sample card 04 from album 02.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Futuristic",
+          "Architecture"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-02/item-05",
+        "title": "Collection 02 #05",
+        "description": "Sample card 05 from album 02.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Wildlife",
+          "Seaside"
+        ]
+      }
+    ],
+    "postcards/collection-03": [
+      {
+        "public_id": "postcards/collection-03/item-01",
+        "title": "Collection 03 #01",
+        "description": "Sample card 01 from album 03.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Seaside",
+          "Festive"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-03/item-02",
+        "title": "Collection 03 #02",
+        "description": "Sample card 02 from album 03.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Mountain",
+          "Cityscapes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-03/item-03",
+        "title": "Collection 03 #03",
+        "description": "Sample card 03 from album 03.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Interiors",
+          "Nightlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-03/item-04",
+        "title": "Collection 03 #04",
+        "description": "Sample card 04 from album 03.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Festive",
+          "Heritage"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-03/item-05",
+        "title": "Collection 03 #05",
+        "description": "Sample card 05 from album 03.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Cityscapes",
+          "StreetScenes"
+        ]
+      }
+    ],
+    "postcards/collection-04": [
+      {
+        "public_id": "postcards/collection-04/item-01",
+        "title": "Collection 04 #01",
+        "description": "Sample card 01 from album 04.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "StreetScenes",
+          "Wildlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-04/item-02",
+        "title": "Collection 04 #02",
+        "description": "Sample card 02 from album 04.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "ColorPop",
+          "Botanical"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-04/item-03",
+        "title": "Collection 04 #03",
+        "description": "Sample card 03 from album 04.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Futuristic",
+          "Architecture"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-04/item-04",
+        "title": "Collection 04 #04",
+        "description": "Sample card 04 from album 04.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Wildlife",
+          "Seaside"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-04/item-05",
+        "title": "Collection 04 #05",
+        "description": "Sample card 05 from album 04.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Botanical",
+          "Mountain"
+        ]
+      }
+    ],
+    "postcards/collection-05": [
+      {
+        "public_id": "postcards/collection-05/item-01",
+        "title": "Collection 05 #01",
+        "description": "Sample card 01 from album 05.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Mountain",
+          "Cityscapes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-05/item-02",
+        "title": "Collection 05 #02",
+        "description": "Sample card 02 from album 05.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Interiors",
+          "Nightlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-05/item-03",
+        "title": "Collection 05 #03",
+        "description": "Sample card 03 from album 05.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Festive",
+          "Heritage"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-05/item-04",
+        "title": "Collection 05 #04",
+        "description": "Sample card 04 from album 05.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Cityscapes",
+          "StreetScenes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-05/item-05",
+        "title": "Collection 05 #05",
+        "description": "Sample card 05 from album 05.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Nightlife",
+          "ColorPop"
+        ]
+      }
+    ],
+    "postcards/collection-06": [
+      {
+        "public_id": "postcards/collection-06/item-01",
+        "title": "Collection 06 #01",
+        "description": "Sample card 01 from album 06.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "ColorPop",
+          "Botanical"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-06/item-02",
+        "title": "Collection 06 #02",
+        "description": "Sample card 02 from album 06.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Futuristic",
+          "Architecture"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-06/item-03",
+        "title": "Collection 06 #03",
+        "description": "Sample card 03 from album 06.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Wildlife",
+          "Seaside"
+        ]
+      }
+    ],
+    "postcards/collection-07": [
+      {
+        "public_id": "postcards/collection-07/item-01",
+        "title": "Collection 07 #01",
+        "description": "Sample card 01 from album 07.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Interiors",
+          "Nightlife"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-07/item-02",
+        "title": "Collection 07 #02",
+        "description": "Sample card 02 from album 07.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Festive",
+          "Heritage"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-07/item-03",
+        "title": "Collection 07 #03",
+        "description": "Sample card 03 from album 07.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Cityscapes",
+          "StreetScenes"
+        ]
+      }
+    ],
+    "postcards/collection-08": [
+      {
+        "public_id": "postcards/collection-08/item-01",
+        "title": "Collection 08 #01",
+        "description": "Sample card 01 from album 08.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Futuristic",
+          "Architecture"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-08/item-02",
+        "title": "Collection 08 #02",
+        "description": "Sample card 02 from album 08.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Wildlife",
+          "Seaside"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-08/item-03",
+        "title": "Collection 08 #03",
+        "description": "Sample card 03 from album 08.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Botanical",
+          "Mountain"
+        ]
+      }
+    ],
+    "postcards/collection-09": [
+      {
+        "public_id": "postcards/collection-09/item-01",
+        "title": "Collection 09 #01",
+        "description": "Sample card 01 from album 09.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Festive",
+          "Heritage"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-09/item-02",
+        "title": "Collection 09 #02",
+        "description": "Sample card 02 from album 09.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Cityscapes",
+          "StreetScenes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-09/item-03",
+        "title": "Collection 09 #03",
+        "description": "Sample card 03 from album 09.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Nightlife",
+          "ColorPop"
+        ]
+      }
+    ],
+    "postcards/collection-10": [
+      {
+        "public_id": "postcards/collection-10/item-01",
+        "title": "Collection 10 #01",
+        "description": "Sample card 01 from album 10.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Wildlife",
+          "Seaside"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-10/item-02",
+        "title": "Collection 10 #02",
+        "description": "Sample card 02 from album 10.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Botanical",
+          "Mountain"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-10/item-03",
+        "title": "Collection 10 #03",
+        "description": "Sample card 03 from album 10.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Architecture",
+          "Interiors"
+        ]
+      }
+    ],
+    "postcards/collection-11": [
+      {
+        "public_id": "postcards/collection-11/item-01",
+        "title": "Collection 11 #01",
+        "description": "Sample card 01 from album 11.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Cityscapes",
+          "StreetScenes"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-11/item-02",
+        "title": "Collection 11 #02",
+        "description": "Sample card 02 from album 11.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Nightlife",
+          "ColorPop"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-11/item-03",
+        "title": "Collection 11 #03",
+        "description": "Sample card 03 from album 11.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Heritage",
+          "Futuristic"
+        ]
+      }
+    ],
+    "postcards/collection-12": [
+      {
+        "public_id": "postcards/collection-12/item-01",
+        "title": "Collection 12 #01",
+        "description": "Sample card 01 from album 12.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Botanical",
+          "Mountain"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-12/item-02",
+        "title": "Collection 12 #02",
+        "description": "Sample card 02 from album 12.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Architecture",
+          "Interiors"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-12/item-03",
+        "title": "Collection 12 #03",
+        "description": "Sample card 03 from album 12.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Seaside",
+          "Festive"
+        ]
+      }
+    ],
+    "postcards/collection-13": [
+      {
+        "public_id": "postcards/collection-13/item-01",
+        "title": "Collection 13 #01",
+        "description": "Sample card 01 from album 13.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Nightlife",
+          "ColorPop"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-13/item-02",
+        "title": "Collection 13 #02",
+        "description": "Sample card 02 from album 13.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "Heritage",
+          "Futuristic"
+        ]
+      },
+      {
+        "public_id": "postcards/collection-13/item-03",
+        "title": "Collection 13 #03",
+        "description": "Sample card 03 from album 13.",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": [
+          "StreetScenes",
+          "Wildlife"
+        ]
       }
     ]
   }
