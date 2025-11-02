@@ -1,7 +1,7 @@
 {
   "generatedAt": "2024-03-15T12:00:00.000Z",
   "root": "postcards",
-  "total": 3,
+  "total": 8,
   "folders": {
     "postcards/europe": [
       {
@@ -19,6 +19,30 @@
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
         "tags": ["Landmarks", "Heritage"]
+      },
+      {
+        "public_id": "postcards/europe/amsterdam",
+        "title": "Amsterdam",
+        "description": "Canals at dusk",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": ["Cityscapes", "Waterfronts"]
+      },
+      {
+        "public_id": "postcards/europe/prague",
+        "title": "Prague",
+        "description": "Charles Bridge morning fog",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": ["Heritage", "Misty"]
+      },
+      {
+        "public_id": "postcards/europe/lisbon",
+        "title": "Lisbon",
+        "description": "Tram 28 in Alfama",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": ["StreetScenes", "ColorPop"]
       }
     ],
     "postcards/asia": [
@@ -29,6 +53,22 @@
         "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
         "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
         "tags": ["Cityscapes", "Nightlife"]
+      },
+      {
+        "public_id": "postcards/asia/seoul",
+        "title": "Seoul",
+        "description": "Bukchon Hanok rooftops",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": ["Heritage", "Cityscapes"]
+      },
+      {
+        "public_id": "postcards/asia/singapore",
+        "title": "Singapore",
+        "description": "Gardens by the Bay at night",
+        "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+        "thumb": "https://res.cloudinary.com/demo/image/upload/c_fill,w_480,h_360/sample.jpg",
+        "tags": ["Nightlife", "Futuristic"]
       }
     ]
   }
