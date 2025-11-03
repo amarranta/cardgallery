@@ -69,6 +69,7 @@ const encodedItems = serialiseItems(normalisedItems);
 <section
   class="px-6 py-8 xl:px-9 xl:py-10 text-[#0b1309]"
   data-lightbox-root
+  data-lightbox-base={import.meta.env.BASE_URL}
   data-lightbox-items={encodedItems}
 >
   {normalisedItems.length === 0 ? (
@@ -154,6 +155,7 @@ const encodedItems = serialiseItems(normalisedItems);
       this.nextBtn = this.overlay?.querySelector('[data-lightbox-next]') || null;
       this.prevBtn = this.overlay?.querySelector('[data-lightbox-prev]') || null;
       this.items = this.parseItems(root.dataset.lightboxItems);
+    this.base = root.dataset.lightboxBase || '/';
   this.targetHeight = Number(this.gridEl?.dataset.rowHeight) || 400;
   this.gap = Number(this.gridEl?.dataset.rowGap) || 12;
       this.triggers = [];
@@ -384,9 +386,12 @@ const encodedItems = serialiseItems(normalisedItems);
         return;
       }
       this.tagsWrapper.classList.remove('hidden');
+      // Ensure we respect the site's base URL (injected on the root element)
+      const baseRaw = this.base || '/';
+      const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
       list.forEach(tag => {
         const anchor = document.createElement('a');
-        anchor.href = `/tag/${tag.slug}`;
+        anchor.href = `${base}tag/${tag.slug}`;
         anchor.textContent = `#${tag.label || tag.code || tag.slug}`;
         anchor.className = 'lightbox-tag';
         this.tagsContainer.appendChild(anchor);
