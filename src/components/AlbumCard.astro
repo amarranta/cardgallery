@@ -2,7 +2,7 @@
 const { album } = Astro.props;
 const previewItems = album.items.slice(0, 6);
 ---
-<a href={`/album/${album.slug}`} class="group relative block h-72 overflow-hidden rounded-lg border border-[rgba(67,83,57,0.42)] bg-[#efe3ca] transition-transform duration-200 ease-out hover:-translate-y-1.5 hover:border-[rgba(79,91,68,0.55)]">
+<a href={`${import.meta.env.BASE_URL}album/${album.slug}`} class="group relative block h-72 overflow-hidden rounded-lg border border-[rgba(67,83,57,0.42)] bg-[#efe3ca] transition-transform duration-200 ease-out hover:-translate-y-1.5 hover:border-[rgba(79,91,68,0.55)]">
   <div class="absolute inset-0 grid grid-cols-3 grid-rows-2 gap-1.5 bg-[#d4dbc6] p-2.5">
     {Array.from({ length: 6 }).map((_, index) => {
       const item = previewItems[index];

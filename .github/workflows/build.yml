@@ -37,6 +37,10 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Add .nojekyll to allow _astro assets
+        run: |
+          echo > dist/.nojekyll
+
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:

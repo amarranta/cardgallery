@@ -10,7 +10,7 @@ const { tags = [], activeTag = null } = Astro.props;
             ? 'border-[rgba(67,83,57,0.45)] bg-[rgba(67,83,57,0.2)] text-[var(--accent)]'
             : 'border-[rgba(67,83,57,0.28)] bg-white/80 text-[var(--text-muted)]'
         } hover:text-[var(--accent)]`}
-  href={`/tag/${tag.slug}`}
+  href={`${import.meta.env.BASE_URL}tag/${tag.slug}`}
       >
         {tag.label}
       </a>

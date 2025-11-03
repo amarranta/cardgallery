@@ -8,14 +8,14 @@ const {
 ---
 <aside class="hidden bg-[#f5ecda] border-r border-[rgba(67,83,57,0.28)] px-6 py-7 w-72 flex-col gap-6 lg:flex">
   <div class="mx-auto h-28 w-28 overflow-hidden rounded-full border-4 border-[rgba(67,83,57,0.35)] shadow-[0_10px_22px_rgba(33,49,29,0.22)]">
-    <img src="/assets/img/amarantha-avatar.jpg" alt="Portrait of amarantha with her dog" class="h-full w-full object-cover" />
+    <img src={`${import.meta.env.BASE_URL}assets/img/amarantha-avatar.jpg`} alt="Portrait of amarantha with her dog" class="h-full w-full object-cover" />
   </div>
   <nav class="flex flex-col gap-6">
     <div>
       <p class="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)] mb-3">Browse</p>
       <ul class="flex flex-col gap-2">
         <li>
-          <a class={`flex items-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition hover:bg-[rgba(67,83,57,0.16)] ${!activeAlbum && !activeTag ? 'bg-[rgba(67,83,57,0.22)] text-[var(--accent)]' : ''}`} href="/">
+          <a class={`flex items-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition hover:bg-[rgba(67,83,57,0.16)] ${!activeAlbum && !activeTag ? 'bg-[rgba(67,83,57,0.22)] text-[var(--accent)]' : ''}`} href={import.meta.env.BASE_URL}>
             <span>All albums</span>
           </a>
         </li>
@@ -23,7 +23,7 @@ const {
           <li>
             <a
               class={`flex items-center gap-2 rounded-sm px-3 py-2 text-sm font-semibold transition hover:bg-[rgba(67,83,57,0.16)] ${activeAlbum === album.slug ? 'bg-[rgba(67,83,57,0.22)] text-[var(--accent)]' : ''}`}
-              href={`/album/${album.slug}`}
+              href={`${import.meta.env.BASE_URL}album/${album.slug}`}
             >
               <span>{album.name}</span>
               <span class="ml-auto text-xs font-medium text-[var(--text-muted)]">{album.items.length}</span>
@@ -42,7 +42,7 @@ const {
           <li>
             <a
               class={`block rounded-sm px-3 py-2 text-sm font-medium transition hover:bg-[rgba(67,83,57,0.16)] ${activeTag === tag.slug ? 'bg-[rgba(67,83,57,0.2)] border border-[rgba(67,83,57,0.45)] text-[var(--accent)]' : 'border border-transparent'}`}
-              href={`/tag/${tag.slug}`}
+              href={`${import.meta.env.BASE_URL}tag/${tag.slug}`}
             >
               {tag.label}
             </a>

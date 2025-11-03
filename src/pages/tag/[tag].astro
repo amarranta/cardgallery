@@ -29,7 +29,7 @@ const subtitle = `${tag.items.length} ${tag.items.length === 1 ? 'photo' : 'phot
     <Sidebar albums={albums} tags={tags} activeTag={tag.slug} />
     <main class="flex flex-1 flex-col overflow-hidden">
       <ProfileHero {...hero} />
-      <ViewHeader title={tag.label} subtitle={subtitle} backHref="/" backLabel="Back to albums" />
+  <ViewHeader title={tag.label} subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to albums" />
       <ImageGrid items={tag.items} />
       {tags.length > 0 && (
         <section class="pb-12">
