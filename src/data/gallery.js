@@ -215,7 +215,7 @@ export function getItemsForTag(code) {
 
 export const hero = {
   title: "amarantha's albums for swap",
-  subtitle: 'A living collection of postcards ready to travel.'
+  subtitle: 'Cards from my collection, ready to travel'
 };
 
 export const site = {
