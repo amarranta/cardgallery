@@ -1,9 +1,7 @@
-name: Build and Deploy Card Gallery
+name: Build and Deploy (Astro)
 
 on:
-  workflow_dispatch: {}
-  # push:
-  #   branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -16,8 +14,10 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
+    env:
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,23 +25,27 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install dependencies
-        run: npm install cloudinary
+        run: npm ci
 
-      - name: Build gallery JSON
+      - name: Fetch gallery data
+        if: ${{ env.CLOUDINARY_CLOUD_NAME != '' }}
+        run: npm run fetch
         env:
-          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
-          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           GALLERY_ROOT: ${{ env.GALLERY_ROOT }}
-        run: node build-gallery.mjs
+
+      - name: Build site
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: dist
 
   deploy:
     needs: build
