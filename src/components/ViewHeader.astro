@@ -1,0 +1,32 @@
+---
+const {
+  title,
+  subtitle,
+  backHref = null,
+  backLabel = 'Back to albums',
+  actions = []
+} = Astro.props;
+---
+<header class="flex flex-col gap-4 border-b border-[rgba(67,83,57,0.2)] bg-gradient-to-b from-white/95 to-[#fbf5e8]/80 px-6 py-6 md:flex-row md:items-end md:justify-between md:px-9">
+  <div class="flex flex-col gap-3">
+    {backHref && (
+      <a class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] transition hover:-translate-x-0.5" href={backHref}>
+        <span aria-hidden="true">←</span>
+        <span>{backLabel}</span>
+      </a>
+    )}
+    <div>
+      <h2 class="text-2xl font-bold">{title}</h2>
+      <p class="mt-2 text-sm text-[var(--text-muted)]">{subtitle}</p>
+    </div>
+  </div>
+  {actions.length > 0 && (
+    <div class="flex items-center gap-3">
+      {actions.map(action => (
+        <a class="inline-flex items-center gap-2 rounded-sm border border-[rgba(67,83,57,0.32)] bg-[rgba(252,244,229,0.85)] px-3 py-2 text-sm font-medium transition hover:-translate-y-0.5 hover:bg-[rgba(67,83,57,0.18)]" href={action.href}>
+          {action.label}
+        </a>
+      ))}
+    </div>
+  )}
+</header>

@@ -1,0 +1,13 @@
+---
+import AlbumCard from './AlbumCard.astro';
+const { albums = [] } = Astro.props;
+---
+<section class="grid gap-4 px-6 py-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:px-9 xl:py-10">
+  {albums.length === 0 ? (
+    <p class="col-span-full rounded-lg border border-dashed border-[rgba(79,91,68,0.35)] bg-white/80 p-12 text-center text-sm text-[var(--text-muted)]">
+      No albums available yet.
+    </p>
+  ) : (
+    albums.map(album => <AlbumCard album={album} />)
+  )}
+</section>

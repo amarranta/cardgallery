@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import ProfileHero from '../../components/ProfileHero.astro';
+import ViewHeader from '../../components/ViewHeader.astro';
+import ImageGrid from '../../components/ImageGrid.astro';
+import TagList from '../../components/TagList.astro';
+import { getAlbums, getAlbumPaths, getAlbumBySlug, getTags, hero, site } from '../../data/gallery.js';
+
+export function getStaticPaths() {
+  return getAlbumPaths().map(({ params }) => ({
+    params,
+    props: { album: getAlbumBySlug(params.album) }
+  }));
+}
+
+const { album } = Astro.props;
+const albums = getAlbums();
+const tags = getTags();
+
+if (!album) {
+  throw new Error('Album data missing for requested path.');
+}
+
+const subtitle = `${album.items.length} ${album.items.length === 1 ? 'photo' : 'photos'}`;
+---
+<BaseLayout title={`${album.name} • ${site.title}`} description={`Album ${album.name} from ${site.title}`}>
+  <div class="flex min-h-screen flex-col lg:flex-row">
+    <Sidebar albums={albums} tags={tags} activeAlbum={album.slug} />
+    <main class="flex flex-1 flex-col overflow-hidden">
+      <ProfileHero {...hero} />
+      <ViewHeader title={album.name} subtitle={subtitle} backHref="/" backLabel="Back to albums" />
+      <ImageGrid items={album.items} />
+      {tags.length > 0 && (
+        <section class="pb-12">
+          <h3 class="px-6 text-sm font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)] md:px-9">
+            Browse by tag
+          </h3>
+          <TagList tags={tags} />
+        </section>
+      )}
+    </main>
+  </div>
+</BaseLayout>

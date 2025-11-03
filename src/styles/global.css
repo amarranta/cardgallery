@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --deep-olive: #435339;
+  --sage: #9eb589;
+  --linen: #ede4d2;
+  --sand: #cdbb99;
+  --accent: #314427;
+  --accent-light: rgba(67, 83, 57, 0.16);
+  --text-primary: #21311d;
+  --text-muted: #6f7762;
+}
+
+body {
+  @apply bg-[var(--linen)] text-[var(--text-primary)] min-h-screen font-["Inter",_system-ui,_-apple-system,_BlinkMacSystemFont,_"Segoe_UI",_sans-serif];
+}
+
+a {
+  @apply text-inherit;
+}

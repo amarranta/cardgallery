@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 
 const rootDir = process.cwd();
-const publicDir = path.join(rootDir, 'public');
-const galleryTarget = path.join(publicDir, 'gallery.json');
-const tagsTarget = path.join(publicDir, 'tags.json');
+const dataDir = path.join(rootDir, 'src', 'data');
+const galleryTarget = path.join(dataDir, 'gallery.json');
+const tagsTarget = path.join(dataDir, 'tags.json');
 
 const args = process.argv.slice(2);
 const dataSource = resolvePath(args[0] || path.join('mock-data', 'sample.json'));
@@ -37,8 +37,8 @@ if (tagsSource) {
   ensureJsonReadable(tagsSource, 'Tag map');
 }
 
-if (!fs.existsSync(publicDir)) {
-  fs.mkdirSync(publicDir, { recursive: true });
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
 }
 
 fs.copyFileSync(dataSource, galleryTarget);

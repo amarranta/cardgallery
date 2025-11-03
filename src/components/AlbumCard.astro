@@ -1,0 +1,28 @@
+---
+const { album } = Astro.props;
+const previewItems = album.items.slice(0, 6);
+---
+<a href={`/album/${album.slug}`} class="group relative block h-72 overflow-hidden rounded-lg border border-[rgba(67,83,57,0.42)] bg-[#efe3ca] transition-transform duration-200 ease-out hover:-translate-y-1.5 hover:border-[rgba(79,91,68,0.55)]">
+  <div class="absolute inset-0 grid grid-cols-3 grid-rows-2 gap-1.5 bg-[#d4dbc6] p-2.5">
+    {Array.from({ length: 6 }).map((_, index) => {
+      const item = previewItems[index];
+      return (
+        <div class={`relative flex items-center justify-center overflow-hidden bg-[rgba(67,83,57,0.22)] ${!item ? 'opacity-60' : ''}`}>
+          {item && (
+            <img
+              src={item.thumbUrl}
+              alt={item.title}
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover transition duration-300 ease-out group-hover:scale-[1.03]"
+            />
+          )}
+        </div>
+      );
+    })}
+  </div>
+  <div class="absolute inset-x-3 bottom-3 rounded-md bg-[rgba(23,30,22,0.78)] p-3 text-[#fdfcf8] shadow-[0_12px_24px_rgba(23,30,22,0.28)]">
+    <p class="text-lg font-bold">{album.name}</p>
+    <p class="text-xs text-[#fdfcf8de]">{album.items.length} {album.items.length === 1 ? 'photo' : 'photos'}</p>
+  </div>
+</a>

@@ -1,4 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { fill, limitFit } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import fs from 'fs';
 import path from 'path';
 
@@ -22,6 +25,11 @@ cloudinary.config({
 });
 
 const SEARCH_EXPRESSION = `(asset_folder:"${GALLERY_ROOT}/*" OR folder:"${GALLERY_ROOT}/*") AND resource_type:image AND -tags=hidden`;
+const OUTPUT_PATH = path.resolve('src', 'data', 'gallery.json');
+const cld = new Cloudinary({
+  cloud: { cloudName: CLOUDINARY_CLOUD_NAME },
+  url: { secure: true }
+});
 
 async function fetchAllResources() {
   let resources = [];
@@ -31,6 +39,7 @@ async function fetchAllResources() {
       .expression(SEARCH_EXPRESSION)
       .max_results(500)
       .with_field('context')
+      .with_field('metadata')
       .with_field('tags')
       .next_cursor(next_cursor)
       .execute();
@@ -46,6 +55,21 @@ function getFolder(resource) {
 
 function mapResource(resource) {
   const context = resource.context?.custom || {};
+  const metadata = resource.metadata || {};
+  const metaName = typeof metadata.name === 'string' && metadata.name.trim().length > 0 ? metadata.name.trim() : null;
+  const metaDesc = typeof metadata.desc === 'string' && metadata.desc.trim().length > 0 ? metadata.desc.trim() : null;
+  const preview = cld.image(resource.public_id);
+  preview.format('auto').quality('auto');
+  preview.resize(limitFit().width(1200));
+
+  const grid = cld.image(resource.public_id);
+  grid.format('auto').quality('auto');
+  grid.resize(limitFit().width(720));
+
+  const thumb = cld.image(resource.public_id);
+  thumb.format('auto').quality('auto');
+  thumb.resize(fill().width(480).height(360).gravity(autoGravity()));
+
   return {
     public_id: resource.public_id,
     format: resource.format,
@@ -54,22 +78,15 @@ function mapResource(resource) {
     bytes: resource.bytes,
     folder: getFolder(resource),
     tags: resource.tags || [],
-    title: context.caption || null,
-    description: context.alt || null,
-    url: cloudinary.url(resource.public_id, { secure: true }),
-    thumb: cloudinary.url(resource.public_id, {
-      secure: true,
-      transformation: [
-        {
-          width: 480,
-          height: 360,
-          crop: 'fill',
-          gravity: 'auto',
-          quality: 'auto',
-          fetch_format: 'auto'
-        }
-      ]
-    })
+    title: metaName || context.caption || null,
+    description: metaDesc || context.alt || null,
+    url: preview.toURL(),
+    grid: grid.toURL(),
+    thumb: thumb.toURL(),
+    metadata: {
+      name: metaName,
+      desc: metaDesc
+    }
   };
 }
 
@@ -81,22 +98,19 @@ async function main() {
     if (!folders[folder]) folders[folder] = [];
     folders[folder].push(mapResource(res));
   }
+  const outputDir = path.dirname(OUTPUT_PATH);
+  if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+
   const output = {
     generatedAt: new Date().toISOString(),
+    cloudName: CLOUDINARY_CLOUD_NAME,
     root: GALLERY_ROOT,
     total: resources.length,
     folders
   };
 
-  const publicDir = path.resolve('public');
-  if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
-
-  fs.writeFileSync(
-    path.join(publicDir, 'gallery.json'),
-    JSON.stringify(output, null, 2),
-    'utf8'
-  );
-  console.log(`Gallery JSON generated: ${publicDir}/gallery.json`);
+  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2), 'utf8');
+  console.log(`Gallery JSON generated: ${OUTPUT_PATH}`);
 }
 
 main().catch(err => {

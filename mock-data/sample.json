@@ -1,8 +1,43 @@
 {
   "generatedAt": "2025-11-02T19:41:25.246Z",
   "root": "postcards",
-  "total": 84,
+  "total": 87,
   "folders": {
+    "postcards/mixed-aspect": [
+      {
+        "public_id": "postcards/mixed-aspect/wide-01",
+        "title": "Wide Format Boardwalk",
+        "description": "Panorama capture used to validate wide aspect handling.",
+        "url": "https://res.cloudinary.com/dd33tfitz/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_3387_wh8ysu",
+        "thumb": "https://res.cloudinary.com/dd33tfitz/image/upload/c_limit,f_auto,q_auto,w_640/IMG_3387_wh8ysu",
+        "tags": [
+          "MixedLayout",
+          "Reference"
+        ]
+      },
+      {
+        "public_id": "postcards/mixed-aspect/portrait-01",
+        "title": "Vintage Tram Sketch",
+        "description": "Tall illustration to test portrait proportions.",
+        "url": "https://res.cloudinary.com/dd33tfitz/image/upload/c_limit,f_auto,q_auto,w_1200/772118961.850706_wulj1h",
+        "thumb": "https://res.cloudinary.com/dd33tfitz/image/upload/c_limit,f_auto,q_auto,w_640/772118961.850706_wulj1h",
+        "tags": [
+          "MixedLayout",
+          "Sketches"
+        ]
+      },
+      {
+        "public_id": "postcards/mixed-aspect/square-01",
+        "title": "Square Collage Sample",
+        "description": "Square crop reference for mosaic sizing tweaks.",
+        "url": "https://res.cloudinary.com/dd33tfitz/image/upload/c_limit,f_auto,q_auto,w_1200/772539947.474249_omaahf",
+        "thumb": "https://res.cloudinary.com/dd33tfitz/image/upload/c_limit,f_auto,q_auto,w_640/772539947.474249_omaahf",
+        "tags": [
+          "MixedLayout",
+          "Reference"
+        ]
+      }
+    ],
     "postcards/collection-01": [
       {
         "public_id": "postcards/collection-01/item-01",

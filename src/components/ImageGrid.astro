@@ -1,0 +1,573 @@
+---
+const { items = [], rowHeight = 400 } = Astro.props;
+
+const normaliseTags = tags =>
+  Array.isArray(tags)
+    ? tags
+        .filter(tag => tag && (tag.slug || tag.code))
+        .map(tag => ({
+          code: tag.code ?? '',
+          slug: tag.slug ?? '',
+          label: tag.label ?? tag.code ?? tag.slug ?? ''
+        }))
+    : [];
+
+const toPositiveNumber = value => {
+  const num = Number(value);
+  return Number.isFinite(num) && num > 0 ? num : null;
+};
+
+const deriveAspectRatio = (aspect, width, height) => {
+  const parsedAspect = Number(aspect);
+  if (Number.isFinite(parsedAspect) && parsedAspect > 0) {
+    return Number(parsedAspect.toFixed(5));
+  }
+  if (width && height) {
+    const ratio = width / height;
+    if (Number.isFinite(ratio) && ratio > 0) {
+      return Number(ratio.toFixed(5));
+    }
+  }
+  return null;
+};
+
+const normaliseItem = item => {
+  const width = toPositiveNumber(item?.width);
+  const height = toPositiveNumber(item?.height);
+  const aspectRatio = deriveAspectRatio(item?.aspectRatio, width, height);
+
+  return {
+    preview: item?.previewUrl ?? '',
+    grid: item?.gridUrl ?? item?.thumbUrl ?? item?.previewUrl ?? '',
+    thumb: item?.thumbUrl ?? '',
+    title: item?.title ?? '',
+    description: item?.description ?? '',
+    name: item?.metadata?.name ?? '',
+    desc: item?.metadata?.desc ?? '',
+    tags: normaliseTags(item?.tagDetails),
+    width,
+    height,
+    aspectRatio
+  };
+};
+
+const serialiseItems = source => {
+  if (!Array.isArray(source) || source.length === 0) return '';
+  try {
+    return encodeURIComponent(JSON.stringify(source));
+  } catch (error) {
+    console.warn('Failed to serialise lightbox items', error);
+    return '';
+  }
+};
+
+const normalisedItems = items.map(normaliseItem);
+const encodedItems = serialiseItems(normalisedItems);
+
+---
+
+<section
+  class="px-6 py-8 xl:px-9 xl:py-10 text-[#0b1309]"
+  data-lightbox-root
+  data-lightbox-items={encodedItems}
+>
+  {normalisedItems.length === 0 ? (
+    <p class="rounded-lg border border-dashed border-[rgba(117,157,112,0.35)] bg-[rgba(18,26,18,0.88)] p-12 text-center text-sm text-[#98b68f]">
+      No images match this filter.
+    </p>
+  ) : (
+    <>
+      <div
+        data-justified-grid
+        data-row-height={rowHeight}
+  data-row-gap="12"
+        class="justified-grid"
+      ></div>
+      <div
+        data-lightbox
+        class="fixed inset-0 z-50 hidden flex items-center justify-center bg-[rgba(6,9,7,0.92)] backdrop-blur-md px-5 py-8"
+        aria-hidden="true"
+      >
+        <div class="relative flex h-full w-full max-w-6xl flex-col items-center justify-center">
+          <button
+            type="button"
+            data-lightbox-close
+            class="absolute right-0 top-0 flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-[rgba(22,28,20,0.9)] text-white shadow-[0_24px_55px_rgba(8,9,6,0.55)] transition hover:scale-105 hover:bg-[rgba(32,40,30,0.95)] focus:outline-none focus:ring-4 focus:ring-white/70"
+          >
+            <span class="sr-only">Close lightbox</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-7 w-7">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12" />
+            </svg>
+          </button>
+          <div class="flex w-full flex-nowrap items-center justify-center gap-4 sm:gap-7">
+            <button
+              type="button"
+              data-lightbox-prev
+              class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[rgba(34,44,32,0.85)] text-white shadow-[0_18px_42px_rgba(5,6,4,0.55)] transition hover:scale-110 hover:bg-[rgba(42,54,40,0.96)] focus:outline-none focus:ring-4 focus:ring-white/60"
+            >
+              <span class="sr-only">Previous image</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <figure class="flex flex-1 max-w-4xl flex-col items-center gap-6 text-center">
+              <div class="flex max-h-[75vh] w-full justify-center">
+                <img data-lightbox-image src="" alt="" class="max-h-[75vh] w-auto max-w-full rounded-2xl object-contain shadow-[0_22px_60px_rgba(0,0,0,0.45)]" />
+              </div>
+              <figcaption class="flex w-full flex-col items-center gap-4 text-center">
+                <h2 data-lightbox-name class="hidden text-2xl font-semibold tracking-tight text-[#f5f9f3] md:text-[1.75rem]"></h2>
+                  data-row-gap="12"
+                  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-[#9fbf92]">Tags</p>
+                  <div data-lightbox-tags class="flex flex-wrap justify-center gap-2"></div>
+                </div>
+              </figcaption>
+            </figure>
+            <button
+              type="button"
+              data-lightbox-next
+              class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[rgba(34,44,32,0.85)] text-white shadow-[0_18px_42px_rgba(5,6,4,0.55)] transition hover:scale-110 hover:bg-[rgba(42,54,40,0.96)] focus:outline-none focus:ring-4 focus:ring-white/60"
+            >
+              <span class="sr-only">Next image</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  )}
+</section>
+<script>
+  class JustifiedLightboxGallery {
+    constructor(root) {
+      this.root = root;
+      this.gridEl = root.querySelector('[data-justified-grid]');
+      this.overlay = root.querySelector('[data-lightbox]');
+      this.imageEl = this.overlay?.querySelector('[data-lightbox-image]') || null;
+      this.nameEl = this.overlay?.querySelector('[data-lightbox-name]') || null;
+      this.descEl = this.overlay?.querySelector('[data-lightbox-desc]') || null;
+      this.tagsWrapper = this.overlay?.querySelector('[data-lightbox-tags-wrapper]') || null;
+      this.tagsContainer = this.overlay?.querySelector('[data-lightbox-tags]') || null;
+      this.closeBtn = this.overlay?.querySelector('[data-lightbox-close]') || null;
+      this.nextBtn = this.overlay?.querySelector('[data-lightbox-next]') || null;
+      this.prevBtn = this.overlay?.querySelector('[data-lightbox-prev]') || null;
+      this.items = this.parseItems(root.dataset.lightboxItems);
+  this.targetHeight = Number(this.gridEl?.dataset.rowHeight) || 400;
+  this.gap = Number(this.gridEl?.dataset.rowGap) || 12;
+      this.triggers = [];
+      this.activeIndex = 0;
+      this.previousOverflow = '';
+
+      this.handleKeyDown = this.handleKeyDown.bind(this);
+      this.handleOverlayClick = this.handleOverlayClick.bind(this);
+      this.handleCloseClick = this.handleCloseClick.bind(this);
+      this.handleNextClick = this.handleNextClick.bind(this);
+      this.handlePrevClick = this.handlePrevClick.bind(this);
+
+      if (!this.gridEl || !this.items.length) {
+        return;
+      }
+
+      this.setupOverlayControls();
+      this.renderGrid();
+
+      if (typeof ResizeObserver !== 'undefined') {
+        this.resizeObserver = new ResizeObserver(() => {
+          this.renderGrid();
+        });
+        this.resizeObserver.observe(this.root);
+      }
+    }
+
+    parseItems(raw) {
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(decodeURIComponent(raw));
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        console.warn('Failed to parse justified gallery items', error);
+        return [];
+      }
+    }
+
+    getAspect(item) {
+      const direct = Number(item?.aspectRatio);
+      if (Number.isFinite(direct) && direct > 0) return direct;
+      const width = Number(item?.width);
+      const height = Number(item?.height);
+      if (Number.isFinite(width) && Number.isFinite(height) && height > 0) {
+        return width / height;
+      }
+      return 1.5;
+    }
+
+    renderGrid() {
+      if (!this.gridEl) return;
+
+      const containerWidth = this.gridEl.clientWidth || this.gridEl.offsetWidth;
+      if (!containerWidth) {
+        requestAnimationFrame(() => this.renderGrid());
+        return;
+      }
+
+      this.gridEl.style.setProperty('--row-gap', `${this.gap}px`);
+      this.gridEl.innerHTML = '';
+      this.triggers = [];
+
+      const items = this.items;
+  const maxScale = 1.35;
+  const minScale = 0.7;
+
+      let currentRow = [];
+      let aspectSum = 0;
+
+      const flushRow = isLast => {
+        if (!currentRow.length) return;
+
+        const availableWidth = containerWidth - this.gap * (currentRow.length - 1);
+        let idealHeight = availableWidth / aspectSum;
+        const clampedHeight = Math.max(
+          this.targetHeight * minScale,
+          Math.min(this.targetHeight * maxScale, idealHeight)
+        );
+        const rowHeight = isLast ? this.targetHeight : clampedHeight;
+
+        const rowEl = document.createElement('div');
+        rowEl.className = 'justified-row';
+        rowEl.style.height = `${rowHeight}px`;
+        if (isLast) {
+          rowEl.classList.add('justified-row--last');
+        }
+
+        currentRow.forEach(entry => {
+          const trigger = this.createTrigger(entry.item, entry.index);
+          if (isLast) {
+            trigger.style.flex = '0 0 auto';
+            trigger.style.width = `${rowHeight * entry.aspect}px`;
+            trigger.style.height = `${rowHeight}px`;
+          } else {
+            trigger.style.flex = `${entry.aspect} 1 0`;
+            trigger.style.height = `${rowHeight}px`;
+          }
+          rowEl.appendChild(trigger);
+        });
+
+        this.gridEl.appendChild(rowEl);
+        currentRow = [];
+        aspectSum = 0;
+      };
+
+      items.forEach((item, index) => {
+        const aspect = this.getAspect(item);
+        currentRow.push({ item, aspect, index });
+        aspectSum += aspect;
+        const projectedWidth = aspectSum * this.targetHeight + this.gap * (currentRow.length - 1);
+        if (projectedWidth >= containerWidth) {
+          flushRow(false);
+        }
+      });
+
+      if (currentRow.length) {
+        flushRow(true);
+      }
+
+      this.refreshNavVisibility();
+    }
+
+    createTrigger(item, index) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.lightboxTrigger = '';
+      button.dataset.index = String(index);
+      button.className = 'justified-item';
+      const labelSource = item.name || item.title;
+      const ariaLabel = labelSource ? `Open ${labelSource} in lightbox` : 'Open image in lightbox';
+      button.setAttribute('aria-label', ariaLabel);
+
+      const img = document.createElement('img');
+      img.src = item.grid || item.preview || item.thumb;
+      img.alt = item.name || item.title || 'Gallery image';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      button.appendChild(img);
+
+      if (item.name || item.desc) {
+        const overlay = document.createElement('div');
+        overlay.className = 'justified-item__overlay';
+        if (item.name) {
+          const title = document.createElement('strong');
+          title.className = 'justified-item__title';
+          title.textContent = item.name;
+          overlay.appendChild(title);
+        }
+        if (item.desc) {
+          const description = document.createElement('p');
+          description.className = 'justified-item__desc';
+          description.textContent = item.desc;
+          overlay.appendChild(description);
+        }
+        button.appendChild(overlay);
+      }
+
+      button.addEventListener('click', event => {
+        event.preventDefault();
+        this.openLightbox(index);
+      });
+
+      this.triggers[index] = button;
+      return button;
+    }
+
+    setupOverlayControls() {
+      if (!this.overlay) return;
+
+      this.overlay.addEventListener('click', this.handleOverlayClick);
+      this.closeBtn?.addEventListener('click', this.handleCloseClick);
+      this.nextBtn?.addEventListener('click', this.handleNextClick);
+      this.prevBtn?.addEventListener('click', this.handlePrevClick);
+    }
+
+    handleOverlayClick(event) {
+      if (event.target === this.overlay) {
+        this.closeLightbox();
+      }
+    }
+
+    handleCloseClick(event) {
+      event.preventDefault();
+      this.closeLightbox();
+    }
+
+    handleNextClick(event) {
+      event.preventDefault();
+      this.step(1);
+    }
+
+    handlePrevClick(event) {
+      event.preventDefault();
+      this.step(-1);
+    }
+
+    handleKeyDown(event) {
+      if (this.overlay?.classList.contains('hidden')) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        this.closeLightbox();
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        this.step(1);
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        this.step(-1);
+      }
+    }
+
+    refreshNavVisibility() {
+      if (!this.nextBtn || !this.prevBtn) return;
+      if (!this.items || this.items.length < 2) {
+        this.nextBtn.classList.add('hidden');
+        this.prevBtn.classList.add('hidden');
+      } else {
+        this.nextBtn.classList.remove('hidden');
+        this.prevBtn.classList.remove('hidden');
+      }
+    }
+
+    renderTags(tags) {
+      if (!this.tagsContainer || !this.tagsWrapper) return;
+      this.tagsContainer.innerHTML = '';
+      const list = Array.isArray(tags) ? tags.filter(tag => tag && tag.slug) : [];
+      if (list.length === 0) {
+        this.tagsWrapper.classList.add('hidden');
+        return;
+      }
+      this.tagsWrapper.classList.remove('hidden');
+      list.forEach(tag => {
+        const anchor = document.createElement('a');
+        anchor.href = `/tag/${tag.slug}`;
+        anchor.textContent = `#${tag.label || tag.code || tag.slug}`;
+        anchor.className = 'lightbox-tag';
+        this.tagsContainer.appendChild(anchor);
+      });
+    }
+
+    updateOverlayContent() {
+      const item = this.items[this.activeIndex];
+      if (!item) return;
+
+      const source = item.preview || item.grid || item.thumb;
+      if (this.imageEl) {
+        if (source) {
+          if (this.imageEl.src !== source) {
+            this.imageEl.src = source;
+          }
+        } else {
+          this.imageEl.removeAttribute('src');
+        }
+        this.imageEl.alt = item.name || item.title || 'Gallery image';
+      }
+
+      if (this.nameEl) {
+        if (item.name) {
+          this.nameEl.textContent = item.name;
+          this.nameEl.classList.remove('hidden');
+        } else {
+          this.nameEl.textContent = '';
+          this.nameEl.classList.add('hidden');
+        }
+      }
+
+      if (this.descEl) {
+        if (item.desc) {
+          this.descEl.textContent = item.desc;
+          this.descEl.classList.remove('hidden');
+        } else {
+          this.descEl.textContent = '';
+          this.descEl.classList.add('hidden');
+        }
+      }
+
+      this.renderTags(item.tags);
+    }
+
+    openLightbox(index) {
+      if (!this.overlay || !this.items.length) return;
+      this.activeIndex = index;
+      this.updateOverlayContent();
+      this.overlay.classList.remove('hidden');
+      this.overlay.setAttribute('aria-hidden', 'false');
+      this.previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', this.handleKeyDown);
+      requestAnimationFrame(() => {
+        this.closeBtn?.focus();
+      });
+    }
+
+    closeLightbox() {
+      if (!this.overlay || this.overlay.classList.contains('hidden')) return;
+      this.overlay.classList.add('hidden');
+      this.overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = this.previousOverflow;
+      window.removeEventListener('keydown', this.handleKeyDown);
+      const trigger = this.triggers[this.activeIndex];
+      trigger?.focus({ preventScroll: true });
+    }
+
+    step(direction) {
+      if (!this.items || this.items.length < 2) return;
+      this.activeIndex = (this.activeIndex + direction + this.items.length) % this.items.length;
+      this.updateOverlayContent();
+    }
+  }
+
+  const lightboxRoots = Array.from(document.querySelectorAll('[data-lightbox-root]'));
+  lightboxRoots.forEach(root => {
+    const hasItems = root.dataset.lightboxItems && root.dataset.lightboxItems.length > 0;
+    if (hasItems) {
+      new JustifiedLightboxGallery(root);
+    }
+  });
+</script>
+<style is:global>
+  .justified-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--row-gap, 12px);
+  }
+
+  .justified-row {
+    display: flex;
+    gap: var(--row-gap, 12px);
+    justify-content: flex-start;
+  }
+
+  .justified-row--last {
+    flex-wrap: nowrap;
+  }
+
+  .justified-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  border: 1px solid rgba(112, 154, 108, 0.32);
+  border-radius: 0;
+  background: transparent;
+    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.55);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .justified-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 55px rgba(1, 3, 1, 0.7);
+    border-color: rgba(140, 196, 132, 0.55);
+  }
+
+  .justified-item:focus-visible {
+    outline: 3px solid rgba(134, 212, 140, 0.9);
+    outline-offset: 2px;
+  }
+
+  .justified-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  background: transparent;
+  }
+
+  .justified-item__overlay {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem 1.15rem;
+    background: linear-gradient(to bottom, rgba(10, 16, 11, 0), rgba(5, 8, 6, 0.92));
+    color: #f3f9f1;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+    pointer-events: none;
+  }
+
+  .justified-item:hover .justified-item__overlay,
+  .justified-item:focus-visible .justified-item__overlay {
+    opacity: 1;
+  }
+
+  .justified-item__title {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #dcf8d6;
+  }
+
+  .justified-item__desc {
+    color: #b6d7b0;
+    line-height: 1.4;
+  }
+
+  .lightbox-tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    border: 1px solid rgba(128, 186, 121, 0.75);
+    background: rgba(20, 32, 22, 0.85);
+    padding: 0.25rem 0.8rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #e0f9db;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .lightbox-tag:hover {
+    transform: translateY(-2px);
+    background: rgba(32, 48, 34, 0.96);
+    border-color: rgba(153, 221, 145, 0.85);
+  }
+</style>

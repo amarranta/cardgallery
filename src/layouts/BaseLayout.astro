@@ -1,0 +1,26 @@
+---
+import '../styles/global.css';
+import { site } from '../data/gallery.js';
+
+const {
+  title = site.title,
+  description = site.description,
+  bodyClass = ''
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/jpeg" href="/assets/img/amarantha-logo.jpg" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/amarantha-logo.svg" />
+  </head>
+  <body class={`bg-[var(--linen)] text-[var(--text-primary)] ${bodyClass}`}>
+    <div class="min-h-screen">
+      <slot />
+    </div>
+  </body>
+</html>
