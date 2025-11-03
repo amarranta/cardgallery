@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="avatarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#314427" />
+      <stop offset="100%" stop-color="#9eb589" />
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="96" fill="url(#avatarGradient)" />
+  <circle cx="100" cy="100" r="92" fill="rgba(255,255,255,0.08)" />
+  <text x="50%" y="58%" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="72" font-weight="700" fill="#f5f2ea" letter-spacing="2">
+    A
+  </text>
+  <text x="50%" y="74%" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="20" font-weight="500" fill="rgba(245,242,234,0.85)" letter-spacing="3">
+    swap
+  </text>
+</svg>
