@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { site } from '../data/gallery.js';
+import Footer from '../components/Footer.astro';
 
 const {
   title = site.title,
@@ -25,8 +26,11 @@ const {
   <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}assets/img/amarantha-logo.svg`} />
   </head>
   <body class={`bg-[var(--linen)] text-[var(--text-primary)] ${bodyClass}`}>
-    <div class="min-h-screen">
-      <slot />
+    <div class="min-h-screen flex flex-col">
+      <div class="flex-1">
+        <slot />
+      </div>
+      <Footer />
     </div>
   </body>
 </html>
