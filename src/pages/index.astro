@@ -15,7 +15,7 @@ const tags = getTags();
     <Sidebar albums={albums} tags={tags} />
     <main class="flex flex-1 flex-col overflow-hidden">
       <ProfileHero {...hero} />
-      <ViewHeader title="Albums" subtitle="Overview of all albums" />
+  <ViewHeader title="Postcard Folders" subtitle="A look through my mail shelves" />
       <AlbumGrid albums={albums} />
       {tags.length > 0 && (
         <section class="pb-12">

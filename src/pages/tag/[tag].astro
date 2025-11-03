@@ -22,14 +22,14 @@ if (!tag) {
   throw new Error('Tag data missing for requested path.');
 }
 
-const subtitle = `${tag.items.length} ${tag.items.length === 1 ? 'photo' : 'photos'}`;
+const subtitle = `${tag.items.length} ${tag.items.length === 1 ? 'postcard' : 'postcards'}`;
 ---
 <BaseLayout title={`${tag.label} • ${site.title}`} description={`Tag ${tag.label} on ${site.title}`}>
   <div class="flex min-h-screen flex-col lg:flex-row">
     <Sidebar albums={albums} tags={tags} activeTag={tag.slug} />
     <main class="flex flex-1 flex-col overflow-hidden">
-      <ProfileHero {...hero} />
-  <ViewHeader title={tag.label} subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to albums" />
+    <ProfileHero {...hero} />
+  <ViewHeader title={tag.label} subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to all folders" />
       <ImageGrid items={tag.items} />
       {tags.length > 0 && (
         <section class="pb-12">

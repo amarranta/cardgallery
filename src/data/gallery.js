@@ -159,10 +159,12 @@ function buildAlbums() {
     .map(([folder, rawItems]) => {
       const cleanedId = cleanFolderId(folder);
       const items = (rawItems || []).map(item => normaliseItem(item, cleanedId));
+      const name = humanizeFolder(folder);
+      const displayName = name === 'Main Album' ? 'Main Folder' : name;
       return {
         id: cleanedId,
         slug: slugify(cleanedId),
-        name: humanizeFolder(folder),
+        name: displayName,
         items
       };
     })
@@ -214,8 +216,8 @@ export function getItemsForTag(code) {
 }
 
 export const hero = {
-  title: "amarantha's albums for swap",
-  subtitle: 'Cards from my collection, ready to travel'
+  title: "amarantha's postcards for swap",
+  subtitle: 'collected with love, shared with joy'
 };
 
 export const site = {

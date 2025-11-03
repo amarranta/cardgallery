@@ -27,3 +27,6 @@ pnpm-debug.log*
 # OS artifacts
 .DS_Store
 Thumbs.db
+
+# Local project scripts (keep helper scripts local/untracked)
+scripts/

@@ -22,14 +22,14 @@ if (!album) {
   throw new Error('Album data missing for requested path.');
 }
 
-const subtitle = `${album.items.length} ${album.items.length === 1 ? 'photo' : 'photos'}`;
+const subtitle = `${album.items.length} ${album.items.length === 1 ? 'postcard' : 'postcards'}`;
 ---
 <BaseLayout title={`${album.name} • ${site.title}`} description={`Album ${album.name} from ${site.title}`}>
   <div class="flex min-h-screen flex-col lg:flex-row">
     <Sidebar albums={albums} tags={tags} activeAlbum={album.slug} />
     <main class="flex flex-1 flex-col overflow-hidden">
-      <ProfileHero {...hero} />
-  <ViewHeader title={album.name} subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to albums" />
+    <ProfileHero {...hero} />
+  <ViewHeader title={album.name} subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to all folders" />
       <ImageGrid items={album.items} />
       {tags.length > 0 && (
         <section class="pb-12">
