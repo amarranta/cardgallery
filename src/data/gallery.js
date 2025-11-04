@@ -222,5 +222,5 @@ export const hero = {
 
 export const site = {
   title: "amarantha's postcards",
-  description: 'Static card gallery site powered by Cloudinary.'
+  description: 'Postcards waiting for new journeys'
 };

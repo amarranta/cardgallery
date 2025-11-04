@@ -293,6 +293,20 @@ const encodedItems = serialiseItems(normalisedItems);
       img.alt = item.name || item.title || 'Gallery image';
       img.loading = 'lazy';
       img.decoding = 'async';
+      // Fallback to the user-provided `/img/unavailable.svg` when the remote image fails to load.
+      (function attachFallback(image, galleryBase) {
+        const baseRaw = galleryBase || '/';
+        const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
+  const fallback = `${base}assets/img/unavailable.svg`;
+        image.addEventListener('error', function handleError() {
+          if (image.dataset.fallbackApplied) return;
+          image.dataset.fallbackApplied = '1';
+          image.removeEventListener('error', handleError);
+          image.src = fallback;
+          image.alt = 'Not available';
+          image.classList.add('is-fallback');
+        });
+      })(img, this.base);
       button.appendChild(img);
 
       if (item.name || item.desc) {
@@ -412,6 +426,21 @@ const encodedItems = serialiseItems(normalisedItems);
           this.imageEl.removeAttribute('src');
         }
         this.imageEl.alt = item.name || item.title || 'Gallery image';
+        // ensure overlay image also falls back to the placeholder on error
+        const baseRaw = this.base || '/';
+        const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
+  const fallback = `${base}assets/img/unavailable.svg`;
+        if (!this.imageEl._fallbackHandlerAttached) {
+          this.imageEl._fallbackHandlerAttached = true;
+          this.imageEl.addEventListener('error', function handleOverlayError() {
+            if (this.dataset.fallbackApplied) return;
+            this.dataset.fallbackApplied = '1';
+            this.removeEventListener('error', handleOverlayError);
+            this.src = fallback;
+            this.alt = 'Not available';
+            this.classList.add('is-fallback');
+          });
+        }
       }
 
       if (this.nameEl) {
@@ -525,6 +554,13 @@ const encodedItems = serialiseItems(normalisedItems);
     height: 100%;
     object-fit: contain;
   background: transparent;
+  }
+
+  /* Style for images replaced by the fallback placeholder */
+  .justified-item img.is-fallback {
+    object-fit: cover;
+    background: #efe7d8;
+    color: #7b8e74;
   }
 
   .justified-item__overlay {

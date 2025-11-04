@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Not available">
+  <defs>
+    <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f5efe6"/>
+      <stop offset="100%" stop-color="#e9e0d5"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)"/>
+  <g fill="#b9c7b0">
+    <rect x="140" y="220" width="920" height="560" rx="12" ry="12" fill="#fbf8f3" stroke="#e1e6db" stroke-width="6"/>
+    <g transform="translate(300,350)">
+      <rect x="0" y="0" width="360" height="220" rx="10" ry="10" fill="#eef4ea" stroke="#d6e0cf" stroke-width="4"/>
+      <path d="M380 30 L460 110 L540 30 L380 30 Z" fill="#dfe8d8"/>
+    </g>
+  </g>
+  <text x="50%" y="86%" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="44" font-weight="700" fill="#5f7a60" text-anchor="middle">Not available</text>
+</svg>
