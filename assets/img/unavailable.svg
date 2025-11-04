@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Placeholder postcard square">
+  <defs>
+    <style>
+      :root{ --bg:#eee7d7; --ink:#3f5b4a; --muted:#c9d2c5; }
+      @media (prefers-color-scheme: dark){
+        :root{ --bg:#2b2d29; --ink:#cfe0d6; --muted:#55675c; }
+      }
+    </style>
+  </defs>
+
+  <rect x="22" y="22" width="556" height="556" rx="20" fill="var(--bg)" stroke="var(--muted)" stroke-width="2"></rect>
+  <rect x="40" y="40" width="520" height="520" rx="14" fill="none" stroke="var(--muted)" opacity=".6"></rect>
+
+  <circle cx="458" cy="110" r="36" fill="none" stroke="var(--ink)" stroke-width="2"></circle>
+  <g stroke="var(--ink)" stroke-width="2" fill="none" opacity=".55">
+    <path d="M300 150c24 10 48 10 72 0s48-10 72 0"></path>
+    <path d="M300 168c24 10 48 10 72 0s48-10 72 0"></path>
+  </g>
+
+  <rect x="110" y="220" width="380" height="220" rx="12" fill="var(--muted)" opacity=".25"></rect>
+  <path d="M130 410l80-80 44 44 50-50 82 86H130z" fill="var(--muted)" opacity=".25"></path>
+  <circle cx="210" cy="260" r="26" fill="var(--muted)" opacity=".18"></circle>
+</svg>
