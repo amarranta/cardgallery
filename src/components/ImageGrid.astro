@@ -94,7 +94,7 @@ const encodedItems = serialiseItems(normalisedItems);
           <button
             type="button"
             data-lightbox-close
-            class="absolute right-0 top-0 flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-[rgba(22,28,20,0.9)] text-white shadow-[0_24px_55px_rgba(8,9,6,0.55)] transition hover:scale-105 hover:bg-[rgba(32,40,30,0.95)] focus:outline-none focus:ring-4 focus:ring-white/70"
+            class="absolute right-3 top-3 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-[rgba(22,28,20,0.92)] text-white shadow-[0_24px_55px_rgba(8,9,6,0.55)] transition hover:scale-105 hover:bg-[rgba(32,40,30,0.95)] focus:outline-none focus:ring-4 focus:ring-white/70 sm:right-0 sm:top-0 sm:h-14 sm:w-14"
           >
             <span class="sr-only">Close lightbox</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-7 w-7">
@@ -160,7 +160,10 @@ const encodedItems = serialiseItems(normalisedItems);
       this.items = this.parseItems(root.dataset.lightboxItems);
       this.base = root.dataset.lightboxBase || '/';
       this.baseTargetHeight = Number(this.gridEl?.dataset.rowHeight) || 400;
-      this.gap = Number(this.gridEl?.dataset.rowGap) || 12;
+      this.baseGap = Number(this.gridEl?.dataset.rowGap);
+      if (!Number.isFinite(this.baseGap) || this.baseGap < 0) {
+        this.baseGap = 12;
+      }
       this.swipeArea = this.overlay?.querySelector('[data-lightbox-swipe]') || null;
       this.swipeState = null;
       this.swipeThreshold = 60;
@@ -239,6 +242,29 @@ const encodedItems = serialiseItems(normalisedItems);
       return baseTarget;
     }
 
+    getResponsiveRowScale(containerWidth) {
+      const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : containerWidth;
+      if (viewportWidth <= 480 || containerWidth <= 480) {
+        return { min: 0.55, max: 1.25 };
+      }
+      if (viewportWidth <= 768) {
+        return { min: 0.6, max: 1.3 };
+      }
+      return { min: 0.7, max: 1.35 };
+    }
+
+    getResponsiveGap(containerWidth) {
+      const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : containerWidth;
+      const baseGap = Number.isFinite(this.baseGap) ? this.baseGap : 12;
+      if (viewportWidth <= 480 || containerWidth <= 480) {
+        return Math.max(6, Math.min(baseGap, 8));
+      }
+      if (viewportWidth <= 768) {
+        return Math.max(7, Math.min(baseGap, 10));
+      }
+      return baseGap;
+    }
+
     renderGrid() {
       if (!this.gridEl) return;
 
@@ -248,14 +274,14 @@ const encodedItems = serialiseItems(normalisedItems);
         return;
       }
 
-      this.gridEl.style.setProperty('--row-gap', `${this.gap}px`);
+      const gap = this.getResponsiveGap(containerWidth);
+      this.gridEl.style.setProperty('--row-gap', `${gap}px`);
       this.gridEl.innerHTML = '';
       this.triggers = [];
 
       const items = this.items;
       const baseTargetHeight = this.getResponsiveTargetHeight(containerWidth);
-      const maxScale = 1.35;
-      const minScale = 0.7;
+  const { min: minScale, max: maxScale } = this.getResponsiveRowScale(containerWidth);
 
       let currentRow = [];
       let aspectSum = 0;
@@ -263,7 +289,7 @@ const encodedItems = serialiseItems(normalisedItems);
       const flushRow = isLast => {
         if (!currentRow.length) return;
 
-        const availableWidth = containerWidth - this.gap * (currentRow.length - 1);
+        const availableWidth = containerWidth - gap * (currentRow.length - 1);
         let idealHeight = availableWidth / aspectSum;
         const clampedHeight = Math.max(
           baseTargetHeight * minScale,
@@ -300,7 +326,7 @@ const encodedItems = serialiseItems(normalisedItems);
         const aspect = this.getAspect(item);
         currentRow.push({ item, aspect, index });
         aspectSum += aspect;
-        const projectedWidth = aspectSum * baseTargetHeight + this.gap * (currentRow.length - 1);
+        const projectedWidth = aspectSum * baseTargetHeight + gap * (currentRow.length - 1);
         if (projectedWidth >= containerWidth) {
           flushRow(false);
         }
@@ -691,7 +717,7 @@ const encodedItems = serialiseItems(normalisedItems);
   border: 1px solid rgba(112, 154, 108, 0.32);
   border-radius: 0;
   background: transparent;
-    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
     cursor: pointer;
     padding: 0;
@@ -700,7 +726,7 @@ const encodedItems = serialiseItems(normalisedItems);
 
   .justified-item:hover {
     transform: translateY(-6px);
-    box-shadow: 0 30px 55px rgba(1, 3, 1, 0.7);
+    box-shadow: 0 24px 48px rgba(1, 3, 1, 0.55);
     border-color: rgba(140, 196, 132, 0.55);
   }
 
@@ -741,6 +767,17 @@ const encodedItems = serialiseItems(normalisedItems);
   .justified-item:hover .justified-item__overlay,
   .justified-item:focus-visible .justified-item__overlay {
     opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .justified-item {
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .justified-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 26px rgba(0, 0, 0, 0.3);
+    }
   }
 
   .justified-item__title {
