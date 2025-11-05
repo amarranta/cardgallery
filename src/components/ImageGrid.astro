@@ -43,6 +43,7 @@ const normaliseItem = item => {
     title: item?.title ?? '',
     description: item?.description ?? '',
     name: item?.metadata?.name ?? '',
+    author: item?.metadata?.author ?? '',
     desc: item?.metadata?.desc ?? '',
     tags: normaliseTags(item?.tagDetails),
     width,
@@ -117,6 +118,7 @@ const encodedItems = serialiseItems(normalisedItems);
               </div>
               <figcaption class="flex w-full flex-col items-center gap-4 text-center">
                 <h2 data-lightbox-name class="hidden text-2xl font-semibold tracking-tight text-[#f5f9f3] md:text-[1.75rem]"></h2>
+                <p data-lightbox-author class="hidden italic text-[#9fbf92]"></p>
                 <p data-lightbox-desc class="hidden text-base text-[#c9d7c4]"></p>
                 <div data-lightbox-tags-wrapper class="hidden w-full text-center">
                   <p class="text-xs font-semibold uppercase tracking-[0.35em] text-[#9fbf92]">Tags</p>
@@ -149,6 +151,7 @@ const encodedItems = serialiseItems(normalisedItems);
       this.imageEl = this.overlay?.querySelector('[data-lightbox-image]') || null;
       this.nameEl = this.overlay?.querySelector('[data-lightbox-name]') || null;
       this.descEl = this.overlay?.querySelector('[data-lightbox-desc]') || null;
+      this.authorEl = this.overlay?.querySelector('[data-lightbox-author]') || null;
       this.tagsWrapper = this.overlay?.querySelector('[data-lightbox-tags-wrapper]') || null;
       this.tagsContainer = this.overlay?.querySelector('[data-lightbox-tags]') || null;
       this.closeBtn = this.overlay?.querySelector('[data-lightbox-close]') || null;
@@ -450,6 +453,16 @@ const encodedItems = serialiseItems(normalisedItems);
         } else {
           this.nameEl.textContent = '';
           this.nameEl.classList.add('hidden');
+        }
+      }
+
+      if (this.authorEl) {
+        if (item.author) {
+          this.authorEl.textContent = `by ${item.author}`;
+          this.authorEl.classList.remove('hidden');
+        } else {
+          this.authorEl.textContent = '';
+          this.authorEl.classList.add('hidden');
         }
       }
 

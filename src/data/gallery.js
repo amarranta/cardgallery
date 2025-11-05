@@ -98,6 +98,7 @@ function normaliseItem(item = {}, folder) {
   const metadata = item && typeof item.metadata === 'object' && item.metadata !== null ? item.metadata : {};
   const metadataName = typeof metadata.name === 'string' ? metadata.name.trim() : '';
   const metadataDesc = typeof metadata.desc === 'string' ? metadata.desc.trim() : '';
+  const metadataAuthor = typeof metadata.author === 'string' ? metadata.author.trim() : '';
   const fallbackTitle = (item.title || '').trim();
   const fallbackDescription = (item.description || '').trim();
   const title = metadataName || fallbackTitle || inferTitle(item.public_id);
@@ -119,9 +120,11 @@ function normaliseItem(item = {}, folder) {
     title,
     description,
     tags,
+    author: metadataAuthor,
     metadata: {
       name: metadataName,
-      desc: metadataDesc
+      desc: metadataDesc,
+      author: metadataAuthor
     },
     tagDetails,
     width,
