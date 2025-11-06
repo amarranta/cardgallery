@@ -1,5 +1,5 @@
 ---
-const { items = [], rowHeight = 400 } = Astro.props;
+const { items = [], rowHeight = 400, layoutMode = 'classic' } = Astro.props;
 
 const normaliseTags = tags =>
   Array.isArray(tags)
@@ -72,6 +72,7 @@ const encodedItems = serialiseItems(normalisedItems);
   data-lightbox-root
   data-lightbox-base={import.meta.env.BASE_URL}
   data-lightbox-items={encodedItems}
+  data-layout-mode={layoutMode}
 >
   {normalisedItems.length === 0 ? (
     <p class="rounded-lg border border-dashed border-[rgba(117,157,112,0.35)] bg-[rgba(18,26,18,0.88)] p-12 text-center text-sm text-[#98b68f]">
@@ -159,6 +160,7 @@ const encodedItems = serialiseItems(normalisedItems);
       this.prevBtn = this.overlay?.querySelector('[data-lightbox-prev]') || null;
       this.items = this.parseItems(root.dataset.lightboxItems);
       this.base = root.dataset.lightboxBase || '/';
+  this.layoutMode = root.dataset.layoutMode || 'classic';
       this.baseTargetHeight = Number(this.gridEl?.dataset.rowHeight) || 400;
       this.baseGap = Number(this.gridEl?.dataset.rowGap);
       if (!Number.isFinite(this.baseGap) || this.baseGap < 0) {
@@ -280,8 +282,40 @@ const encodedItems = serialiseItems(normalisedItems);
       this.triggers = [];
 
       const items = this.items;
-      const baseTargetHeight = this.getResponsiveTargetHeight(containerWidth);
-  const { min: minScale, max: maxScale } = this.getResponsiveRowScale(containerWidth);
+      const enableBigLayout = this.layoutMode === 'big-mobile';
+      const isMobileLayout = enableBigLayout && containerWidth <= 640;
+      this.gridEl.classList.toggle('is-mobile-big', isMobileLayout);
+
+      if (isMobileLayout) {
+        const mobileRows = this.buildMobileRows(items);
+        mobileRows.forEach(row => {
+          const rowEl = document.createElement('div');
+          const baseClass = 'big-layout-row';
+          const variantClass = `big-layout-row--${row.variant}`;
+          const sizeClass = row.variant === 'pair-portrait' ? 'big-layout-row--pair' : 'big-layout-row--single';
+          rowEl.className = `${baseClass} ${sizeClass} ${variantClass}`;
+
+          row.items.forEach(entry => {
+            const trigger = this.createTrigger(entry.item, entry.index);
+            const orientation = entry.aspect >= 1 ? 'landscape' : 'portrait';
+            trigger.classList.add('justified-item--big', `justified-item--${orientation}`);
+            trigger.style.height = 'auto';
+            trigger.style.width = '100%';
+            trigger.style.flex = '0 0 auto';
+            trigger.style.aspectRatio = String(entry.aspect);
+            trigger.style.setProperty('--big-aspect', String(entry.aspect));
+            rowEl.appendChild(trigger);
+          });
+
+          this.gridEl.appendChild(rowEl);
+        });
+
+        this.refreshNavVisibility();
+        return;
+      }
+
+    const baseTargetHeight = this.getResponsiveTargetHeight(containerWidth);
+    const { min: minScale, max: maxScale } = this.getResponsiveRowScale(containerWidth);
 
       let currentRow = [];
       let aspectSum = 0;
@@ -337,6 +371,75 @@ const encodedItems = serialiseItems(normalisedItems);
       }
 
       this.refreshNavVisibility();
+    }
+
+    clampAspect(value, fallback = 1) {
+      if (!Number.isFinite(value) || value <= 0) {
+        return fallback;
+      }
+      const rounded = Number(value.toFixed(5));
+      return Math.min(2.6, Math.max(0.4, rounded));
+    }
+
+    buildMobileRows(items) {
+      const rows = [];
+      if (!Array.isArray(items) || items.length === 0) {
+        return rows;
+      }
+
+      let index = 0;
+      const total = items.length;
+
+      while (index < total) {
+        const currentItem = items[index];
+        const currentAspectRaw = this.getAspect(currentItem);
+        const currentAspect = this.clampAspect(currentAspectRaw, 1.25);
+        const isLandscape = currentAspectRaw >= 1;
+
+        if (isLandscape) {
+          rows.push({
+            variant: 'single-landscape',
+            items: [{ item: currentItem, index, aspect: currentAspect }]
+          });
+          index += 1;
+          continue;
+        }
+
+        const portraitGroup = [];
+        while (index < total) {
+          const portraitItem = items[index];
+          const portraitAspectRaw = this.getAspect(portraitItem);
+          if (portraitAspectRaw >= 1) {
+            break;
+          }
+          portraitGroup.push({
+            item: portraitItem,
+            index,
+            aspect: this.clampAspect(portraitAspectRaw, 0.8)
+          });
+          index += 1;
+        }
+
+        let pointer = 0;
+        while (pointer < portraitGroup.length) {
+          const remaining = portraitGroup.length - pointer;
+          if (remaining >= 2) {
+            rows.push({
+              variant: 'pair-portrait',
+              items: [portraitGroup[pointer], portraitGroup[pointer + 1]]
+            });
+            pointer += 2;
+          } else {
+            rows.push({
+              variant: 'single-portrait',
+              items: [portraitGroup[pointer]]
+            });
+            pointer += 1;
+          }
+        }
+      }
+
+      return rows;
     }
 
     createTrigger(item, index) {
@@ -740,6 +843,64 @@ const encodedItems = serialiseItems(normalisedItems);
     height: 100%;
     object-fit: contain;
   background: transparent;
+  }
+
+  .justified-grid.is-mobile-big {
+    gap: var(--row-gap, 12px);
+  }
+
+  .justified-grid.is-mobile-big .big-layout-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--row-gap, 12px);
+  }
+
+  .justified-grid.is-mobile-big .big-layout-row--pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--row-gap, 12px);
+  }
+
+  .justified-grid.is-mobile-big .big-layout-row--single {
+    display: block;
+  }
+
+  .justified-grid.is-mobile-big .justified-item--big {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--big-aspect, 1.2);
+    border-radius: 0.85rem;
+    border: 1px solid rgba(112, 154, 108, 0.32);
+    background: transparent;
+    box-shadow: 0 18px 36px rgba(4, 6, 3, 0.45);
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .justified-grid.is-mobile-big .justified-item--big img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .justified-grid.is-mobile-big .justified-item--portrait {
+    aspect-ratio: var(--big-aspect, 0.75);
+  }
+
+  .justified-grid.is-mobile-big .justified-item--landscape {
+    aspect-ratio: var(--big-aspect, 1.5);
+  }
+
+  .justified-grid.is-mobile-big .justified-item--big:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 44px rgba(6, 8, 5, 0.5);
+    border-color: rgba(140, 196, 132, 0.52);
+  }
+
+  .justified-grid.is-mobile-big .justified-item--big:focus-visible {
+    outline: 3px solid rgba(134, 212, 140, 0.9);
+    outline-offset: 3px;
   }
 
   /* Style for images replaced by the fallback placeholder */
