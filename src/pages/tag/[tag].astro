@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar.astro';
 import ProfileHero from '../../components/ProfileHero.astro';
 import ViewHeader from '../../components/ViewHeader.astro';
 import ImageGrid from '../../components/ImageGrid.astro';
+import LayoutToggle from '../../components/LayoutToggle.astro';
 import TagList from '../../components/TagList.astro';
 import { getAlbums, getTags, getTagPaths, getTagBySlug, hero, site } from '../../data/gallery.js';
 
@@ -23,6 +24,7 @@ if (!tag) {
 }
 
 const subtitle = `${tag.items.length} ${tag.items.length === 1 ? 'postcard' : 'postcards'}`;
+const gridId = `tag-grid-${tag.slug}`;
 ---
 <BaseLayout title={`${tag.label} • ${site.title}`} description={`Tag ${tag.label} on ${site.title}`}>
   <div class="flex min-h-screen flex-col lg:flex-row">
@@ -30,7 +32,10 @@ const subtitle = `${tag.items.length} ${tag.items.length === 1 ? 'postcard' : 'p
     <main class="flex flex-1 flex-col overflow-hidden">
     <ProfileHero {...hero} />
   <ViewHeader title={tag.label} subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to all folders" />
-      <ImageGrid items={tag.items} />
+      <div class="flex justify-end px-6 pt-2 md:px-9">
+        <LayoutToggle targetId={gridId} />
+      </div>
+      <ImageGrid items={tag.items} gridId={gridId} />
       {tags.length > 0 && (
         <section class="pb-12">
           <h3 class="px-6 text-sm font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)] md:px-9">

@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar.astro';
 import ProfileHero from '../../components/ProfileHero.astro';
 import ViewHeader from '../../components/ViewHeader.astro';
 import ImageGrid from '../../components/ImageGrid.astro';
+import LayoutToggle from '../../components/LayoutToggle.astro';
 import TagList from '../../components/TagList.astro';
 import { getAlbums, getAlbumPaths, getAlbumBySlug, getTags, hero, site } from '../../data/gallery.js';
 
@@ -23,6 +24,7 @@ if (!album) {
 }
 
 const subtitle = `${album.items.length} ${album.items.length === 1 ? 'postcard' : 'postcards'}`;
+const gridId = `album-grid-${album.slug}`;
 ---
 <BaseLayout title={`${album.name} • ${site.title}`} description={`Album ${album.name} from ${site.title}`}>
   <div class="flex min-h-screen flex-col lg:flex-row">
@@ -30,7 +32,10 @@ const subtitle = `${album.items.length} ${album.items.length === 1 ? 'postcard' 
     <main class="flex flex-1 flex-col overflow-hidden">
     <ProfileHero {...hero} />
   <ViewHeader title={album.name} subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to all folders" />
-      <ImageGrid items={album.items} />
+      <div class="flex justify-end px-6 pt-2 md:px-9">
+        <LayoutToggle targetId={gridId} />
+      </div>
+      <ImageGrid items={album.items} gridId={gridId} />
       {tags.length > 0 && (
         <section class="pb-12">
           <h3 class="px-6 text-sm font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)] md:px-9">

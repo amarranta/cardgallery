@@ -1,5 +1,5 @@
 ---
-const { items = [], rowHeight = 400, layoutMode = 'classic' } = Astro.props;
+const { items = [], rowHeight = 400, layoutMode = 'classic', gridId = null } = Astro.props;
 
 const normaliseTags = tags =>
   Array.isArray(tags)
@@ -68,6 +68,7 @@ const encodedItems = serialiseItems(normalisedItems);
 ---
 
 <section
+  id={gridId ?? undefined}
   class="px-6 py-8 xl:px-9 xl:py-10 text-[#0b1309]"
   data-lightbox-root
   data-lightbox-base={import.meta.env.BASE_URL}
@@ -160,7 +161,7 @@ const encodedItems = serialiseItems(normalisedItems);
       this.prevBtn = this.overlay?.querySelector('[data-lightbox-prev]') || null;
       this.items = this.parseItems(root.dataset.lightboxItems);
       this.base = root.dataset.lightboxBase || '/';
-  this.layoutMode = root.dataset.layoutMode || 'classic';
+      this.layoutMode = root.dataset.layoutMode || 'classic';
       this.baseTargetHeight = Number(this.gridEl?.dataset.rowHeight) || 400;
       this.baseGap = Number(this.gridEl?.dataset.rowGap);
       if (!Number.isFinite(this.baseGap) || this.baseGap < 0) {
@@ -196,6 +197,24 @@ const encodedItems = serialiseItems(normalisedItems);
           this.renderGrid();
         });
         this.resizeObserver.observe(this.root);
+      }
+
+      if (typeof MutationObserver !== 'undefined') {
+        this.attributeObserver = new MutationObserver(mutations => {
+          for (const mutation of mutations) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-layout-mode') {
+              const nextMode = this.root.dataset.layoutMode || 'classic';
+              if (nextMode !== this.layoutMode) {
+                this.layoutMode = nextMode;
+                this.renderGrid();
+              }
+            }
+          }
+        });
+        this.attributeObserver.observe(this.root, {
+          attributes: true,
+          attributeFilter: ['data-layout-mode']
+        });
       }
     }
 
