@@ -27,3 +27,23 @@ All images live in **Cloudinary**, which provides:
 - Keep my postcard collection organized and easy to browse  
 - Provide a simple viewer that requires no backend  
 - Add lightweight automation for fetching and structuring image metadata
+
+## backlog
+
+Prio 0
+Refactoring and working through technical debt
+
+Prio 1
+Investigate redesign options
+- design tokens
+- lightbox text layout
+Album sorting
+Update metadata for existing items
+- artists
+- museums
+
+Prio 2
+Homepage, ‘about me’ info
+Accessibility features
+Investigate sophisticated filtering
+Optimize tags
