@@ -31,19 +31,16 @@ All images live in **Cloudinary**, which provides:
 ## backlog
 
 Prio 0
-Refactoring and working through technical debt
+- Refactoring and working through technical debt
 
 Prio 1
-Investigate redesign options
-- design tokens
-- lightbox text layout
-Album sorting
-Update metadata for existing items
-- artists
-- museums
+- Investigate redesign options / design tokens / lightbox text layout
+- Album sorting
+- Update metadata for existing items
+
 
 Prio 2
-Homepage, ‘about me’ info
-Accessibility features
-Investigate sophisticated filtering
-Optimize tags
+- Homepage, ‘about me’ info
+- Accessibility features
+- Investigate sophisticated filtering
+- Optimize tags
