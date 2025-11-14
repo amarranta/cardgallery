@@ -1,10 +1,28 @@
 ---
+interface SidebarAlbum {
+  slug: string;
+  name: string;
+  items: { thumbUrl?: string }[];
+}
+
+interface SidebarTag {
+  slug: string;
+  label: string;
+}
+
+interface SidebarProps {
+  albums?: SidebarAlbum[];
+  tags?: SidebarTag[];
+  activeAlbum?: string | null;
+  activeTag?: string | null;
+}
+
 const {
   albums = [],
   tags = [],
   activeAlbum = null,
   activeTag = null
-} = Astro.props;
+} = Astro.props as SidebarProps;
 ---
 <aside class="hidden bg-[#f5ecda] border-r border-[rgba(67,83,57,0.28)] px-6 py-7 w-72 flex-col gap-6 lg:flex">
   <div class="mx-auto h-28 w-28 overflow-hidden rounded-full border-4 border-[rgba(67,83,57,0.35)] shadow-[0_6px_16px_rgba(33,49,29,0.18)]">

@@ -1,15 +1,23 @@
 ---
-const { tags = [], activeTag = null } = Astro.props;
+interface TagItem {
+  slug: string;
+  label: string;
+}
+
+interface TagListProps {
+  tags?: TagItem[];
+  activeTag?: string | null;
+}
+
+const { tags = [], activeTag = null } = Astro.props as TagListProps;
 ---
-<ul class="flex flex-wrap gap-2 px-6 pb-6 md:px-9">
+<ul class="cluster-shell flex flex-wrap gap-2" data-spacing="stack">
   {tags.map(tag => (
     <li>
       <a
-        class={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-widest transition hover:-translate-y-0.5 hover:bg-[rgba(67,83,57,0.1)] ${
-          activeTag === tag.slug
-            ? 'border-[rgba(67,83,57,0.45)] bg-[rgba(67,83,57,0.2)] text-[var(--accent)]'
-            : 'border-[rgba(67,83,57,0.28)] bg-white/80 text-[var(--text-muted)]'
-        } hover:text-[var(--accent)]`}
+        class="chip"
+        data-tone={activeTag === tag.slug ? 'accent' : 'muted'}
+        data-state={activeTag === tag.slug ? 'active' : undefined}
   href={`${import.meta.env.BASE_URL}tag/${tag.slug}`}
       >
         {tag.label}

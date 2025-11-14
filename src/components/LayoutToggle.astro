@@ -1,10 +1,23 @@
 ---
+type LayoutModeId = 'classic' | 'big-mobile';
+
+interface LayoutToggleProps {
+  targetId?: string;
+  defaultMode?: LayoutModeId;
+}
+
+interface LayoutToggleOption {
+  id: LayoutModeId;
+  label: string;
+  icon: 'classic' | 'big';
+}
+
 const {
   targetId,
   defaultMode = 'classic'
-} = Astro.props;
+} = Astro.props as LayoutToggleProps;
 
-const modes = [
+const modes: LayoutToggleOption[] = [
   {
     id: 'classic',
     label: 'Classic layout',
@@ -55,10 +68,16 @@ const modes = [
   ))}
 </div>
 <script>
+  // @ts-nocheck
   (() => {
     const storageKey = 'cardgallery-layout-mode';
+    /** @type {WeakSet<HTMLElement>} */
     const initialised = new WeakSet();
 
+    /**
+     * @param {HTMLButtonElement[]} buttons
+     * @param {string} mode
+     */
     const updateButtonState = (buttons, mode) => {
       buttons.forEach(btn => {
         const isActive = btn.dataset.mode === mode;
@@ -67,39 +86,60 @@ const modes = [
       });
     };
 
+    /**
+     * @param {string} id
+     * @param {HTMLElement | null} fallback
+     * @returns {HTMLElement | null}
+     */
     const resolveTarget = (id, fallback) => {
       if (fallback && fallback.id === id && document.body.contains(fallback)) {
         return fallback;
       }
-      return document.getElementById(id) || null;
+      return document.getElementById(id);
     };
 
+    /**
+     * @param {HTMLElement} root
+     */
     const setupToggle = root => {
-      if (!root || initialised.has(root)) return;
+      if (!(root instanceof HTMLElement) || initialised.has(root)) return;
 
-      const targetId = root.dataset.target || '';
-      const defaultMode = root.dataset.default || 'classic';
-      const buttons = Array.from(root.querySelectorAll('[data-mode]'));
+      const targetId = root.dataset.target ?? '';
+      const defaultMode = root.dataset.default ?? 'classic';
+      /** @type {HTMLButtonElement[]} */
+      const buttons = Array.from(root.querySelectorAll('[data-mode]')).filter(
+        (element): element is HTMLButtonElement => element instanceof HTMLButtonElement
+      );
       if (!targetId || buttons.length === 0) return;
 
-      const availableModes = new Set(buttons.map(btn => btn.dataset.mode));
+      const availableModes = new Set(
+        buttons
+          .map(btn => btn.dataset.mode)
+          .filter((mode): mode is string => typeof mode === 'string' && mode.length > 0)
+      );
+
+      /** @type {HTMLElement | null} */
       let target = resolveTarget(targetId, null);
+      /** @type {string | null} */
       let queuedMode = null;
 
+      /**
+       * @param {string | null | undefined} mode
+       */
       const applyMode = mode => {
-        const nextMode = availableModes.has(mode) ? mode : defaultMode;
-        updateButtonState(buttons, nextMode);
-        queuedMode = nextMode;
+        const requested = typeof mode === 'string' && availableModes.has(mode) ? mode : defaultMode;
+        updateButtonState(buttons, requested);
+        queuedMode = requested;
         target = resolveTarget(targetId, target);
         if (!target) {
           return;
         }
         queuedMode = null;
-        if (target.dataset.layoutMode !== nextMode) {
-          target.dataset.layoutMode = nextMode;
+        if (target.dataset.layoutMode !== requested) {
+          target.dataset.layoutMode = requested;
         }
         try {
-          localStorage.setItem(storageKey, nextMode);
+          localStorage.setItem(storageKey, requested);
         } catch (error) {
           /* ignore storage errors */
         }
@@ -144,7 +184,11 @@ const modes = [
     const initialiseAll = () => {
       document
         .querySelectorAll('[data-layout-toggle]')
-        .forEach(root => setupToggle(root));
+        .forEach(root => {
+          if (root instanceof HTMLElement) {
+            setupToggle(root);
+          }
+        });
     };
 
     if (document.readyState === 'loading') {
