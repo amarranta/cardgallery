@@ -24,8 +24,8 @@ const {
   activeTag = null
 } = Astro.props as SidebarProps;
 ---
-<aside class="hidden bg-[#f5ecda] border-r border-[rgba(67,83,57,0.28)] px-6 py-7 w-72 flex-col gap-6 lg:flex">
-  <div class="mx-auto h-28 w-28 overflow-hidden rounded-full border-4 border-[rgba(67,83,57,0.35)] shadow-[0_6px_16px_rgba(33,49,29,0.18)]">
+<aside class="hidden bg-[var(--surface-sidebar)] border-r border-[var(--border-sidebar)] px-6 py-7 w-72 flex-col gap-6 lg:flex">
+  <div class="mx-auto h-28 w-28 overflow-hidden rounded-full border-4 border-[var(--border-avatar)] shadow-[0_6px_16px_var(--shadow-panel)]">
     <img src={`${import.meta.env.BASE_URL}assets/img/amarantha-avatar.jpg`} alt="Portrait of amarantha with her dog" class="h-full w-full object-cover" />
   </div>
   <nav class="flex flex-col gap-6">
@@ -33,14 +33,14 @@ const {
       <p class="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)] mb-3">Browse</p>
       <ul class="flex flex-col gap-2">
         <li>
-            <a class={`flex items-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition hover:bg-[rgba(67,83,57,0.16)] ${!activeAlbum && !activeTag ? 'bg-[rgba(67,83,57,0.22)] text-[var(--accent)]' : ''}`} href={import.meta.env.BASE_URL}>
+            <a class={`flex items-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition hover:bg-[var(--surface-sidebar-hover)] ${!activeAlbum && !activeTag ? 'bg-[var(--surface-sidebar-active)] text-[var(--accent)]' : ''}`} href={import.meta.env.BASE_URL}>
             <span>All folders</span>
           </a>
         </li>
         {albums.map(album => (
           <li>
             <a
-              class={`flex items-center gap-2 rounded-sm px-3 py-2 text-sm font-semibold transition hover:bg-[rgba(67,83,57,0.16)] ${activeAlbum === album.slug ? 'bg-[rgba(67,83,57,0.22)] text-[var(--accent)]' : ''}`}
+              class={`flex items-center gap-2 rounded-sm px-3 py-2 text-sm font-semibold transition hover:bg-[var(--surface-sidebar-hover)] ${activeAlbum === album.slug ? 'bg-[var(--surface-sidebar-active)] text-[var(--accent)]' : ''}`}
               href={`${import.meta.env.BASE_URL}album/${album.slug}`}
             >
               <span>{album.name}</span>
@@ -59,7 +59,7 @@ const {
         {tags.map(tag => (
           <li>
             <a
-              class={`block rounded-sm px-3 py-2 text-sm font-medium transition hover:bg-[rgba(67,83,57,0.16)] ${activeTag === tag.slug ? 'bg-[rgba(67,83,57,0.2)] border border-[rgba(67,83,57,0.45)] text-[var(--accent)]' : 'border border-transparent'}`}
+              class={`block rounded-sm px-3 py-2 text-sm font-medium transition hover:bg-[var(--surface-sidebar-hover)] ${activeTag === tag.slug ? 'bg-[var(--surface-sidebar-tag)] border border-[var(--border-sidebar-strong)] text-[var(--accent)]' : 'border border-transparent'}`}
               href={`${import.meta.env.BASE_URL}tag/${tag.slug}`}
             >
               {tag.label}

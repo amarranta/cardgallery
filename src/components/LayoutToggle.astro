@@ -208,9 +208,9 @@ const modes: LayoutToggleOption[] = [
     gap: 0.5rem;
     padding: 0.35rem;
     border-radius: 999px;
-    border: 1px solid rgba(67, 83, 57, 0.25);
-    background: rgba(255, 255, 255, 0.78);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-toggle);
+    background: var(--surface-toggle);
+    box-shadow: 0 12px 28px var(--shadow-toggle);
   }
 
   .layout-toggle__button {
@@ -222,26 +222,26 @@ const modes: LayoutToggleOption[] = [
     border-radius: 0.65rem;
     border: 1px solid transparent;
     background: transparent;
-    color: rgba(83, 95, 86, 0.78);
+  color: var(--text-toggle);
     transition: background 0.18s ease-out, color 0.18s ease-out, border-color 0.18s ease-out, transform 0.18s ease-out;
     cursor: pointer;
   }
 
   .layout-toggle__button:hover {
     transform: translateY(-1px);
-    border-color: rgba(67, 83, 57, 0.32);
-    color: rgba(67, 83, 57, 0.95);
+    border-color: var(--border-toggle-hover);
+    color: var(--text-toggle-strong);
   }
 
   .layout-toggle__button:focus-visible {
-    outline: 3px solid rgba(134, 212, 140, 0.9);
+    outline: 3px solid var(--state-focus-toggle);
     outline-offset: 2px;
   }
 
   .layout-toggle__button.is-active {
-    background: #1d6ecb;
-    color: #f0f6fe;
-    border-color: rgba(20, 90, 170, 0.82);
+    background: var(--brand-toggle);
+    color: var(--text-toggle-on);
+    border-color: var(--border-toggle-active);
   }
 
   .layout-toggle__icon {
