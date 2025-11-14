@@ -1,23 +1,29 @@
-# cardgallery
-Postcards gallery.
+## cardgallery
+A small static postcard gallery built with **Astro**.  
+I use it for my personal postcard collection, and it can also be useful for others who want a simple way to browse postcard sets with tags.  
+Images are stored on **Cloudinary**, and the site fetches metadata to generate static JSON before build.
 
-## Быстрый локальный просмотр
+## Features
+- Browse postcards with tags and basic filtering  
+- Fully static website (deployed on GitHub Pages)  
+- Metadata fetched from Cloudinary and converted into JSON  
+- Utility scripts for validating and preparing data  
+- Easy to update the gallery by re-fetching data
 
-1. Установи зависимости (нужны только для скриптов):  
-   `npm install`
-2. Скопируй тестовые данные:  
-   - `npm run mock` — использует `mock-data/sample.json` и `mock-data/tags.sample.json`  
-   - `npm run mock -- mock-data/asia.json mock-data/tags.sample.json` — свои файлы (2‑й аргумент необязателен)
-3. Запусти Astro в режиме разработки:  
-   `npm run dev`
+## Image handling
+The website is static.  
+All images live in **Cloudinary**, which provides:
+- storage for postcard scans  
+- folders/tags metadata  
+- the data used to generate JSON at build time
 
-Генератор `scripts/use-mock.mjs` проверяет JSON и закидывает его в `src/data/gallery.json` и `src/data/tags.json`. Если хочешь держать собственные моки локально — создай их в `mock-data/` и вызывай `npm run mock` с путём до файла.
+## Tech stack
+- Astro  
+- Cloudinary API  
+- GitHub Pages  
+- Node-based utility scripts
 
-Для обновления данных из Cloudinary используй `npm run fetch` (нужны `CLOUDINARY_*` переменные окружения).
-
-## Деплой на GitHub Pages (ветка gh-pages)
-
-- Источник Pages: Settings → Pages → Build and deployment → Deploy from a branch → `gh-pages` / `/ (root)`.
-- Запуск деплоя вручную: вкладка Actions → workflow "Build and Deploy to gh-pages (Astro)" → Run workflow.
-- Автодеплоя на push нет: workflow запускается только вручную (`workflow_dispatch`).
-- Если используешь обновление данных из Cloudinary, добавь в Secrets репозитория `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` — они будут использованы шагом `npm run fetch` во время сборки.
+## Purpose
+- Keep my postcard collection organized and easy to browse  
+- Provide a simple viewer that requires no backend  
+- Add lightweight automation for fetching and structuring image metadata
