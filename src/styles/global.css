@@ -129,23 +129,23 @@ h6 {
   }
 
   .panel-muted {
-    @apply rounded-lg border border-dashed border-[var(--border-panel)] bg-white/80 p-12 text-center text-sm text-[var(--text-muted)];
+    @apply rounded-lg border border-dashed border-panel bg-white/80 p-12 text-center text-sm text-muted;
   }
 
   .album-card {
-    @apply relative block h-72 overflow-hidden rounded-lg border border-[var(--border-card)] bg-[var(--surface-card)] transition-transform duration-200 ease-out;
+    @apply relative block h-72 overflow-hidden rounded-lg border border-card bg-card transition-transform duration-200 ease-out;
   }
 
   .album-card:hover {
-    @apply border-[var(--border-card-strong)];
+    @apply border-card-strong;
   }
 
   .album-card__grid {
-    @apply absolute inset-0 grid grid-cols-3 grid-rows-2 gap-1.5 bg-[var(--surface-card-grid)] p-2.5;
+    @apply absolute inset-0 grid grid-cols-3 grid-rows-2 gap-1.5 bg-card-grid p-2.5;
   }
 
   .album-card__tile {
-    @apply relative flex items-center justify-center overflow-hidden bg-[var(--surface-card-tile)];
+    @apply relative flex items-center justify-center overflow-hidden bg-card-tile;
   }
 
   .album-card__tile[data-state='empty'] {
@@ -157,7 +157,7 @@ h6 {
   }
 
   .album-card__meta {
-    @apply absolute inset-x-3 bottom-3 rounded-md bg-[var(--overlay-card)] p-3 text-[var(--text-card)] shadow-[var(--shadow-surface)];
+    @apply absolute inset-x-3 bottom-3 rounded-md bg-[var(--overlay-card)] p-3 text-[var(--text-card)] shadow-surface;
   }
 
   .album-card__title {
@@ -173,11 +173,11 @@ h6 {
   }
 
   .chip[data-tone='muted'] {
-    @apply border-[var(--border-chip-muted)] bg-white/80 text-[var(--text-muted)];
+    @apply border-chip-muted bg-white/80 text-muted;
   }
 
   .chip[data-tone='accent'] {
-    @apply border-[var(--border-chip-accent)] bg-[var(--surface-card-tile)] text-[var(--accent)];
+    @apply border-chip-accent bg-card-tile text-accent;
   }
 
   .chip[data-tone='accent']:hover {
@@ -186,7 +186,7 @@ h6 {
 
   .chip[data-state='active'],
   .chip:hover {
-    @apply text-[var(--accent)];
+    @apply text-accent;
   }
 
   .btn {
