@@ -74,18 +74,8 @@
   --border-tag-pill-hover: rgba(153, 221, 145, 0.85);
   --border-profile: rgba(67, 83, 57, 0.18);
 
-  --shadow-card: rgba(23, 30, 22, 0.2);
-  --shadow-card-strong: rgba(0, 0, 0, 0.35);
-  --shadow-card-soft: rgba(0, 0, 0, 0.2);
-  --shadow-card-lift: rgba(1, 3, 1, 0.42);
-  --shadow-ink: rgba(8, 9, 6, 0.45);
-  --shadow-ink-soft: rgba(5, 6, 4, 0.45);
-  --shadow-lightbox: rgba(0, 0, 0, 0.28);
-  --shadow-lightbox-soft: rgba(4, 6, 3, 0.4);
-  --shadow-lightbox-strong: rgba(6, 8, 5, 0.46);
-  --shadow-panel: rgba(33, 49, 29, 0.18);
-  --shadow-toggle: rgba(0, 0, 0, 0.08);
-  --shadow-banner: rgba(0, 0, 0, 0.3);
+  --shadow-surface: 0 8px 18px rgba(23, 30, 22, 0.2);
+  --shadow-overlay: 0 16px 36px rgba(8, 9, 6, 0.45);
 
   --state-hover-forest: rgba(67, 83, 57, 0.1);
   --state-hover-forest-strong: rgba(67, 83, 57, 0.18);
@@ -167,7 +157,7 @@ h6 {
   }
 
   .album-card__meta {
-    @apply absolute inset-x-3 bottom-3 rounded-md bg-[var(--overlay-card)] p-3 text-[var(--text-card)] shadow-[0_8px_18px_var(--shadow-card)];
+    @apply absolute inset-x-3 bottom-3 rounded-md bg-[var(--overlay-card)] p-3 text-[var(--text-card)] shadow-[var(--shadow-surface)];
   }
 
   .album-card__title {
