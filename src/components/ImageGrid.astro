@@ -154,14 +154,14 @@ const encodedItems = serialiseItems(normalisedItems);
       ></div>
       <div
         data-lightbox
-  class="fixed inset-0 z-50 hidden flex items-center justify-center bg-[var(--surface-backdrop)] backdrop-blur-md px-5 py-8"
+  class="fixed inset-0 z-50 hidden flex items-center justify-center bg-backdrop backdrop-blur-md px-5 py-8"
         aria-hidden="true"
       >
         <div class="relative flex h-full w-full max-w-6xl flex-col items-center justify-center">
           <button
             type="button"
             data-lightbox-close
-            class="absolute right-3 top-3 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-[var(--surface-backdrop-strong)] text-white shadow-[var(--shadow-overlay)] transition hover:scale-105 hover:bg-[var(--surface-backdrop-hover)] focus:outline-none focus:ring-4 focus:ring-white/70 sm:right-0 sm:top-0 sm:h-14 sm:w-14"
+            class="absolute right-3 top-3 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-backdrop-strong text-white shadow-overlay transition hover:scale-105 hover:bg-backdrop-hover focus:outline-none focus:ring-4 focus:ring-white/70 sm:right-0 sm:top-0 sm:h-14 sm:w-14"
           >
             <span class="sr-only">Close lightbox</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-7 w-7">
@@ -172,7 +172,7 @@ const encodedItems = serialiseItems(normalisedItems);
             <button
               type="button"
               data-lightbox-prev
-              class="hidden h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[var(--surface-backdrop-compact)] text-white shadow-[var(--shadow-surface)] transition hover:scale-110 hover:bg-[var(--surface-backdrop-compact-hover)] focus:outline-none focus:ring-4 focus:ring-white/60 sm:flex"
+              class="hidden h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-backdrop-compact text-white shadow-surface transition hover:scale-110 hover:bg-backdrop-compact-hover focus:outline-none focus:ring-4 focus:ring-white/60 sm:flex"
             >
               <span class="sr-only">Previous image</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
@@ -181,14 +181,14 @@ const encodedItems = serialiseItems(normalisedItems);
             </button>
             <figure class="flex flex-1 max-w-4xl flex-col items-center gap-6 text-center" data-lightbox-swipe>
               <div class="flex max-h-[75vh] w-full justify-center">
-                <img data-lightbox-image src="" alt="" class="max-h-[75vh] w-auto max-w-full rounded-2xl object-contain shadow-[var(--shadow-overlay)]" />
+                <img data-lightbox-image src="" alt="" class="max-h-[75vh] w-auto max-w-full rounded-2xl object-contain shadow-overlay" />
               </div>
               <figcaption class="flex w-full flex-col items-center gap-4 text-center">
-                <h2 data-lightbox-name class="hidden text-2xl font-semibold tracking-tight text-[var(--text-lightbox-heading)] md:text-[1.75rem]"></h2>
-                <p data-lightbox-author class="hidden italic text-[var(--text-lightbox-accent)]"></p>
-                <p data-lightbox-desc class="hidden text-base text-[var(--text-lightbox-body)]"></p>
+                <h2 data-lightbox-name class="hidden text-2xl font-semibold tracking-tight text-lightbox-heading md:text-[1.75rem]"></h2>
+                <p data-lightbox-author class="hidden italic text-lightbox-accent"></p>
+                <p data-lightbox-desc class="hidden text-base text-lightbox-body"></p>
                 <div data-lightbox-tags-wrapper class="hidden w-full text-center">
-                  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-[var(--text-lightbox-accent)]">Tags</p>
+                  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-lightbox-accent">Tags</p>
                   <div data-lightbox-tags class="mt-2 flex flex-wrap justify-center gap-2"></div>
                 </div>
               </figcaption>
@@ -196,7 +196,7 @@ const encodedItems = serialiseItems(normalisedItems);
             <button
               type="button"
               data-lightbox-next
-              class="hidden h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[var(--surface-backdrop-compact)] text-white shadow-[var(--shadow-surface)] transition hover:scale-110 hover:bg-[var(--surface-backdrop-compact-hover)] focus:outline-none focus:ring-4 focus:ring-white/60 sm:flex"
+              class="hidden h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-backdrop-compact text-white shadow-surface transition hover:scale-110 hover:bg-backdrop-compact-hover focus:outline-none focus:ring-4 focus:ring-white/60 sm:flex"
             >
               <span class="sr-only">Next image</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
@@ -1106,24 +1106,22 @@ const encodedItems = serialiseItems(normalisedItems);
     align-items: center;
     justify-content: center;
     height: 100%;
-  border: 1px solid var(--border-lightbox);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: var(--shadow-surface);
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+    @apply border border-lightbox shadow-surface;
+    border-radius: 0;
+    background: transparent;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
     cursor: pointer;
     padding: 0;
     overflow: hidden;
   }
 
   .justified-item:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-overlay);
-  border-color: var(--border-lightbox-strong);
+    transform: translateY(-4px);
+    @apply shadow-overlay border-lightbox-strong;
   }
 
   .justified-item:focus-visible {
-  outline: 3px solid var(--state-focus-toggle);
+    outline: 3px solid var(--state-focus-toggle);
     outline-offset: 2px;
   }
 
@@ -1131,7 +1129,7 @@ const encodedItems = serialiseItems(normalisedItems);
     width: 100%;
     height: 100%;
     object-fit: contain;
-  background: transparent;
+    background: transparent;
   }
 
   .justified-grid.is-mobile-big {
@@ -1160,9 +1158,8 @@ const encodedItems = serialiseItems(normalisedItems);
     height: auto;
     aspect-ratio: var(--big-aspect, 1.2);
     border-radius: 0.85rem;
-  border: 1px solid var(--border-lightbox);
+    @apply border border-lightbox shadow-surface;
     background: transparent;
-  box-shadow: var(--shadow-surface);
     padding: 0;
     cursor: pointer;
   }
@@ -1183,20 +1180,18 @@ const encodedItems = serialiseItems(normalisedItems);
 
   .justified-grid.is-mobile-big .justified-item--big:hover {
     transform: translateY(-4px);
-  box-shadow: var(--shadow-overlay);
-  border-color: var(--border-lightbox-lift);
+    @apply shadow-overlay border-lightbox-lift;
   }
 
   .justified-grid.is-mobile-big .justified-item--big:focus-visible {
-  outline: 3px solid var(--state-focus-toggle);
+    outline: 3px solid var(--state-focus-toggle);
     outline-offset: 3px;
   }
 
   /* Style for images replaced by the fallback placeholder */
   .justified-item img.is-fallback {
     object-fit: cover;
-    background: var(--surface-fallback);
-    color: var(--text-fallback);
+    @apply bg-fallback-surface text-fallback-text;
   }
 
   .justified-item__overlay {
@@ -1206,8 +1201,8 @@ const encodedItems = serialiseItems(normalisedItems);
     flex-direction: column;
     gap: 0.35rem;
     padding: 1rem 1.15rem;
-  background: linear-gradient(to bottom, var(--overlay-gradient-start), var(--overlay-gradient-end));
-  color: var(--text-lightbox-base);
+    background: linear-gradient(to bottom, var(--overlay-gradient-start), var(--overlay-gradient-end));
+    @apply text-lightbox-base;
     font-size: 0.85rem;
     opacity: 0;
     transition: opacity 0.2s ease-out;
@@ -1221,23 +1216,23 @@ const encodedItems = serialiseItems(normalisedItems);
 
   @media (max-width: 640px) {
     .justified-item {
-  box-shadow: var(--shadow-surface);
+      @apply shadow-surface;
     }
 
     .justified-item:hover {
       transform: translateY(-4px);
-  box-shadow: var(--shadow-overlay);
+      @apply shadow-overlay;
     }
   }
 
   .justified-item__title {
     font-size: 0.98rem;
     font-weight: 600;
-  color: var(--text-lightbox-title);
+    @apply text-lightbox-title;
   }
 
   .justified-item__desc {
-  color: var(--text-lightbox-body);
+    @apply text-lightbox-body;
     line-height: 1.4;
   }
 
@@ -1245,19 +1240,17 @@ const encodedItems = serialiseItems(normalisedItems);
     display: inline-flex;
     align-items: center;
     border-radius: 9999px;
-  border: 1px solid var(--border-tag-pill);
-  background: var(--surface-tag);
+    @apply border border-tag-pill bg-tag-surface;
     padding: 0.25rem 0.8rem;
     font-size: 0.875rem;
     font-weight: 600;
-  color: var(--text-lightbox-link);
+    @apply text-lightbox-link;
     transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   }
 
   .lightbox-tag:hover {
     transform: translateY(-2px);
-  background: var(--surface-tag-hover);
-  border-color: var(--border-tag-pill-hover);
+    @apply bg-tag-surface-hover border-tag-pill-hover;
   }
 
   [data-lightbox-swipe] {

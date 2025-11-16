@@ -39,7 +39,7 @@ const ogImage = siteRoot ? `${siteRoot}${ogImagePath}` : ogImagePath;
   <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}assets/img/amarantha-logo.png`} />
   <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}assets/img/amarantha-logo.svg`} />
   </head>
-  <body class={`bg-[var(--linen)] text-[var(--text-primary)] ${bodyClass}`}>
+  <body class={`bg-linen text-primary ${bodyClass}`}>
     <div class="min-h-screen flex flex-col">
       <div class="flex-1">
         <slot />

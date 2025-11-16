@@ -208,9 +208,7 @@ const modes: LayoutToggleOption[] = [
     gap: 0.5rem;
     padding: 0.35rem;
     border-radius: 999px;
-    border: 1px solid var(--border-toggle);
-    background: var(--surface-toggle);
-    box-shadow: var(--shadow-surface);
+    @apply border border-toggle bg-toggle-surface shadow-surface;
   }
 
   .layout-toggle__button {
@@ -220,17 +218,14 @@ const modes: LayoutToggleOption[] = [
     width: 2.5rem;
     height: 2.1rem;
     border-radius: 0.65rem;
-    border: 1px solid transparent;
-    background: transparent;
-  color: var(--text-toggle);
+    @apply border border-transparent bg-transparent text-toggle;
     transition: background 0.18s ease-out, color 0.18s ease-out, border-color 0.18s ease-out, transform 0.18s ease-out;
     cursor: pointer;
   }
 
   .layout-toggle__button:hover {
     transform: translateY(-1px);
-    border-color: var(--border-toggle-hover);
-    color: var(--text-toggle-strong);
+    @apply border-toggle-hover text-toggle-strong;
   }
 
   .layout-toggle__button:focus-visible {
@@ -239,9 +234,7 @@ const modes: LayoutToggleOption[] = [
   }
 
   .layout-toggle__button.is-active {
-    background: var(--brand-toggle);
-    color: var(--text-toggle-on);
-    border-color: var(--border-toggle-active);
+    @apply bg-toggle-brand text-toggle-on border-toggle-active;
   }
 
   .layout-toggle__icon {

@@ -1,10 +1,10 @@
 ---
 const { title, subtitle } = Astro.props;
 ---
-<section class="flex flex-col gap-6 border-b border-[rgba(67,83,57,0.18)] bg-gradient-to-br from-[rgba(67,83,57,0.08)] to-[rgba(205,187,153,0.2)] px-6 py-8 md:flex-row md:items-center md:justify-between md:gap-12 md:px-9">
+<section class="flex flex-col gap-6 border-b border-hero-border bg-gradient-to-br from-hero-from to-hero-to px-6 py-8 md:flex-row md:items-center md:justify-between md:gap-12 md:px-9">
   <div class="flex max-w-3xl flex-col gap-3">
-    <h1 class="text-3xl font-bold text-[var(--accent)] md:text-4xl">{title}</h1>
-    <p class="text-base text-[var(--text-muted)] md:text-lg">{subtitle}</p>
+    <h1 class="text-3xl font-bold text-accent md:text-4xl">{title}</h1>
+    <p class="text-base text-muted md:text-lg">{subtitle}</p>
   </div>
   <div class="h-28 w-28 opacity-95 md:h-32 md:w-32">
     <img src={`${import.meta.env.BASE_URL}assets/img/amarantha-logo.png`} alt="amarantha wordmark" class="h-full w-full object-contain" />

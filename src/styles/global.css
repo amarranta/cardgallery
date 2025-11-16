@@ -87,24 +87,25 @@
   --brand-toggle: #1d6ecb;
 }
 
-body {
-  background-color: var(--linen);
-  color: var(--text-primary);
-  min-height: 100vh;
-  font-family: 'Work Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
+@layer base {
+  body {
+    @apply bg-linen text-primary;
+    min-height: 100vh;
+    font-family: 'Work Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
 
-a {
-  color: inherit;
-}
+  a {
+    color: inherit;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Cormorant Garamond', 'Work Sans', serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Cormorant Garamond', 'Work Sans', serif;
+  }
 }
 
 @layer components {
@@ -117,7 +118,7 @@ h6 {
   }
 
   .section-shell[data-tone='ink'] {
-    @apply text-[var(--text-ink-900)];
+    @apply text-ink;
   }
 
   .cluster-shell {
@@ -157,7 +158,7 @@ h6 {
   }
 
   .album-card__meta {
-    @apply absolute inset-x-3 bottom-3 rounded-md bg-[var(--overlay-card)] p-3 text-[var(--text-card)] shadow-surface;
+    @apply absolute inset-x-3 bottom-3 rounded-md bg-overlay-card p-3 text-card-content shadow-surface;
   }
 
   .album-card__title {
@@ -165,11 +166,11 @@ h6 {
   }
 
   .album-card__count {
-    @apply text-xs text-[var(--text-card-muted)];
+    @apply text-xs text-card-content-muted;
   }
 
   .chip {
-    @apply inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-widest transition hover:-translate-y-0.5 hover:bg-[var(--state-hover-forest)];
+    @apply inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-widest transition hover:-translate-y-0.5 hover:bg-state-hover;
   }
 
   .chip[data-tone='muted'] {
@@ -181,7 +182,7 @@ h6 {
   }
 
   .chip[data-tone='accent']:hover {
-    @apply bg-[var(--state-hover-forest-tint)];
+    @apply bg-state-hover-tint;
   }
 
   .chip[data-state='active'],
@@ -194,11 +195,11 @@ h6 {
   }
 
   .btn[data-tone='tonal'] {
-    @apply border-[var(--border-toggle-hover)] bg-[var(--surface-tonal)] hover:bg-[var(--state-hover-forest-strong)];
+    @apply border-toggle-hover bg-tonal hover:bg-state-hover-strong;
   }
 
   .btn[data-tone='ghost'] {
-    @apply border-transparent bg-transparent text-[var(--accent)] hover:bg-[var(--state-hover-forest)];
+    @apply border-transparent bg-transparent text-accent hover:bg-state-hover;
   }
 
   .btn[data-size='xs'] {
@@ -208,7 +209,7 @@ h6 {
   .album-card:focus-visible,
   .btn:focus-visible,
   .chip:focus-visible {
-    @apply outline-none ring-2 ring-[color-mix(in_oklab,var(--olive-700)_40%,#fff)] ring-offset-2 ring-offset-[var(--paper)];
+    @apply outline-none ring-2 ring-[color-mix(in_oklab,var(--olive-700)_40%,#fff)] ring-offset-2 ring-offset-paper;
   }
 
   @media (hover:hover) {
