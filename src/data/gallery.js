@@ -1,5 +1,6 @@
 import rawGallery from './gallery.json';
 import tagLabels from './tags.json';
+import albumOrder from './album-order.json';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { fill, limitFit } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
@@ -156,6 +157,26 @@ function buildTagIndex(albums) {
   return { map, list };
 }
 
+const toOrderKey = (value = '') =>
+  String(value)
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
+
+const manualOrderList = Array.isArray(albumOrder) ? albumOrder : [];
+const manualOrderMap = new Map(
+  manualOrderList
+    .map((entry, index) => [toOrderKey(entry), index])
+);
+
+const getOrderIndex = (id, name) => {
+  const idKey = toOrderKey(id);
+  if (manualOrderMap.has(idKey)) return manualOrderMap.get(idKey);
+  const nameKey = toOrderKey(name);
+  if (manualOrderMap.has(nameKey)) return manualOrderMap.get(nameKey);
+  return null;
+};
+
 function buildAlbums() {
   const entries = Object.entries(galleryData.folders || {});
   const albums = entries
@@ -164,15 +185,24 @@ function buildAlbums() {
       const items = (rawItems || []).map(item => normaliseItem(item, cleanedId));
       const name = humanizeFolder(folder);
       const displayName = name === 'Main Album' ? 'Main Folder' : name;
+      const orderIndex = getOrderIndex(cleanedId, displayName);
       return {
         id: cleanedId,
         slug: slugify(cleanedId),
         name: displayName,
-        items
+        items,
+        orderIndex
       };
     })
     .filter(album => album.items.length > 0)
-    .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+    .sort((a, b) => {
+      const indexA = typeof a.orderIndex === 'number' ? a.orderIndex : Number.POSITIVE_INFINITY;
+      const indexB = typeof b.orderIndex === 'number' ? b.orderIndex : Number.POSITIVE_INFINITY;
+      if (indexA !== indexB) {
+        return indexA - indexB;
+      }
+      return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+    });
 
   const { map: tagMap, list: tags } = buildTagIndex(albums);
 
@@ -216,6 +246,19 @@ export function getTagPaths() {
 export function getItemsForTag(code) {
   const existing = tagMap.get(code);
   return existing ? [...existing] : [];
+}
+
+export function getAllItems() {
+  return albums.flatMap(album =>
+    album.items.map((item, index) => ({
+      ...item,
+      albumId: album.id,
+      albumSlug: album.slug,
+      albumName: album.name,
+      albumIndex: index,
+      albumOrderIndex: typeof album.orderIndex === 'number' ? album.orderIndex : Number.POSITIVE_INFINITY
+    }))
+  );
 }
 
 export const hero = {

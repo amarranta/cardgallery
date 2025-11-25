@@ -12,7 +12,7 @@ const tags = getTags();
 ---
 <BaseLayout title={site.title} description={site.description}>
   <div class="flex min-h-screen flex-col lg:flex-row">
-    <Sidebar albums={albums} tags={tags} />
+    <Sidebar albums={albums} tags={tags} activeCollection="folders" />
     <main class="flex flex-1 flex-col overflow-hidden">
       <ProfileHero {...hero} />
   <ViewHeader title="Postcard Folders" subtitle="A look through my mail shelves" />
