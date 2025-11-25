@@ -35,8 +35,11 @@ const backLabel = item.albumName ? `Back to ${item.albumName}` : 'Back to all po
 const backHref = item.albumSlug ? `${import.meta.env.BASE_URL}album/${item.albumSlug}` : `${import.meta.env.BASE_URL}postcards`;
 
 const gridId = `postcard-grid-${item.albumSlug || 'single'}`;
+
+// Use the postcard's preview image for OG tags
+const ogImageUrl = item.previewUrl || item.gridUrl || item.thumbUrl;
 ---
-<BaseLayout title={`${pageTitle} • ${site.title}`} description={pageDescription}>
+<BaseLayout title={`${pageTitle} • ${site.title}`} description={pageDescription} ogImage={ogImageUrl}>
   <div class="flex min-h-screen flex-col lg:flex-row">
     <Sidebar albums={albums} tags={tags} activeAlbum={item.albumSlug} activeCollection="folders" />
     <main class="flex flex-1 flex-col overflow-hidden">

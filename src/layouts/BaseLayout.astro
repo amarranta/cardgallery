@@ -6,13 +6,15 @@ import Footer from '../components/Footer.astro';
 const {
   title = site.title,
   description = site.description,
-  bodyClass = ''
+  bodyClass = '',
+  ogImage: customOgImage
 } = Astro.props;
 // Build an absolute-ish URL for social preview images when SITE env is provided.
 const siteRoot = import.meta.env.SITE ? String(import.meta.env.SITE).replace(/\/+$/,'') : '';
 const basePath = import.meta.env.BASE_URL ? String(import.meta.env.BASE_URL) : '/';
-const ogImagePath = `${basePath}og/home.png`;
-const ogImage = siteRoot ? `${siteRoot}${ogImagePath}` : ogImagePath;
+const defaultOgImagePath = `${basePath}og/home.png`;
+const defaultOgImage = siteRoot ? `${siteRoot}${defaultOgImagePath}` : defaultOgImagePath;
+const ogImage = customOgImage || defaultOgImage;
 ---
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
