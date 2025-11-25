@@ -261,6 +261,18 @@ export function getAllItems() {
   );
 }
 
+export function getItemById(id) {
+  const allItems = getAllItems();
+  return allItems.find(item => item.id === id);
+}
+
+export function getItemPaths() {
+  const allItems = getAllItems();
+  return allItems.map(item => ({
+    params: { id: item.id }
+  }));
+}
+
 export const hero = {
   title: "amarantha's postcards for swap",
   subtitle: 'collected with love, shared with joy'

@@ -14,6 +14,7 @@ interface RawMetadata {
 }
 
 interface RawItem {
+  id?: string;
   previewUrl?: string;
   gridUrl?: string;
   thumbUrl?: string;
@@ -33,6 +34,7 @@ interface LightboxTag {
 }
 
 interface LightboxItem {
+  id: string;
   preview: string;
   grid: string;
   thumb: string;
@@ -101,6 +103,7 @@ const normaliseItem = (item: RawItem | undefined): LightboxItem => {
   const aspectRatio = deriveAspectRatio(item?.aspectRatio ?? null, width, height);
 
   return {
+    id: item?.id ?? '',
     preview: item?.previewUrl ?? '',
     grid: item?.gridUrl ?? item?.thumbUrl ?? item?.previewUrl ?? '',
     thumb: item?.thumbUrl ?? '',
@@ -323,6 +326,17 @@ const encodedItems = serialiseItems(normalisedItems);
       this.items = this.parseItems(root.dataset.lightboxItems);
       this.base = root.dataset.lightboxBase || '/';
 
+      /** @type {any[]} Store raw items to access IDs */
+      this.rawItems = [];
+      try {
+        const raw = root.dataset.lightboxItems;
+        if (raw) {
+          this.rawItems = JSON.parse(decodeURIComponent(raw));
+        }
+      } catch (e) {
+        console.warn('Failed to parse raw items', e);
+      }
+
       const modeFromDataset = root.dataset.layoutMode;
       /** @type {LayoutModeValue} */
       this.layoutMode = modeFromDataset === 'big-mobile' ? 'big-mobile' : 'classic';
@@ -357,10 +371,14 @@ const encodedItems = serialiseItems(normalisedItems);
       this.handlePointerMove = this.handlePointerMove.bind(this);
       this.handlePointerUp = this.handlePointerUp.bind(this);
       this.handlePointerCancel = this.handlePointerCancel.bind(this);
+      this.handlePopState = this.handlePopState.bind(this);
 
       if (!this.gridEl || this.items.length === 0) {
         return;
       }
+
+      // Expose instance for external access
+      root.__lightboxInstance = this;
 
       this.setupOverlayControls();
       this.renderGrid();
@@ -1036,8 +1054,9 @@ const encodedItems = serialiseItems(normalisedItems);
 
     /**
      * @param {number} index
+     * @param {boolean} [updateUrl=true]
      */
-    openLightbox(index) {
+    openLightbox(index, updateUrl = true) {
       if (!this.overlay || this.items.length === 0) return;
       this.activeIndex = index;
       this.updateOverlayContent();
@@ -1046,6 +1065,12 @@ const encodedItems = serialiseItems(normalisedItems);
       this.previousOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', this.handleKeyDown);
+      window.addEventListener('popstate', this.handlePopState);
+      
+      if (updateUrl) {
+        this.updateUrlForIndex(index, false);
+      }
+      
       requestAnimationFrame(() => {
         this.closeBtn?.focus();
       });
@@ -1057,6 +1082,21 @@ const encodedItems = serialiseItems(normalisedItems);
       this.overlay.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = this.previousOverflow;
       window.removeEventListener('keydown', this.handleKeyDown);
+      window.removeEventListener('popstate', this.handlePopState);
+      
+      // Restore URL to parent page (remove /postcard/[id])
+      const currentPath = window.location.pathname;
+      if (currentPath.includes('/postcard/')) {
+        const baseRaw = this.base || '/';
+        const baseWithSlash = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
+        // Try to go back in history, or navigate to parent
+        if (window.history.state?.fromLightbox) {
+          window.history.back();
+        } else {
+          window.history.replaceState(null, '', baseWithSlash + 'postcards');
+        }
+      }
+      
       const trigger = this.triggers[this.activeIndex];
       if (trigger) {
         trigger.focus({ preventScroll: true });
@@ -1070,6 +1110,34 @@ const encodedItems = serialiseItems(normalisedItems);
       if (this.items.length < 2) return;
       this.activeIndex = (this.activeIndex + direction + this.items.length) % this.items.length;
       this.updateOverlayContent();
+      this.updateUrlForIndex(this.activeIndex, true);
+    }
+
+    /**
+     * @param {number} index
+     * @param {boolean} replace
+     */
+    updateUrlForIndex(index, replace) {
+      const item = this.rawItems[index];
+      if (!item || !item.id) return;
+      
+      const baseRaw = this.base || '/';
+      const baseWithSlash = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
+      const newUrl = `${baseWithSlash}postcard/${item.id}`;
+      
+      if (replace) {
+        window.history.replaceState({ fromLightbox: true, index }, '', newUrl);
+      } else {
+        window.history.pushState({ fromLightbox: true, index }, '', newUrl);
+      }
+    }
+
+    /**
+     * @param {PopStateEvent} event
+     */
+    handlePopState(event) {
+      // User pressed back/forward - close lightbox
+      this.closeLightbox();
     }
   }
 
