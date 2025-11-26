@@ -161,16 +161,29 @@ const encodedItems = serialiseItems(normalisedItems);
         aria-hidden="true"
       >
         <div class="relative flex h-full w-full max-w-6xl flex-col items-center justify-center">
-          <button
-            type="button"
-            data-lightbox-close
-            class="absolute right-3 top-3 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-backdrop-strong text-white shadow-overlay transition hover:scale-105 hover:bg-backdrop-hover focus:outline-none focus:ring-4 focus:ring-white/70 sm:right-0 sm:top-0 sm:h-14 sm:w-14"
-          >
-            <span class="sr-only">Close lightbox</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-7 w-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12" />
-            </svg>
-          </button>
+          <div class="absolute right-3 top-3 z-20 flex gap-2 sm:right-0 sm:top-0">
+            <button
+              type="button"
+              data-lightbox-share
+              class="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-backdrop-strong text-white shadow-overlay transition hover:scale-105 hover:bg-backdrop-hover focus:outline-none focus:ring-4 focus:ring-white/70 sm:hidden"
+              title="Share"
+            >
+              <span class="sr-only">Share this image</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              data-lightbox-close
+              class="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-backdrop-strong text-white shadow-overlay transition hover:scale-105 hover:bg-backdrop-hover focus:outline-none focus:ring-4 focus:ring-white/70 sm:h-14 sm:w-14"
+            >
+              <span class="sr-only">Close lightbox</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-7 w-7">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12" />
+              </svg>
+            </button>
+          </div>
           <div class="flex w-full flex-nowrap items-center justify-center gap-4 sm:gap-7">
             <button
               type="button"
@@ -314,6 +327,10 @@ const encodedItems = serialiseItems(normalisedItems);
       /** @type {HTMLButtonElement | null} */
       this.closeBtn = closeButton instanceof HTMLButtonElement ? closeButton : null;
 
+      const shareButton = this.overlay?.querySelector('[data-lightbox-share]');
+      /** @type {HTMLButtonElement | null} */
+      this.shareBtn = shareButton instanceof HTMLButtonElement ? shareButton : null;
+
       const nextButton = this.overlay?.querySelector('[data-lightbox-next]');
       /** @type {HTMLButtonElement | null} */
       this.nextBtn = nextButton instanceof HTMLButtonElement ? nextButton : null;
@@ -367,6 +384,7 @@ const encodedItems = serialiseItems(normalisedItems);
       this.handleKeyDown = this.handleKeyDown.bind(this);
       this.handleOverlayClick = this.handleOverlayClick.bind(this);
       this.handleCloseClick = this.handleCloseClick.bind(this);
+      this.handleShareClick = this.handleShareClick.bind(this);
       this.handleNextClick = this.handleNextClick.bind(this);
       this.handlePrevClick = this.handlePrevClick.bind(this);
       this.handlePointerDown = this.handlePointerDown.bind(this);
@@ -776,6 +794,7 @@ const encodedItems = serialiseItems(normalisedItems);
 
       this.overlay.addEventListener('click', this.handleOverlayClick);
       this.closeBtn?.addEventListener('click', this.handleCloseClick);
+      this.shareBtn?.addEventListener('click', this.handleShareClick);
       this.nextBtn?.addEventListener('click', this.handleNextClick);
       this.prevBtn?.addEventListener('click', this.handlePrevClick);
       if (this.swipeArea) {
@@ -802,6 +821,70 @@ const encodedItems = serialiseItems(normalisedItems);
     handleCloseClick(event) {
       event.preventDefault();
       this.closeLightbox();
+    }
+
+    /**
+     * @param {MouseEvent} event
+     */
+    handleShareClick(event) {
+      event.preventDefault();
+      const currentUrl = window.location.href;
+      
+      // Try to use the Clipboard API
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(currentUrl)
+          .then(() => {
+            this.showShareFeedback();
+          })
+          .catch(err => {
+            console.warn('Failed to copy URL:', err);
+            this.fallbackCopyText(currentUrl);
+          });
+      } else {
+        this.fallbackCopyText(currentUrl);
+      }
+    }
+
+    showShareFeedback() {
+      if (!this.shareBtn) return;
+      
+      const originalHTML = this.shareBtn.innerHTML;
+      this.shareBtn.innerHTML = `
+        <span class="sr-only">URL copied!</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      `;
+      this.shareBtn.classList.add('bg-green-600', 'border-green-500');
+      
+      setTimeout(() => {
+        if (this.shareBtn) {
+          this.shareBtn.innerHTML = originalHTML;
+          this.shareBtn.classList.remove('bg-green-600', 'border-green-500');
+        }
+      }, 2000);
+    }
+
+    /**
+     * @param {string} text
+     */
+    fallbackCopyText(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.setAttribute('readonly', '');
+      document.body.appendChild(textarea);
+      textarea.select();
+      
+      try {
+        document.execCommand('copy');
+        this.showShareFeedback();
+      } catch (err) {
+        console.warn('Fallback copy failed:', err);
+      } finally {
+        document.body.removeChild(textarea);
+      }
     }
 
     /**
