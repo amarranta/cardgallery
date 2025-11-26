@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { site } from '../data/gallery.js';
 import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
 
 const {
   title = site.title,
@@ -48,6 +49,7 @@ const ogImage = customOgImage || defaultOgImage;
       </div>
       <Footer />
     </div>
+    <ScrollToTop />
     <script
       data-goatcounter="https://amarranta.goatcounter.com/count"
       async
