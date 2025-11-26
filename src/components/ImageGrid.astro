@@ -1,5 +1,5 @@
 ---
-type LayoutMode = 'classic' | 'big-mobile';
+type LayoutMode = 'classic' | 'big-mobile' | 'compact-desktop';
 
 interface RawTag {
   code?: string;
@@ -214,7 +214,7 @@ const encodedItems = serialiseItems(normalisedItems);
 </section>
 <script is:inline>
   /**
-   * @typedef {'classic' | 'big-mobile'} LayoutModeValue
+   * @typedef {'classic' | 'big-mobile' | 'compact-desktop'} LayoutModeValue
    */
 
   /**
@@ -339,7 +339,9 @@ const encodedItems = serialiseItems(normalisedItems);
 
       const modeFromDataset = root.dataset.layoutMode;
       /** @type {LayoutModeValue} */
-      this.layoutMode = modeFromDataset === 'big-mobile' ? 'big-mobile' : 'classic';
+      this.layoutMode = 
+        modeFromDataset === 'big-mobile' ? 'big-mobile' :
+        modeFromDataset === 'compact-desktop' ? 'compact-desktop' : 'classic';
 
       this.baseTargetHeight = Number(this.gridEl?.dataset.rowHeight) || 400;
       const rawGap = Number(this.gridEl?.dataset.rowGap);
@@ -394,7 +396,9 @@ const encodedItems = serialiseItems(normalisedItems);
         this.attributeObserver = new MutationObserver(mutations => {
           for (const mutation of mutations) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'data-layout-mode') {
-              const nextMode = this.root.dataset.layoutMode === 'big-mobile' ? 'big-mobile' : 'classic';
+              const nextMode = 
+                this.root.dataset.layoutMode === 'big-mobile' ? 'big-mobile' :
+                this.root.dataset.layoutMode === 'compact-desktop' ? 'compact-desktop' : 'classic';
               if (nextMode !== this.layoutMode) {
                 this.layoutMode = nextMode;
                 this.renderGrid();
@@ -455,16 +459,23 @@ const encodedItems = serialiseItems(normalisedItems);
       const mediumLimit = Math.max(200, Math.min(baseTarget, 280));
       const largeLimit = Math.max(240, Math.min(baseTarget, 340));
 
+      let targetHeight;
       if (viewportWidth <= 480 || containerWidth <= 480) {
-        return smallLimit;
+        targetHeight = smallLimit;
+      } else if (viewportWidth <= 768) {
+        targetHeight = mediumLimit;
+      } else if (viewportWidth <= 1024) {
+        targetHeight = largeLimit;
+      } else {
+        targetHeight = baseTarget;
       }
-      if (viewportWidth <= 768) {
-        return mediumLimit;
+
+      // Apply compact mode: half the height for twice as many photos
+      if (this.layoutMode === 'compact-desktop' && viewportWidth > 1024) {
+        targetHeight = Math.round(targetHeight * 0.5);
       }
-      if (viewportWidth <= 1024) {
-        return largeLimit;
-      }
-      return baseTarget;
+
+      return targetHeight;
     }
 
     /**

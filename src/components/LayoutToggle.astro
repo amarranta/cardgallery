@@ -1,5 +1,5 @@
 ---
-type LayoutModeId = 'classic' | 'big-mobile';
+type LayoutModeId = 'classic' | 'big-mobile' | 'compact-desktop';
 
 interface LayoutToggleProps {
   targetId?: string;
@@ -9,7 +9,7 @@ interface LayoutToggleProps {
 interface LayoutToggleOption {
   id: LayoutModeId;
   label: string;
-  icon: 'classic' | 'big';
+  icon: 'classic' | 'big' | 'compact';
 }
 
 const {
@@ -27,8 +27,17 @@ const modes: LayoutToggleOption[] = [
     id: 'big-mobile',
     label: 'Big mobile layout',
     icon: 'big'
+  },
+  {
+    id: 'compact-desktop',
+    label: 'Compact desktop layout',
+    icon: 'compact'
   }
 ];
+
+// Filter modes based on viewport - desktop gets classic + compact, mobile gets classic + big
+const desktopModes = modes.filter(m => m.id === 'classic' || m.id === 'compact-desktop');
+const mobileModes = modes.filter(m => m.id === 'classic' || m.id === 'big-mobile');
 ---
 <div
   class="layout-toggle"
@@ -36,10 +45,10 @@ const modes: LayoutToggleOption[] = [
   data-target={targetId ?? ''}
   data-default={defaultMode}
 >
-  {modes.map(mode => (
+  {desktopModes.map(mode => (
     <button
       type="button"
-      class="layout-toggle__button"
+      class="layout-toggle__button layout-toggle__button--desktop"
       data-mode={mode.id}
       aria-pressed="false"
     >
@@ -56,10 +65,63 @@ const modes: LayoutToggleOption[] = [
           </svg>
         ) : (
           <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="8" y="1" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="15" y="1" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="22" y="1" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="1" y="7" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="8" y="7" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="15" y="7" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="22" y="7" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="1" y="13" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="8" y="13" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="15" y="13" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="22" y="13" width="5" height="4" rx="1" fill="currentColor" />
+          </svg>
+        )}
+      </span>
+      <span class="layout-toggle__sr-only">{mode.label}</span>
+    </button>
+  ))}
+  {mobileModes.map(mode => (
+    <button
+      type="button"
+      class="layout-toggle__button layout-toggle__button--mobile"
+      data-mode={mode.id}
+      aria-pressed="false"
+    >
+      <span class="layout-toggle__icon" aria-hidden="true">
+        {mode.icon === 'classic' ? (
+          <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="9" height="8" rx="2" fill="currentColor" />
+            <rect x="12" y="1" width="7" height="3.5" rx="1.5" fill="currentColor" />
+            <rect x="21" y="1" width="6" height="5.5" rx="1.5" fill="currentColor" />
+            <rect x="12" y="6" width="6.5" height="3" rx="1.5" fill="currentColor" />
+            <rect x="1" y="12" width="6" height="8" rx="2" fill="currentColor" />
+            <rect x="9" y="12" width="9" height="8" rx="2" fill="currentColor" />
+            <rect x="20" y="12" width="7" height="8" rx="2" fill="currentColor" />
+          </svg>
+        ) : mode.icon === 'big' ? (
+          <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="1" y="1" width="16" height="9" rx="2" fill="currentColor" />
             <rect x="19" y="1" width="8" height="9" rx="2" fill="currentColor" />
             <rect x="1" y="12" width="11" height="9" rx="2" fill="currentColor" />
             <rect x="14" y="12" width="13" height="9" rx="2" fill="currentColor" />
+          </svg>
+        ) : (
+          <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="8" y="1" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="15" y="1" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="22" y="1" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="1" y="7" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="8" y="7" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="15" y="7" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="22" y="7" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="1" y="13" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="8" y="13" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="15" y="13" width="5" height="4" rx="1" fill="currentColor" />
+            <rect x="22" y="13" width="5" height="4" rx="1" fill="currentColor" />
           </svg>
         )}
       </span>
@@ -253,8 +315,16 @@ const modes: LayoutToggleOption[] = [
     border: 0;
   }
 
+  /* Show only desktop modes on large screens */
   @media (min-width: 1024px) {
-    .layout-toggle {
+    .layout-toggle__button--mobile {
+      display: none;
+    }
+  }
+
+  /* Show only mobile modes on small screens */
+  @media (max-width: 1023px) {
+    .layout-toggle__button--desktop {
       display: none;
     }
   }
