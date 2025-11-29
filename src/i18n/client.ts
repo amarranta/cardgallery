@@ -27,10 +27,11 @@ export function localizeStaticText() {
   
   // Localize tag labels
   document.querySelectorAll('[data-tag-label]').forEach(el => {
-    const tagSlug = el.getAttribute('data-tag-label');
-    if (tagSlug) {
-      const translatedTag = t(locale, `tags.${tagSlug}`);
-      if (translatedTag) {
+    const tagLabel = el.getAttribute('data-tag-label');
+    if (tagLabel) {
+      const translatedTag = t(locale, `tags.${tagLabel}`);
+      // Update text even if translation is same as original
+      if (translatedTag && translatedTag !== `tags.${tagLabel}`) {
         el.textContent = translatedTag;
       }
     }
