@@ -1,1 +1,0 @@
-const o=document.getElementById("scroll-to-top"),e=300;if(o){const s=()=>{(window.scrollY||window.pageYOffset)>e?o.classList.add("visible"):o.classList.remove("visible")};window.addEventListener("scroll",s,{passive:!0}),s(),o.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})})}
