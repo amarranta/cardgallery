@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "allFolders": "All folders",
+    "allPostcards": "All postcards",
+    "browse": "Browse",
+    "browseByTag": "Browse by tag",
+    "browseOtherTags": "Browse other tags",
+    "tags": "Tags",
+    "tagsEmpty": "Tags will appear once available."
+  },
+  "header": {
+    "backToFolders": "Back to all folders",
+    "backToPostcards": "Back to all postcards",
+    "postcardFolders": "Postcard Folders",
+    "postcardsSubtitle": "A look through my mail shelves",
+    "allPostcardsTitle": "All postcards"
+  },
+  "hero": {
+    "title": "amarantha's postcards for swap",
+    "subtitle": "collected with love, shared with joy"
+  },
+  "footer": {
+    "postcrossingLink": "Amarantha on Postcrossing",
+    "bugReport": "Spotted a misprint or glitch?",
+    "sendNote": "Send me a note!",
+    "copyright": "© 2025 Amarantha 📮 from my mail shelves with care 💌"
+  },
+  "layout": {
+    "grid": "Grid",
+    "list": "List"
+  },
+  "album": {
+    "itemsCount": ["{count} postcards", "{count} postcard", "{count} postcards"]
+  },
+  "postcards": {
+    "subtitle": "{postcardCount} across {albumCount}",
+    "postcard": ["{count} postcards", "{count} postcard", "{count} postcards"],
+    "folder": ["{count} folders", "{count} folder", "{count} folders"]
+  },
+  "albums": {
+    "Not My Country": "Not My Country",
+    "Cats And Blue Cats": "Cats and Blue Cats",
+    "Main Folder": "Main Album",
+    "Soviet Reprints": "Soviet Reprints",
+    "Ad And Free": "Ad and Free",
+    "Architecture": "Architecture",
+    "Food And Recipes": "Food and Recipes",
+    "Transportation": "Transportation",
+    "Soviet Vintage": "Soviet Vintage",
+    "Travel Posters": "Travel Posters",
+    "Tretyakov Gallery (Vintage)": "Tretyakov Gallery (Vintage)",
+    "Russia": "Russia",
+    "Lighthouses": "Lighthouses",
+    "Art": "Art",
+    "Meet Up Cards": "Meet-up cards"
+  },
+  "tags": {
+    "illustration": "Illustration",
+    "bluecats": "Blue Cats",
+    "Museum": "Museum",
+    "Boomerang": "Boomerang",
+    "Free": "Free",
+    "Meetup": "Meet-up",
+    "birds": "Birds",
+    "Dutch-style": "Dutch-style"
+  }
+}

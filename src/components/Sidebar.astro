@@ -32,11 +32,11 @@ const {
   </div>
   <nav class="flex flex-col gap-6">
     <div>
-      <p class="text-xs uppercase tracking-[0.2em] text-muted mb-3">Browse</p>
+      <p class="text-xs uppercase tracking-[0.2em] text-muted mb-3" data-i18n="nav.browse">Browse</p>
       <ul class="flex flex-col gap-2">
         <li>
             <a class={`flex items-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition hover:bg-sidebar-hover ${activeCollection === 'folders' && !activeAlbum && !activeTag ? 'bg-sidebar-active text-accent' : ''}`} href={import.meta.env.BASE_URL}>
-            <span>All folders</span>
+            <span data-i18n="nav.allFolders">All folders</span>
           </a>
         </li>
         <li>
@@ -44,7 +44,7 @@ const {
             class={`flex items-center gap-2 rounded-sm px-3 py-2 text-sm font-semibold transition hover:bg-sidebar-hover ${activeCollection === 'postcards' ? 'bg-sidebar-active text-accent' : ''}`}
             href={`${import.meta.env.BASE_URL}postcards`}
           >
-            <span>All postcards</span>
+            <span data-i18n="nav.allPostcards">All postcards</span>
           </a>
         </li>
         {albums.map(album => (
@@ -53,7 +53,7 @@ const {
               class={`flex items-center gap-2 rounded-sm px-3 py-2 text-sm font-semibold transition hover:bg-sidebar-hover ${activeAlbum === album.slug ? 'bg-sidebar-active text-accent' : ''}`}
               href={`${import.meta.env.BASE_URL}album/${album.slug}`}
             >
-              <span>{album.name}</span>
+              <span data-i18n={`albums.${album.name}`}>{album.name}</span>
               <span class="ml-auto text-xs font-medium text-muted">{album.items.length}</span>
             </a>
           </li>
@@ -61,16 +61,17 @@ const {
       </ul>
     </div>
     <div>
-      <p class="text-xs uppercase tracking-[0.2em] text-muted mb-3">Tags</p>
+      <p class="text-xs uppercase tracking-[0.2em] text-muted mb-3" data-i18n="nav.tags">Tags</p>
       <ul class="flex flex-col gap-2">
         {tags.length === 0 && (
-          <li class="text-sm text-muted">Tags will appear once available.</li>
+          <li class="text-sm text-muted" data-i18n="nav.tagsEmpty">Tags will appear once available.</li>
         )}
         {tags.map(tag => (
           <li>
             <a
               class={`block rounded-sm px-3 py-2 text-sm font-medium transition hover:bg-sidebar-hover ${activeTag === tag.slug ? 'bg-sidebar-tag border border-sidebar-strong text-accent' : 'border border-transparent'}`}
               href={`${import.meta.env.BASE_URL}tag/${tag.slug}`}
+              data-i18n={`tags.${tag.label}`}
             >
               {tag.label}
             </a>

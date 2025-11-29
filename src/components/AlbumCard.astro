@@ -33,7 +33,7 @@ const previewItems = album.items.slice(0, 6);
     })}
   </div>
   <div class="album-card__meta">
-    <p class="album-card__title">{album.name}</p>
-    <p class="album-card__count">{album.items.length} {album.items.length === 1 ? 'postcard' : 'postcards'}</p>
+    <p class="album-card__title" data-i18n={`albums.${album.name}`}>{album.name}</p>
+    <p class="album-card__count" data-count={album.items.length} data-count-key="album.itemsCount">{album.items.length} {album.items.length === 1 ? 'postcard' : 'postcards'}</p>
   </div>
 </a>

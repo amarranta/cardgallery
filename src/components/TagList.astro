@@ -19,6 +19,7 @@ const { tags = [], activeTag = null } = Astro.props as TagListProps;
         data-tone={activeTag === tag.slug ? 'accent' : 'muted'}
         data-state={activeTag === tag.slug ? 'active' : undefined}
   href={`${import.meta.env.BASE_URL}tag/${tag.slug}`}
+        data-tag-label={tag.label}
       >
         {tag.label}
       </a>

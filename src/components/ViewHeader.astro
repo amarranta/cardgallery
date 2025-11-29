@@ -10,6 +10,7 @@ interface ViewHeaderProps {
   backHref?: string | null;
   backLabel?: string;
   actions?: HeaderAction[];
+  'data-i18n-type'?: 'album' | 'tag' | 'page';
 }
 
 const {
@@ -17,7 +18,8 @@ const {
   subtitle,
   backHref = null,
   backLabel = 'Back to all folders',
-  actions = []
+  actions = [],
+  'data-i18n-type': i18nType
 } = Astro.props as ViewHeaderProps;
 ---
 <header class="flex flex-col gap-4 border-b border-profile bg-gradient-to-b from-white/95 to-gradient-warm-soft px-6 py-6 md:flex-row md:items-end md:justify-between md:px-9">
@@ -25,12 +27,12 @@ const {
     {backHref && (
       <a class="inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:-translate-x-0.5" href={backHref}>
         <span aria-hidden="true">←</span>
-        <span>{backLabel}</span>
+        <span data-i18n-back="true">{backLabel}</span>
       </a>
     )}
     <div>
-      <h2 class="text-2xl font-bold">{title}</h2>
-      <p class="mt-2 text-sm text-muted">{subtitle}</p>
+      <h2 class="text-2xl font-bold" data-i18n-title="true" data-i18n-type={i18nType}>{title}</h2>
+      <p class="mt-2 text-sm text-muted" data-i18n-subtitle="true" data-i18n-type={i18nType}>{subtitle}</p>
     </div>
   </div>
   {actions.length > 0 && (

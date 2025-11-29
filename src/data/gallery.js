@@ -1,5 +1,4 @@
 import rawGallery from './gallery.json';
-import tagLabels from './tags.json';
 import albumOrder from './album-order.json';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { fill, limitFit } from '@cloudinary/url-gen/actions/resize';
@@ -111,7 +110,7 @@ function normaliseItem(item = {}, folder) {
   const aspectRatio = width && height ? Number((width / height).toFixed(5)) : null;
   const tagDetails = tags.map(code => ({
     code,
-    label: tagLabels[code] || code,
+    label: code,
     slug: slugify(code)
   }));
 
@@ -149,7 +148,7 @@ function buildTagIndex(albums) {
   });
   const list = Array.from(map.entries()).map(([code, items]) => ({
     code,
-    label: tagLabels[code] || code,
+    label: code,
     slug: slugify(code),
     items
   }));

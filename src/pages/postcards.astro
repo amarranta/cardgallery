@@ -40,14 +40,14 @@ const subtitle = `${postcardLabel} across ${albumLabel}, sorted by album name`;
     <Sidebar albums={albums} tags={tags} activeCollection="postcards" />
     <main class="flex flex-1 flex-col overflow-hidden">
       <ProfileHero {...hero} />
-      <ViewHeader title="All postcards" subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to all folders" />
+      <ViewHeader title="All postcards" subtitle={subtitle} backHref={import.meta.env.BASE_URL} backLabel="Back to all folders" data-i18n-type="page" />
       <div class="flex justify-end px-6 pt-2 md:px-9">
         <LayoutToggle targetId={gridId} />
       </div>
       <ImageGrid items={sortedItems} gridId={gridId} />
       {tags.length > 0 && (
         <section class="pb-12">
-          <h3 class="px-6 text-sm font-semibold uppercase tracking-[0.3em] text-muted md:px-9">
+          <h3 class="px-6 text-sm font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)] md:px-9" data-i18n="nav.browseByTag">
             Browse by tag
           </h3>
           <TagList tags={tags} />
@@ -56,3 +56,31 @@ const subtitle = `${postcardLabel} across ${albumLabel}, sorted by album name`;
     </main>
   </div>
 </BaseLayout>
+
+<script>
+  import { getUserLocale, t, tPlural } from '../i18n';
+  
+  // Get counts from page data
+  const totalPostcards = {totalPostcards};
+  const albumCount = {albumCount};
+  
+  // Localize page title and subtitle with pluralization
+  const locale = getUserLocale();
+  const titleEl = document.querySelector('[data-i18n-title="true"]');
+  const subtitleEl = document.querySelector('[data-i18n-subtitle="true"]');
+  const backEl = document.querySelector('[data-i18n-back="true"]');
+  
+  if (titleEl) {
+    titleEl.textContent = t(locale, 'header.allPostcardsTitle');
+  }
+  
+  if (subtitleEl) {
+    const postcardText = tPlural(locale, 'postcards.postcard', totalPostcards);
+    const folderText = tPlural(locale, 'postcards.folder', albumCount);
+    subtitleEl.textContent = postcardText + ' ' + folderText;
+  }
+  
+  if (backEl) {
+    backEl.textContent = t(locale, 'header.backToFolders');
+  }
+</script>

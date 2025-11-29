@@ -37,10 +37,26 @@ const ogImage = customOgImage || defaultOgImage;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=optional"
     />
   <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}assets/img/amarantha-logo.png`} />
   <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}assets/img/amarantha-logo.svg`} />
+  <script is:inline>
+    // Pre-check locale to prevent flicker
+    (function() {
+      const saved = localStorage.getItem('locale');
+      const locale = saved || (navigator.language.toLowerCase().startsWith('ru') ? 'ru' : 'en');
+      
+      // Always remove i18n-ready first (for page navigation)
+      document.documentElement.classList.remove('i18n-ready');
+      
+      // For English, mark as ready immediately (no translation needed)
+      if (locale === 'en') {
+        document.documentElement.classList.add('i18n-ready');
+      }
+      // For other languages, wait for DOMContentLoaded + localization
+    })();
+  </script>
   </head>
   <body class={`bg-linen text-primary ${bodyClass}`}>
     <div class="min-h-screen flex flex-col">
@@ -50,6 +66,21 @@ const ogImage = customOgImage || defaultOgImage;
       <Footer />
     </div>
     <ScrollToTop />
+    
+    <script>
+      import { localizeStaticText } from '../i18n/client';
+      
+      // Wait for DOM to be ready before localizing
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          localizeStaticText();
+        });
+      } else {
+        // DOM already loaded
+        localizeStaticText();
+      }
+    </script>
+    
     <script
       data-goatcounter="https://amarranta.goatcounter.com/count"
       async
