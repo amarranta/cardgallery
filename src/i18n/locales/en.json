@@ -6,7 +6,8 @@
     "browseByTag": "Browse by tag",
     "browseOtherTags": "Browse other tags",
     "tags": "Tags",
-    "tagsEmpty": "Tags will appear once available."
+    "tagsEmpty": "Tags will appear once available.",
+    "aboutMe": "About me"
   },
   "header": {
     "backToFolders": "Back to all folders",
@@ -63,5 +64,21 @@
     "Meetup": "Meet-up",
     "birds": "Birds",
     "Dutch-style": "Dutch-style"
+  },
+  "about": {
+    "title": "About me",
+    "hello": {
+      "title": "Hello!",
+      "text": "Welcome to my little postcard corner! I'm Alexandra. I've been living in the Netherlands for seven years already, after moving from Moscow, Russia for work. I love playing video games, learning Dutch, travelling (bringing piles of postcards from wherever I go), and spending time with my husband and our two adorable Papillion dogs. One of them, Chantal, shares my profile pic with me. I worked in game development for many years, but at the moment I'm taking a break."
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "intro": "Some things I'm into:",
+      "items": ""
+    },
+    "contact": {
+      "title": "Get in touch",
+      "text": "Interested in my postcards? Feel free to contact me on the Postcrossing forum:"
+    }
   }
 }

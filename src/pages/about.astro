@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import ViewHeader from '../components/ViewHeader.astro';
+import { getAlbums, getTags, site } from '../data/gallery.js';
+
+const albums = getAlbums();
+const tags = getTags();
+---
+<BaseLayout title={`About me | ${site.title}`} description="About amarantha and her postcard collection">
+  <div class="flex min-h-screen flex-col lg:flex-row">
+    <Sidebar albums={albums} tags={tags} />
+    <main class="flex flex-1 flex-col overflow-hidden">
+      <ViewHeader title="About me" subtitle="" backHref={import.meta.env.BASE_URL} backLabel="Back to all folders" data-i18n-title="about.title" data-i18n-back="header.backToFolders" />
+      <article class="max-w-4xl px-6 py-12 md:px-9 lg:px-12">
+        
+        <div class="prose prose-lg max-w-none">
+          <section class="mb-8">
+            <h2 class="mb-4 text-2xl font-semibold">Hello!</h2>
+            <p>
+              Welcome to my little postcard corner! I'm Alexandra. I've been living in the Netherlands for seven years already, after moving from Moscow, Russia for work. I love playing video games, learning Dutch, travelling (bringing piles of postcards from wherever I go), and spending time with my husband and our two adorable Papillion dogs. One of them, Chantal, shares my profile pic with me. I worked in game development for many years, but at the moment I'm taking a break.
+            </p>
+          </section>
+
+          <section class="mb-8">
+            <h2 class="mb-4 text-2xl font-semibold">Wishlist</h2>
+            <p class="mb-3">
+              You can check out my collection of received postcards here: <a href="https://eu.zonerama.com/amarantha/1451481" target="_blank" rel="noopener noreferrer" class="text-accent underline hover:no-underline">https://eu.zonerama.com/amarantha/1451481</a>
+            </p>
+            <p class="mb-3">Some things I'm into:</p>
+            <ul class="list-disc space-y-2 pl-6">
+              <li><strong>Transportation:</strong> trains (I am crazy about Streamliners! And a bit less crazy about steam trains), train stations, subways, airplanes, trams, funiculars, etc.</li>
+              <li><strong>Art:</strong> modern art, avant-garde, impressionism, pointillism, industrial design, primitivism, cubism, rayonism. I am somewhat less into contemporary and classic art, but I am always curious about your local, less-known artists.</li>
+              <li><strong>Early or mid 20th-century architecture:</strong> art deco, modernism, brutalism.</li>
+              <li><strong>Food:</strong> illustrated food, recipes, regional specialties. I don't really cook, but I love to explore.</li>
+              <li><strong>Urban illustrations:</strong> streets, buildings, city scenes, cafes, bookshops</li>
+              <li><strong>Eurovision 2025</strong> - it's my soft spot!</li>
+              <li><strong>Abandoned places:</strong> especially bus stops and other artifacts of human life. The more dystopian, the better.</li>
+              <li><strong>Industrial sites.</strong> Steelworks, huge mining excavators. If it looks mindblowing, it would be awesome!</li>
+              <li><strong>Art homages and parodies</strong></li>
+              <li><strong>Cold War</strong>, soviet dystopia, nuclear arms race, and vintage propaganda pieces.</li>
+              <li><strong>Troubled Birds</strong></li>
+              <li><strong>Maps</strong> - Especially metro/public transport maps</li>
+              <li><strong>Road signs</strong></li>
+              <li><strong>Lantern Press</strong> (except "Protect Our Parks" - I have those)</li>
+              <li><strong>LouPaper States</strong> (not only from their state of origin; I have AL/AR/CA/CO/OH/IL/VA/WI, and on the way RI/AK/HI/MI)</li>
+              <li><strong>Animation and Games:</strong> Studio Ghibli, Makoto Shinkai, Frieren, Genshin Impact, Pokémon, World of Warcraft, Don't Starve, Dandadan, Delicious in Dungeon, Sakamoto</li>
+              <li><strong>Memes</strong> ( ͡° ͜ʖ ͡°)</li>
+              <li><strong>猫的天空之城:</strong>"漫游xx"系列(作者:無月)</li>
+              <li><strong>Виды природы из серии Моя Россия</strong>. Кроме тех наборов, что у меня на обмен.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="mb-4 text-2xl font-semibold">Get in touch</h2>
+            <p>
+              Interested in my postcards? Feel free to contact me on the Postcrossing forum:
+            </p>
+            <p class="mt-2">
+              <a href="https://community.postcrossing.com/u/amarantha/summary" target="_blank" rel="noopener noreferrer" class="text-accent underline hover:no-underline">https://community.postcrossing.com/u/amarantha/summary</a>
+            </p>
+          </section>
+        </div>
+      </article>
+    </main>
+  </div>
+</BaseLayout>

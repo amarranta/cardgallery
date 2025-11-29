@@ -6,7 +6,10 @@ const { title, subtitle } = Astro.props;
     <h1 class="text-3xl font-bold text-accent md:text-4xl" data-i18n="hero.title">{title}</h1>
     <p class="text-base text-muted md:text-lg" data-i18n="hero.subtitle">{subtitle}</p>
   </div>
-  <div class="h-28 w-28 opacity-95 md:h-32 md:w-32">
+  <a href={`${import.meta.env.BASE_URL}about`} class="text-sm font-semibold transition hover:text-accent lg:hidden">
+    <span>• </span><span data-i18n="nav.aboutMe">About me</span><span> •</span>
+  </a>
+  <div class="hidden h-28 w-28 opacity-95 md:h-32 md:w-32 lg:block">
     <img src={`${import.meta.env.BASE_URL}assets/img/amarantha-logo.png`} alt="amarantha wordmark" class="h-full w-full object-contain" />
   </div>
 </section>
