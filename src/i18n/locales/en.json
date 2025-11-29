@@ -30,6 +30,10 @@
     "grid": "Grid",
     "list": "List"
   },
+  "lightbox": {
+    "share": "Share",
+    "close": "Close"
+  },
   "album": {
     "itemsCount": ["{count} postcards", "{count} postcard", "{count} postcards"]
   },

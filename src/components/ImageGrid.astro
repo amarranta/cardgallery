@@ -165,13 +165,12 @@ const encodedItems = serialiseItems(normalisedItems);
             <button
               type="button"
               data-lightbox-share
-              class="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-backdrop-strong text-white shadow-overlay transition hover:scale-105 hover:bg-backdrop-hover focus:outline-none focus:ring-4 focus:ring-white/70 sm:hidden"
-              title="Share"
+              class="flex h-12 items-center gap-2 rounded-full border border-white/30 bg-backdrop-strong px-4 text-white shadow-overlay transition hover:scale-105 hover:bg-backdrop-hover focus:outline-none focus:ring-4 focus:ring-white/70 sm:hidden"
             >
-              <span class="sr-only">Share this image</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
               </svg>
+              <span class="text-sm font-medium" data-i18n="lightbox.share">Share</span>
             </button>
             <button
               type="button"

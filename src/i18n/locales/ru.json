@@ -30,6 +30,10 @@
     "grid": "Крупно",
     "list": "Мелко"
   },
+  "lightbox": {
+    "share": "Поделиться",
+    "close": "Закрыть"
+  },
   "album": {
     "itemsCount": ["{count} открыток", "{count} открытка", "{count} открытки"]
   },
