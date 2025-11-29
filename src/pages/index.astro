@@ -16,6 +16,20 @@ const tags = getTags();
     <main class="flex flex-1 flex-col overflow-hidden">
       <ProfileHero {...hero} />
   <ViewHeader title="Postcard Folders" subtitle="A look through my mail shelves" data-i18n-type="page" />
+      
+      <!-- Mobile "All Postcards" button -->
+      <div class="px-6 pt-4 pb-8 lg:hidden">
+        <a 
+          href={`${import.meta.env.BASE_URL}postcards`}
+          class="flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-4 font-semibold text-white shadow-md transition hover:bg-accent/90 active:scale-95"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+          </svg>
+          <span data-i18n="nav.allPostcards">All postcards</span>
+        </a>
+      </div>
+      
       <AlbumGrid albums={albums} />
       {tags.length > 0 && (
         <section class="pb-12">
