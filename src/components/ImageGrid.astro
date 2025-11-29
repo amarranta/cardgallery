@@ -276,6 +276,7 @@ const encodedItems = serialiseItems(normalisedItems);
    * @property {number} startX
    * @property {number} startY
    * @property {boolean} swiping
+   * @property {'horizontal' | 'vertical' | null} direction
    */
 
   /**
@@ -371,6 +372,7 @@ const encodedItems = serialiseItems(normalisedItems);
       /** @type {SwipeState | null} */
       this.swipeState = null;
       this.swipeThreshold = 60;
+      this.verticalSwipeThreshold = 80;
       this.maxVerticalDelta = 80;
       /** @type {HTMLButtonElement[]} */
       this.triggers = [];
@@ -391,6 +393,9 @@ const encodedItems = serialiseItems(normalisedItems);
       this.handlePointerMove = this.handlePointerMove.bind(this);
       this.handlePointerUp = this.handlePointerUp.bind(this);
       this.handlePointerCancel = this.handlePointerCancel.bind(this);
+      this.handleTouchStart = this.handleTouchStart.bind(this);
+      this.handleTouchMove = this.handleTouchMove.bind(this);
+      this.handleTouchEnd = this.handleTouchEnd.bind(this);
       this.handlePopState = this.handlePopState.bind(this);
 
       if (!this.gridEl || this.items.length === 0) {
@@ -803,6 +808,12 @@ const encodedItems = serialiseItems(normalisedItems);
         this.swipeArea.addEventListener('pointerup', this.handlePointerUp);
         this.swipeArea.addEventListener('pointercancel', this.handlePointerCancel);
         this.swipeArea.addEventListener('pointerleave', this.handlePointerCancel);
+        
+        // Add touch events for better mobile support
+        this.swipeArea.addEventListener('touchstart', this.handleTouchStart, { passive: false });
+        this.swipeArea.addEventListener('touchmove', this.handleTouchMove, { passive: false });
+        this.swipeArea.addEventListener('touchend', this.handleTouchEnd);
+        this.swipeArea.addEventListener('touchcancel', this.handleTouchEnd);
       }
     }
 
@@ -917,7 +928,8 @@ const encodedItems = serialiseItems(normalisedItems);
         pointerId: event.pointerId,
         startX: event.clientX,
         startY: event.clientY,
-        swiping: false
+        swiping: false,
+        direction: null
       };
       this.swipeArea.style.cursor = 'grabbing';
       this.swipeArea.classList.add('is-touching');
@@ -935,18 +947,28 @@ const encodedItems = serialiseItems(normalisedItems);
       const deltaY = event.clientY - this.swipeState.startY;
 
       if (!this.swipeState.swiping) {
-        if (Math.abs(deltaY) > this.maxVerticalDelta && Math.abs(deltaY) > Math.abs(deltaX)) {
-          this.resetSwipeState();
-          return;
-        }
-        if (Math.abs(deltaX) > 12) {
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
+        
+        // Determine swipe direction
+        if (absDeltaY > 12 && absDeltaY > absDeltaX) {
+          // Vertical swipe detected
+          this.swipeState.direction = 'vertical';
+          this.swipeState.swiping = true;
+        } else if (absDeltaX > 12 && absDeltaX > absDeltaY) {
+          // Horizontal swipe detected
+          this.swipeState.direction = 'horizontal';
           this.swipeState.swiping = true;
         }
       }
 
       if (this.swipeState.swiping) {
         event.preventDefault();
-        this.applySwipeTransform(deltaX);
+        if (this.swipeState.direction === 'horizontal') {
+          this.applySwipeTransform(deltaX);
+        } else if (this.swipeState.direction === 'vertical') {
+          this.applyVerticalSwipeTransform(deltaY);
+        }
       }
       event.stopPropagation();
     }
@@ -958,10 +980,23 @@ const encodedItems = serialiseItems(normalisedItems);
       if (!this.swipeState || event.pointerId !== this.swipeState.pointerId) {
         return;
       }
-      const deltaX = event.clientX - this.swipeState.startX;
-      if (this.swipeState.swiping && Math.abs(deltaX) >= this.swipeThreshold) {
-        this.step(deltaX > 0 ? -1 : 1);
+      
+      if (this.swipeState.swiping) {
+        if (this.swipeState.direction === 'horizontal') {
+          const deltaX = event.clientX - this.swipeState.startX;
+          if (Math.abs(deltaX) >= this.swipeThreshold) {
+            this.step(deltaX > 0 ? -1 : 1);
+          }
+        } else if (this.swipeState.direction === 'vertical') {
+          const deltaY = event.clientY - this.swipeState.startY;
+          // Swipe up to close (deltaY < 0)
+          if (deltaY < 0 && Math.abs(deltaY) >= this.verticalSwipeThreshold) {
+            this.closeLightboxWithAnimation();
+            return; // Don't reset state, closeLightboxWithAnimation will handle it
+          }
+        }
       }
+      
       this.resetSwipeState();
       event.stopPropagation();
     }
@@ -1008,13 +1043,61 @@ const encodedItems = serialiseItems(normalisedItems);
       }
     }
 
+    /**
+     * @param {number} deltaY
+     */
+    applyVerticalSwipeTransform(deltaY) {
+      if (!this.overlay || !this.swipeArea) return;
+      
+      // Only allow upward swipes (negative deltaY)
+      if (deltaY >= 0) {
+        this.swipeArea.style.transform = 'translateY(0) scale(1)';
+        this.overlay.style.opacity = '1';
+        return;
+      }
+      
+      this.swipeArea.style.transition = 'none';
+      this.overlay.style.transition = 'none';
+      
+      const limited = Math.max(-200, deltaY);
+      const progress = Math.abs(limited) / 200;
+      
+      // Move content (image) up and scale down
+      const scale = 1 - (progress * 0.15);
+      this.swipeArea.style.transform = `translateY(${limited}px) scale(${scale})`;
+      
+      // Fade out the background overlay
+      const opacity = Math.max(0, 1 - (progress * 1.2));
+      this.overlay.style.opacity = String(opacity);
+    }
+
     resetSwipeState() {
       const shouldAnimate = Boolean(this.swipeState?.swiping);
       if (this.swipeArea) {
         this.swipeArea.style.cursor = '';
         this.swipeArea.classList.remove('is-touching');
       }
-      this.applySwipeTransform(0, { animate: shouldAnimate });
+      
+      if (this.swipeState?.direction === 'horizontal') {
+        this.applySwipeTransform(0, { animate: shouldAnimate });
+      } else if (this.swipeState?.direction === 'vertical') {
+        // Reset vertical transform
+        if (this.overlay && this.swipeArea) {
+          this.swipeArea.style.transition = 'transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1)';
+          this.swipeArea.style.transform = 'translateY(0) scale(1)';
+          
+          this.overlay.style.transition = 'opacity 0.25s cubic-bezier(0.4, 0.0, 0.2, 1)';
+          this.overlay.style.opacity = '1';
+          
+          window.setTimeout(() => {
+            if (this.overlay && this.swipeArea) {
+              this.overlay.style.transition = '';
+              this.swipeArea.style.transition = '';
+            }
+          }, 250);
+        }
+      }
+      
       this.swipeState = null;
     }
 
@@ -1033,6 +1116,99 @@ const encodedItems = serialiseItems(normalisedItems);
         event.preventDefault();
         this.step(-1);
       }
+    }
+
+    /**
+     * @param {TouchEvent} event
+     */
+    handleTouchStart(event) {
+      if (!this.swipeArea || !this.imageEl || this.overlay?.classList.contains('hidden')) {
+        return;
+      }
+      if (event.touches.length !== 1) {
+        return;
+      }
+      
+      const touch = event.touches[0];
+      this.swipeState = {
+        pointerId: touch.identifier,
+        startX: touch.clientX,
+        startY: touch.clientY,
+        swiping: false,
+        direction: null
+      };
+      this.swipeArea.classList.add('is-touching');
+    }
+
+    /**
+     * @param {TouchEvent} event
+     */
+    handleTouchMove(event) {
+      if (!this.swipeState) {
+        return;
+      }
+      
+      const touch = Array.from(event.touches).find(t => t.identifier === this.swipeState.pointerId);
+      if (!touch) {
+        return;
+      }
+      
+      const deltaX = touch.clientX - this.swipeState.startX;
+      const deltaY = touch.clientY - this.swipeState.startY;
+
+      if (!this.swipeState.swiping) {
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
+        
+        // Determine swipe direction
+        if (absDeltaY > 12 && absDeltaY > absDeltaX) {
+          // Vertical swipe detected
+          this.swipeState.direction = 'vertical';
+          this.swipeState.swiping = true;
+        } else if (absDeltaX > 12 && absDeltaX > absDeltaY) {
+          // Horizontal swipe detected
+          this.swipeState.direction = 'horizontal';
+          this.swipeState.swiping = true;
+        }
+      }
+
+      if (this.swipeState.swiping) {
+        event.preventDefault();
+        if (this.swipeState.direction === 'horizontal') {
+          this.applySwipeTransform(deltaX);
+        } else if (this.swipeState.direction === 'vertical') {
+          this.applyVerticalSwipeTransform(deltaY);
+        }
+      }
+    }
+
+    /**
+     * @param {TouchEvent} event
+     */
+    handleTouchEnd(event) {
+      if (!this.swipeState) {
+        return;
+      }
+      
+      const touch = Array.from(event.changedTouches).find(t => t.identifier === this.swipeState.pointerId);
+      
+      if (this.swipeState.swiping && touch) {
+        if (this.swipeState.direction === 'horizontal') {
+          const deltaX = touch.clientX - this.swipeState.startX;
+          if (Math.abs(deltaX) >= this.swipeThreshold) {
+            this.step(deltaX > 0 ? -1 : 1);
+          }
+        } else if (this.swipeState.direction === 'vertical') {
+          const deltaY = touch.clientY - this.swipeState.startY;
+          // Swipe up to close (deltaY < 0)
+          if (deltaY < 0 && Math.abs(deltaY) >= this.verticalSwipeThreshold) {
+            this.closeLightboxWithAnimation();
+            return; // Don't reset state, closeLightboxWithAnimation will handle it
+          }
+        }
+      }
+      
+      this.resetSwipeState();
     }
 
     refreshNavVisibility() {
@@ -1154,6 +1330,13 @@ const encodedItems = serialiseItems(normalisedItems);
       if (!this.overlay || this.items.length === 0) return;
       this.activeIndex = index;
       this.updateOverlayContent();
+      
+      // Set initial state for animation - content starts below
+      if (this.swipeArea) {
+        this.swipeArea.style.transform = 'translateY(30px) scale(0.95)';
+      }
+      this.overlay.style.opacity = '0';
+      
       this.overlay.classList.remove('hidden');
       this.overlay.setAttribute('aria-hidden', 'false');
       this.previousOverflow = document.body.style.overflow;
@@ -1165,9 +1348,59 @@ const encodedItems = serialiseItems(normalisedItems);
         this.updateUrlForIndex(index, false);
       }
       
+      // Animate in
       requestAnimationFrame(() => {
-        this.closeBtn?.focus();
+        if (this.swipeArea) {
+          this.swipeArea.style.transition = 'transform 0.3s cubic-bezier(0.0, 0.0, 0.2, 1)';
+          this.swipeArea.style.transform = 'translateY(0) scale(1)';
+        }
+        if (this.overlay) {
+          this.overlay.style.transition = 'opacity 0.3s cubic-bezier(0.0, 0.0, 0.2, 1)';
+          this.overlay.style.opacity = '1';
+        }
+        
+        window.setTimeout(() => {
+          if (this.overlay) {
+            this.overlay.style.transition = '';
+          }
+          if (this.swipeArea) {
+            this.swipeArea.style.transition = '';
+          }
+          this.closeBtn?.focus();
+        }, 300);
       });
+    }
+
+    closeLightboxWithAnimation() {
+      if (!this.overlay || this.overlay.classList.contains('hidden')) return;
+      
+      // Animate content (image) up and out
+      if (this.swipeArea) {
+        this.swipeArea.style.transition = 'transform 0.3s cubic-bezier(0.4, 0.0, 1, 1)';
+        this.swipeArea.style.transform = 'translateY(-80px) scale(0.9)';
+        this.swipeArea.classList.remove('is-touching');
+      }
+      
+      // Fade out the background overlay
+      this.overlay.style.transition = 'opacity 0.3s cubic-bezier(0.4, 0.0, 1, 1)';
+      this.overlay.style.opacity = '0';
+      
+      // Reset swipe state immediately
+      this.swipeState = null;
+      
+      // Close after animation
+      window.setTimeout(() => {
+        this.closeLightbox();
+        // Reset transform for next time
+        if (this.overlay) {
+          this.overlay.style.transition = '';
+          this.overlay.style.opacity = '';
+        }
+        if (this.swipeArea) {
+          this.swipeArea.style.transition = '';
+          this.swipeArea.style.transform = '';
+        }
+      }, 300);
     }
 
     closeLightbox() {
@@ -1417,8 +1650,10 @@ const encodedItems = serialiseItems(normalisedItems);
 
   [data-lightbox-swipe] {
     width: 100%;
-    touch-action: pan-y;
+    touch-action: none;
     cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   [data-lightbox-swipe].is-touching {
