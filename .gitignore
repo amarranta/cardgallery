@@ -28,5 +28,9 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Local project scripts (keep helper scripts local/untracked)
-scripts/
+# Local helper scripts (track selected ones for CI)
+scripts/*
+!scripts/sync-travel-points.mjs
+!scripts/list-cloudinary-folder.mjs
+!scripts/extract-user-copy.mjs
+!scripts/use-mock.mjs
