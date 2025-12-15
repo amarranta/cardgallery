@@ -8,7 +8,8 @@ const {
   title = site.title,
   description = site.description,
   bodyClass = '',
-  ogImage: customOgImage
+  ogImage: customOgImage,
+  hideFooter = false
 } = Astro.props;
 // Build an absolute-ish URL for social preview images when SITE env is provided.
 const siteRoot = import.meta.env.SITE ? String(import.meta.env.SITE).replace(/\/+$/,'') : '';
@@ -63,7 +64,7 @@ const ogImage = customOgImage || defaultOgImage;
       <div class="flex-1">
         <slot />
       </div>
-      <Footer />
+      {!hideFooter && <Footer />}
     </div>
     <ScrollToTop />
     

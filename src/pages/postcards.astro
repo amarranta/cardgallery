@@ -57,12 +57,8 @@ const subtitle = `${postcardLabel} across ${albumLabel}, sorted by album name`;
   </div>
 </BaseLayout>
 
-<script>
+<script define:vars={{ totalPostcards, albumCount }}>
   import { getUserLocale, t, tPlural } from '../i18n';
-  
-  // Get counts from page data
-  const totalPostcards = {totalPostcards};
-  const albumCount = {albumCount};
   
   // Localize page title and subtitle with pluralization
   const locale = getUserLocale();

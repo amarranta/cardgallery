@@ -1,0 +1,272 @@
+{
+  "KR:seoul": {
+    "lat": 37.5666791,
+    "lng": 126.9782914,
+    "city": "Seoul",
+    "countryCode": "KR"
+  },
+  "JP:tokyo": {
+    "lat": 35.6768601,
+    "lng": 139.7638947,
+    "city": "Tokyo",
+    "countryCode": "JP"
+  },
+  "JP:kamakura": {
+    "lat": 35.3192808,
+    "lng": 139.5469627,
+    "city": "Kamakura",
+    "countryCode": "JP"
+  },
+  "IT:milano": {
+    "lat": 45.4641943,
+    "lng": 9.1896346,
+    "city": "Milano",
+    "countryCode": "IT"
+  },
+  "FR:rouen": {
+    "lat": 49.4404591,
+    "lng": 1.0939658,
+    "city": "Rouen",
+    "countryCode": "FR"
+  },
+  "FR:etretat": {
+    "lat": 49.7074621,
+    "lng": 0.2031905,
+    "city": "Etretat",
+    "countryCode": "FR"
+  },
+  "FR:fougeres": {
+    "lat": 48.3503362,
+    "lng": -1.1958526,
+    "city": "Fougeres",
+    "countryCode": "FR"
+  },
+  "FR:mont saint michel": {
+    "lat": 48.6359541,
+    "lng": -1.51146,
+    "city": "Mont Saint Michel",
+    "countryCode": "FR"
+  },
+  "FR:angers": {
+    "lat": 47.4739884,
+    "lng": -0.5515588,
+    "city": "Angers",
+    "countryCode": "FR"
+  },
+  "CA:whistler": {
+    "lat": 50.1171903,
+    "lng": -122.9543022,
+    "city": "Whistler",
+    "countryCode": "CA"
+  },
+  "FR:aix en provence": {
+    "lat": 43.5298424,
+    "lng": 5.4474738,
+    "city": "Aix En Provence",
+    "countryCode": "FR"
+  },
+  "US:nyc": {
+    "lat": 40.7127281,
+    "lng": -74.0060152,
+    "city": "NYC",
+    "countryCode": "US"
+  },
+  "CN:shang hai": {
+    "lat": 31.2312707,
+    "lng": 121.4700152,
+    "city": "SHang Hai",
+    "countryCode": "CN"
+  },
+  "RU:moscow": {
+    "lat": 55.625578,
+    "lng": 37.6063916,
+    "city": "Moscow",
+    "countryCode": "RU"
+  },
+  "UA:kyiv": {
+    "lat": 50.4500336,
+    "lng": 30.5241361,
+    "city": "Kyiv",
+    "countryCode": "UA"
+  },
+  "FR:nice": {
+    "lat": 43.7009358,
+    "lng": 7.2683912,
+    "city": "Nice",
+    "countryCode": "FR"
+  },
+  "IT:venice": {
+    "lat": 45.4371908,
+    "lng": 12.3345898,
+    "city": "Venice",
+    "countryCode": "IT"
+  },
+  "IN:kerala": {
+    "lat": 10.3528744,
+    "lng": 76.5120396,
+    "city": "Kerala",
+    "countryCode": "IN"
+  },
+  "CA:vancouver": {
+    "lat": 49.2608724,
+    "lng": -123.113952,
+    "city": "Vancouver",
+    "countryCode": "CA"
+  },
+  "US:san francisco": {
+    "lat": 37.7879363,
+    "lng": -122.4075201,
+    "city": "San Francisco",
+    "countryCode": "US"
+  },
+  "FR:amiens": {
+    "lat": 49.8941708,
+    "lng": 2.2956951,
+    "city": "Amiens",
+    "countryCode": "FR"
+  },
+  "CA:victoria": {
+    "lat": 48.4283182,
+    "lng": -123.364953,
+    "city": "Victoria",
+    "countryCode": "CA"
+  },
+  "CZ:prague": {
+    "lat": 50.0874654,
+    "lng": 14.4212535,
+    "city": "Prague",
+    "countryCode": "CZ"
+  },
+  "BY:minsk": {
+    "lat": 53.9024716,
+    "lng": 27.5618225,
+    "city": "Minsk",
+    "countryCode": "BY"
+  },
+  "DE:cochem": {
+    "lat": 50.1483916,
+    "lng": 7.1663195,
+    "city": "Cochem",
+    "countryCode": "DE"
+  },
+  "DE:trier": {
+    "lat": 49.7596208,
+    "lng": 6.6441878,
+    "city": "Trier",
+    "countryCode": "DE"
+  },
+  "CA:toronto": {
+    "lat": 43.6534817,
+    "lng": -79.3839347,
+    "city": "Toronto",
+    "countryCode": "CA"
+  },
+  "DE:cologne": {
+    "lat": 50.938361,
+    "lng": 6.959974,
+    "city": "Cologne",
+    "countryCode": "DE"
+  },
+  "PT:lisboa": {
+    "lat": 38.7077507,
+    "lng": -9.1365919,
+    "city": "Lisboa",
+    "countryCode": "PT"
+  },
+  "UA:hola prystan": {
+    "lat": 46.5320381,
+    "lng": 32.5345028,
+    "city": "Hola Prystan",
+    "countryCode": "UA"
+  },
+  "GB:london": {
+    "lat": 51.5074456,
+    "lng": -0.1277653,
+    "city": "London",
+    "countryCode": "GB"
+  },
+  "ME:budva": {
+    "lat": 42.2885656,
+    "lng": 18.8419505,
+    "city": "Budva",
+    "countryCode": "ME"
+  },
+  "LK:kandi": {
+    "lat": 7.2931208,
+    "lng": 80.6350358,
+    "city": "Kandi",
+    "countryCode": "LK"
+  },
+  "HU:budapest": {
+    "lat": 47.4978789,
+    "lng": 19.0402383,
+    "city": "Budapest",
+    "countryCode": "HU"
+  },
+  "DE:wuppertal": {
+    "lat": 51.264018,
+    "lng": 7.1780374,
+    "city": "Wuppertal",
+    "countryCode": "DE"
+  },
+  "CA:niagara falls": {
+    "lat": 43.1065603,
+    "lng": -79.0639039,
+    "city": "Niagara Falls",
+    "countryCode": "CA"
+  },
+  "BE:bruges": {
+    "lat": 51.2085526,
+    "lng": 3.226772,
+    "city": "Bruges",
+    "countryCode": "BE"
+  },
+  "DE:magdeburg": {
+    "lat": 52.1314783,
+    "lng": 11.6400789,
+    "city": "Magdeburg",
+    "countryCode": "DE"
+  },
+  "BE:antwerp": {
+    "lat": 51.2211097,
+    "lng": 4.3997081,
+    "city": "Antwerp",
+    "countryCode": "BE"
+  },
+  "US:seattle": {
+    "lat": 47.6038321,
+    "lng": -122.330062,
+    "city": "Seattle",
+    "countryCode": "US"
+  },
+  "SE:stockholm": {
+    "lat": 59.3251172,
+    "lng": 18.0710935,
+    "city": "Stockholm",
+    "countryCode": "SE"
+  },
+  "IT:malcesine": {
+    "lat": 45.7643442,
+    "lng": 10.8100598,
+    "city": "Malcesine",
+    "countryCode": "IT"
+  },
+  "CH:basel": {
+    "lat": 47.5581077,
+    "lng": 7.5878261,
+    "city": "Basel",
+    "countryCode": "CH"
+  },
+  "AT:vienna": {
+    "lat": 48.2083537,
+    "lng": 16.3725042,
+    "city": "Vienna",
+    "countryCode": "AT"
+  },
+  "PL:krakow": {
+    "lat": 50.0619474,
+    "lng": 19.9368564,
+    "city": "Krakow",
+    "countryCode": "PL"
+  }
+}

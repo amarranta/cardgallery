@@ -42,6 +42,36 @@
     "postcard": ["{count} открыток", "{count} открытка", "{count} открытки"],
     "folder": ["{count} альбомов", "{count} альбом", "{count} альбома"]
   },
+  "map": {
+    "filters": {
+      "showVisited": "Показать точки",
+      "showWithPostcards": "С открытками",
+      "showMissingPostcards": "Без открыток",
+      "country": "Страна",
+      "allCountries": "Все"
+    },
+    "popup": {
+      "noPostcard": "Была, открытки пока нет"
+    },
+    "legend": {
+      "hasPostcard": "Есть открытка",
+      "noPostcard": "Открытки пока нет"
+    },
+    "stats": {
+      "countries": ["{count} стран", "{count} страна", "{count} страны"],
+      "places": ["{count} мест", "{count} место", "{count} места"],
+      "postcards": ["{count} открыток", "{count} открытка", "{count} открытки"]
+    },
+    "loading": "Загрузка карты...",
+    "resetView": "Весь мир",
+    "backToSite": "К открыткам",
+    "placesList": {
+      "toggle": "Список мест",
+      "title": "Посещённые места",
+      "withPostcards": "С открытками",
+      "withoutPostcards": "Без открыток"
+    }
+  },
   "albums": {
     "Not My Country": "Из путешествий",
     "Cats And Blue Cats": "Коты и Синие Коты",

@@ -34,6 +34,10 @@ jobs:
         env:
           GALLERY_ROOT: ${{ env.GALLERY_ROOT }}
 
+      - name: Sync travel points from Cloudinary folder names
+        if: ${{ env.CLOUDINARY_CLOUD_NAME != '' }}
+        run: npm run sync:travel
+
       - name: Build site
         run: npm run build
 

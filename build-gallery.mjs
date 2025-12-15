@@ -59,6 +59,7 @@ function mapResource(resource) {
   const metaName = typeof metadata.name === 'string' && metadata.name.trim().length > 0 ? metadata.name.trim() : null;
   const metaDesc = typeof metadata.desc === 'string' && metadata.desc.trim().length > 0 ? metadata.desc.trim() : null;
   const metaAuthor = typeof metadata.author === 'string' && metadata.author.trim().length > 0 ? metadata.author.trim() : null;
+  const metaPlaceId = typeof metadata.placeId === 'string' && metadata.placeId.trim().length > 0 ? metadata.placeId.trim() : null;
   const contextAuthor = typeof context.author === 'string' && context.author.trim().length > 0 ? context.author.trim() : null;
   const author = metaAuthor || contextAuthor || null;
   const preview = cld.image(resource.public_id);
@@ -89,7 +90,8 @@ function mapResource(resource) {
     metadata: {
       name: metaName,
       desc: metaDesc,
-      author
+      author,
+      placeId: metaPlaceId
     }
   };
 }

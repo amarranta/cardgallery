@@ -42,6 +42,36 @@
     "postcard": ["{count} postcards", "{count} postcard", "{count} postcards"],
     "folder": ["{count} folders", "{count} folder", "{count} folders"]
   },
+  "map": {
+    "filters": {
+      "showVisited": "Show visited points",
+      "showWithPostcards": "With postcards",
+      "showMissingPostcards": "Missing postcards",
+      "country": "Country",
+      "allCountries": "All"
+    },
+    "popup": {
+      "noPostcard": "Visited, no postcard yet"
+    },
+    "legend": {
+      "hasPostcard": "Has postcard",
+      "noPostcard": "No postcard yet"
+    },
+    "stats": {
+      "countries": ["{count} countries", "{count} country", "{count} countries"],
+      "places": ["{count} places", "{count} place", "{count} places"],
+      "postcards": ["{count} postcards", "{count} postcard", "{count} postcards"]
+    },
+    "loading": "Loading map...",
+    "resetView": "World view",
+    "backToSite": "Back to postcards",
+    "placesList": {
+      "toggle": "Places list",
+      "title": "Places visited",
+      "withPostcards": "With postcards",
+      "withoutPostcards": "Without postcards"
+    }
+  },
   "albums": {
     "Not My Country": "Not My Country",
     "Cats And Blue Cats": "Cats and Blue Cats",

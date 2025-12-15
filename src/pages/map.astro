@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorldMap from '../components/map/WorldMap';
+import travelPoints from '../data/travel-points.json';
+import { getAllItems, site } from '../data/gallery.js';
+import rawGallery from '../data/gallery.json';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { fill, limitFit } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+
+type TravelPoint = (typeof travelPoints)[number];
+
+const baseUrl = import.meta.env.BASE_URL || '/';
+
+const allItems = getAllItems();
+
+const cloudName = rawGallery?.cloudName || null;
+const cld = cloudName ? new Cloudinary({ cloud: { cloudName } }) : null;
+
+function buildCloudinaryUrls(publicId: string) {
+  if (!publicId || !cld) return null;
+
+  const previewImage = cld.image(publicId);
+  previewImage.format('auto').quality('auto');
+  previewImage.resize(limitFit().width(1200));
+
+  const thumbImage = cld.image(publicId);
+  thumbImage.format('auto').quality('auto');
+  thumbImage.resize(fill().width(480).height(360).gravity(autoGravity()));
+
+  return {
+    previewUrl: previewImage.toURL(),
+    thumbUrl: thumbImage.toURL()
+  };
+}
+
+type MapPostcard = {
+  id: string;
+  title?: string | null;
+  description?: string | null;
+  metadataDesc?: string | null;
+  thumbUrl: string;
+  previewUrl: string;
+};
+
+const postcards = (travelPoints as TravelPoint[])
+  .map(point => {
+    const explicitId = (point.postcardId || '').trim();
+    if (explicitId) {
+      const item = allItems.find(candidate => candidate.id === explicitId);
+      if (item) {
+        const card: MapPostcard = {
+          id: item.id,
+          title: item.title ?? null,
+          description: item.description ?? null,
+          metadataDesc: item?.metadata?.desc ?? null,
+          thumbUrl: item.thumbUrl,
+          previewUrl: item.previewUrl
+        };
+        return card;
+      }
+
+      // If the postcard isn't part of `gallery.json` yet, still show it on the map
+      // (Cloudinary public_id is enough to generate URLs).
+      const urls = buildCloudinaryUrls(explicitId);
+      if (urls) {
+        const card: MapPostcard = {
+          id: explicitId,
+          title: point.city ?? null,
+          description: point.description ?? null,
+          metadataDesc: null,
+          thumbUrl: urls.thumbUrl,
+          previewUrl: urls.previewUrl
+        };
+        return card;
+      }
+    }
+
+    // Recommended flow: Cloudinary structured metadata `placeId` === `point.id`
+    const byPlaceId = allItems.find(candidate => candidate.placeId === point.id);
+    if (!byPlaceId) return null;
+
+    const card: MapPostcard = {
+      id: byPlaceId.id,
+      title: byPlaceId.title ?? null,
+      description: byPlaceId.description ?? null,
+      metadataDesc: byPlaceId?.metadata?.desc ?? null,
+      thumbUrl: byPlaceId.thumbUrl,
+      previewUrl: byPlaceId.previewUrl
+    };
+    return card;
+  })
+  .filter((item): item is MapPostcard => Boolean(item));
+---
+
+<BaseLayout title={`Map • ${site.title}`} description={`Visited places on the map • ${site.title}`} bodyClass="overflow-hidden" hideFooter={true}>
+  <main class="h-[100dvh] min-h-[520px]">
+    <WorldMap client:only="react" baseUrl={baseUrl} points={travelPoints} postcards={postcards} />
+  </main>
+</BaseLayout>
