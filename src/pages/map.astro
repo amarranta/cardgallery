@@ -24,12 +24,22 @@ function buildCloudinaryUrls(publicId: string) {
   previewImage.format('auto').quality('auto');
   previewImage.resize(limitFit().width(1200));
 
+  const mapDesktopImage = cld.image(publicId);
+  mapDesktopImage.format('auto').quality('auto');
+  mapDesktopImage.resize(limitFit().width(800));
+
+  const mapImage = cld.image(publicId);
+  mapImage.format('auto').quality('auto');
+  mapImage.resize(limitFit().width(400));
+
   const thumbImage = cld.image(publicId);
   thumbImage.format('auto').quality('auto');
   thumbImage.resize(fill().width(480).height(360).gravity(autoGravity()));
 
   return {
     previewUrl: previewImage.toURL(),
+    mapUrl: mapDesktopImage.toURL(),
+    mapCompactUrl: mapImage.toURL(),
     thumbUrl: thumbImage.toURL()
   };
 }
@@ -39,6 +49,8 @@ type MapPostcard = {
   title?: string | null;
   description?: string | null;
   metadataDesc?: string | null;
+  mapCompactUrl?: string | null;
+  mapUrl?: string | null;
   thumbUrl: string;
   previewUrl: string;
 };
@@ -49,13 +61,16 @@ const postcards = (travelPoints as TravelPoint[])
     if (explicitId) {
       const item = allItems.find(candidate => candidate.id === explicitId);
       if (item) {
+        const optimized = cld ? buildCloudinaryUrls(item.id) : null;
         const card: MapPostcard = {
           id: item.id,
           title: item.title ?? null,
           description: item.description ?? null,
           metadataDesc: item?.metadata?.desc ?? null,
-          thumbUrl: item.thumbUrl,
-          previewUrl: item.previewUrl
+          mapCompactUrl: optimized?.mapCompactUrl ?? optimized?.mapUrl ?? optimized?.previewUrl ?? item.previewUrl,
+          mapUrl: optimized?.mapUrl ?? optimized?.previewUrl ?? item.previewUrl,
+          thumbUrl: optimized?.thumbUrl ?? item.thumbUrl,
+          previewUrl: optimized?.previewUrl ?? item.previewUrl
         };
         return card;
       }
@@ -69,6 +84,8 @@ const postcards = (travelPoints as TravelPoint[])
           title: point.city ?? null,
           description: point.description ?? null,
           metadataDesc: null,
+          mapCompactUrl: urls.mapCompactUrl ?? urls.mapUrl ?? urls.previewUrl,
+          mapUrl: urls.mapUrl ?? urls.previewUrl,
           thumbUrl: urls.thumbUrl,
           previewUrl: urls.previewUrl
         };
@@ -80,13 +97,17 @@ const postcards = (travelPoints as TravelPoint[])
     const byPlaceId = allItems.find(candidate => candidate.placeId === point.id);
     if (!byPlaceId) return null;
 
+    const optimized = cld ? buildCloudinaryUrls(byPlaceId.id) : null;
+
     const card: MapPostcard = {
       id: byPlaceId.id,
       title: byPlaceId.title ?? null,
       description: byPlaceId.description ?? null,
       metadataDesc: byPlaceId?.metadata?.desc ?? null,
-      thumbUrl: byPlaceId.thumbUrl,
-      previewUrl: byPlaceId.previewUrl
+      mapCompactUrl: optimized?.mapCompactUrl ?? optimized?.mapUrl ?? optimized?.previewUrl ?? byPlaceId.previewUrl,
+      mapUrl: optimized?.mapUrl ?? optimized?.previewUrl ?? byPlaceId.previewUrl,
+      thumbUrl: optimized?.thumbUrl ?? byPlaceId.thumbUrl,
+      previewUrl: optimized?.previewUrl ?? byPlaceId.previewUrl
     };
     return card;
   })

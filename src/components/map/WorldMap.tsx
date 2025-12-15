@@ -8,6 +8,8 @@ type MapPostcard = {
   title?: string | null;
   description?: string | null;
   metadataDesc?: string | null;
+  mapCompactUrl?: string | null;
+  mapUrl?: string | null;
   thumbUrl: string;
   previewUrl: string;
 };
@@ -170,7 +172,24 @@ function buildPopupContent(
   img.loading = 'lazy';
   img.decoding = 'async';
   img.alt = postcard.title ? `${postcard.title}` : point.city;
-  img.src = postcard.previewUrl || postcard.thumbUrl;
+
+  const prefersCompact =
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches;
+  const compactSrc =
+    postcard.mapCompactUrl || postcard.mapUrl || postcard.thumbUrl || postcard.previewUrl || '';
+  const desktopSrc = postcard.previewUrl || postcard.mapUrl || postcard.thumbUrl || '';
+
+  img.src = prefersCompact ? compactSrc : desktopSrc;
+
+  if (!prefersCompact && (postcard.mapCompactUrl || postcard.mapUrl) && postcard.previewUrl) {
+    const sources = [
+      postcard.mapCompactUrl ? `${postcard.mapCompactUrl} 400w` : null,
+      postcard.mapUrl ? `${postcard.mapUrl} 800w` : null,
+      `${postcard.previewUrl} 1200w`
+    ].filter(Boolean);
+    img.srcset = sources.join(', ');
+    img.sizes = 'min(520px, 45vw)';
+  }
   root.appendChild(img);
 
   return root;
