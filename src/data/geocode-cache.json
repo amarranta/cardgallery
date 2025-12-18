@@ -268,5 +268,113 @@
     "lng": 19.9368564,
     "city": "Krakow",
     "countryCode": "PL"
+  },
+  "NL:bussum": {
+    "lat": 52.2773656,
+    "lng": 5.1630646,
+    "city": "Bussum",
+    "countryCode": "NL"
+  },
+  "NL:groningen": {
+    "lat": 53.2190652,
+    "lng": 6.5680077,
+    "city": "Groningen",
+    "countryCode": "NL"
+  },
+  "NL:maastricht": {
+    "lat": 50.8579855,
+    "lng": 5.6969882,
+    "city": "Maastricht",
+    "countryCode": "NL"
+  },
+  "NL:den bosch": {
+    "lat": 51.6889387,
+    "lng": 5.303116,
+    "city": "Den Bosch",
+    "countryCode": "NL"
+  },
+  "NL:utrecht": {
+    "lat": 52.0907006,
+    "lng": 5.1215634,
+    "city": "Utrecht",
+    "countryCode": "NL"
+  },
+  "DE:volklingen": {
+    "lat": 49.2522866,
+    "lng": 6.859519,
+    "city": "Völklingen",
+    "countryCode": "DE"
+  },
+  "DE:essen": {
+    "lat": 51.4582235,
+    "lng": 7.0158171,
+    "city": "Essen",
+    "countryCode": "DE"
+  },
+  "BE:brussels": {
+    "lat": 50.8465573,
+    "lng": 4.351697,
+    "city": "Brussels",
+    "countryCode": "BE"
+  },
+  "NL:amsterdam": {
+    "lat": 52.3730796,
+    "lng": 4.8924534,
+    "city": "Amsterdam",
+    "countryCode": "NL"
+  },
+  "DE:fussen": {
+    "lat": 47.5675998,
+    "lng": 10.6993217,
+    "city": "Fussen",
+    "countryCode": "DE"
+  },
+  "FR:amboise": {
+    "lat": 47.4110351,
+    "lng": 0.983698,
+    "city": "Amboise",
+    "countryCode": "FR"
+  },
+  "FR:versailles": {
+    "lat": 48.8035403,
+    "lng": 2.1266886,
+    "city": "Versailles",
+    "countryCode": "FR"
+  },
+  "FR:beaugency": {
+    "lat": 47.7778775,
+    "lng": 1.6311944,
+    "city": "Beaugency",
+    "countryCode": "FR"
+  },
+  "CZ:cesky krumlov": {
+    "lat": 48.8106526,
+    "lng": 14.3150586,
+    "city": "Cesky Krumlov",
+    "countryCode": "CZ"
+  },
+  "RU:nizhny novgorod": {
+    "lat": 56.2769292,
+    "lng": 43.9212981,
+    "city": "Nizhny Novgorod",
+    "countryCode": "RU"
+  },
+  "FR:chambord": {
+    "lat": 48.8899454,
+    "lng": 0.6095948,
+    "city": "Chambord",
+    "countryCode": "FR"
+  },
+  "FR:chenonceaux": {
+    "lat": 47.332025,
+    "lng": 1.0704332,
+    "city": "Chenonceaux",
+    "countryCode": "FR"
+  },
+  "FR:cheverny": {
+    "lat": 47.4996989,
+    "lng": 1.4611064,
+    "city": "Cheverny",
+    "countryCode": "FR"
   }
 }

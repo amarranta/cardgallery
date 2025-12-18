@@ -108,6 +108,25 @@ function slugify(value) {
     .trim();
 }
 
+function normalizeCityAlias(value) {
+  const ascii = stripDiacritics(value);
+  return ascii
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const cityAliasMap = new Map([
+  ['RU:nizhy novgorod', 'Nizhny Novgorod']
+]);
+
+function applyCityAlias(countryCode, city) {
+  const key = `${countryCode.toUpperCase()}:${normalizeCityAlias(city)}`;
+  return cityAliasMap.get(key) || city;
+}
+
 function splitCamel(token) {
   return token.replace(/([a-z])([A-Z])/g, '$1 $2');
 }
@@ -272,7 +291,8 @@ async function main() {
     }
 
     const countryCode = parsed.countryCode;
-    const city = parsed.city;
+    let city = parsed.city;
+    city = applyCityAlias(countryCode, city);
 
     const cityKey = slugify(city);
     if (!cityConflicts.has(cityKey)) cityConflicts.set(cityKey, []);

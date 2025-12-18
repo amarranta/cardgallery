@@ -31,6 +31,16 @@
     "sourceFolder": "Countries"
   },
   {
+    "id": "at-salzburg",
+    "city": "Salzburg",
+    "countryCode": "AT",
+    "countryName": "Austria",
+    "lat": 47.8095,
+    "lng": 13.055,
+    "postcardId": null,
+    "description": null
+  },
+  {
     "id": "be-antwerp",
     "city": "Antwerp",
     "countryCode": "BE",
@@ -51,6 +61,47 @@
     "postcardId": "BE_Bruges_l5xn9d",
     "description": null,
     "sourceFolder": "Countries"
+  },
+  {
+    "id": "be-brussels",
+    "city": "Brussels",
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "lat": 50.8465573,
+    "lng": 4.351697,
+    "postcardId": "BE_Brussels_b1hia0",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "be-dinant",
+    "city": "Dinant",
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "lat": 50.2604,
+    "lng": 4.9117,
+    "postcardId": null,
+    "description": null
+  },
+  {
+    "id": "be-gent",
+    "city": "Gent",
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "lat": 51.0543,
+    "lng": 3.7174,
+    "postcardId": null,
+    "description": null
+  },
+  {
+    "id": "be-namur",
+    "city": "Namur",
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "lat": 50.4669,
+    "lng": 4.8675,
+    "postcardId": null,
+    "description": null
   },
   {
     "id": "by-minsk",
@@ -171,6 +222,17 @@
     "description": null
   },
   {
+    "id": "cz-cesky-krumlov",
+    "city": "Cesky Krumlov",
+    "countryCode": "CZ",
+    "countryName": "Czechia",
+    "lat": 48.8106526,
+    "lng": 14.3150586,
+    "postcardId": "CZ_CeskyKrumlov_e8zxq3",
+    "description": "First visited: 2013",
+    "sourceFolder": "Countries"
+  },
+  {
     "id": "cz-prague",
     "city": "Prague",
     "countryCode": "CZ",
@@ -182,6 +244,16 @@
     "sourceFolder": "Countries"
   },
   {
+    "id": "cz-plzen",
+    "city": "Plzen",
+    "countryCode": "CZ",
+    "countryName": "Czechia",
+    "lat": 49.738431,
+    "lng": 13.373637,
+    "postcardId": null,
+    "description": null
+  },
+  {
     "id": "berlin",
     "city": "Berlin",
     "countryCode": "DE",
@@ -191,6 +263,26 @@
     "postcardId": "DE_Berlin_ooxagm",
     "description": "First visited: 2016",
     "sourceFolder": "Countries"
+  },
+  {
+    "id": "de-baden-baden",
+    "city": "Baden-Baden",
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "lat": 48.7606,
+    "lng": 8.2398,
+    "postcardId": null,
+    "description": null
+  },
+  {
+    "id": "de-bremen",
+    "city": "Bremen",
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "lat": 53.0793,
+    "lng": 8.8017,
+    "postcardId": null,
+    "description": null
   },
   {
     "id": "de-cochem",
@@ -213,6 +305,38 @@
     "postcardId": "DE_Cologne_xqtxof",
     "description": "First visited: 2016",
     "sourceFolder": "Countries"
+  },
+  {
+    "id": "de-essen",
+    "city": "Essen",
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "lat": 51.4582235,
+    "lng": 7.0158171,
+    "postcardId": "DE_Essen_nwluge",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "de-fussen",
+    "city": "Fussen",
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "lat": 47.5675998,
+    "lng": 10.6993217,
+    "postcardId": "DE_Fussen_yvvis3",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "de-garmisch-partenkirchen",
+    "city": "Garmisch-Partenkirchen",
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "lat": 47.4917,
+    "lng": 11.0955,
+    "postcardId": null,
+    "description": null
   },
   {
     "id": "de-magdeburg",
@@ -243,6 +367,17 @@
     "lat": 49.7596208,
     "lng": 6.6441878,
     "postcardId": "DE_Trier_yadg2x",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "de-volklingen",
+    "city": "Völklingen",
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "lat": 49.2522866,
+    "lng": 6.859519,
+    "postcardId": "DE_Völklingen_wecqfg",
     "description": null,
     "sourceFolder": "Countries"
   },
@@ -329,6 +464,17 @@
     "sourceFolder": "Countries"
   },
   {
+    "id": "fr-amboise",
+    "city": "Amboise",
+    "countryCode": "FR",
+    "countryName": "France",
+    "lat": 47.4110351,
+    "lng": 0.983698,
+    "postcardId": "FR_Amboise_iqyap9",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
     "id": "fr-amiens",
     "city": "Amiens",
     "countryCode": "FR",
@@ -348,6 +494,50 @@
     "lng": -0.5515588,
     "postcardId": "FR_Angers_w08n8s",
     "description": "First visited: 2025",
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "fr-beaugency",
+    "city": "Beaugency",
+    "countryCode": "FR",
+    "countryName": "France",
+    "lat": 47.7778775,
+    "lng": 1.6311944,
+    "postcardId": "FR_Beaugency_dilrps",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "fr-chambord",
+    "city": "Chambord",
+    "countryCode": "FR",
+    "countryName": "France",
+    "lat": 48.8899454,
+    "lng": 0.6095948,
+    "postcardId": "FR_Chambord_sz1osn",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "fr-chenonceaux",
+    "city": "Chenonceaux",
+    "countryCode": "FR",
+    "countryName": "France",
+    "lat": 47.332025,
+    "lng": 1.0704332,
+    "postcardId": "FR_Chenonceaux_raoyli",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "fr-cheverny",
+    "city": "Cheverny",
+    "countryCode": "FR",
+    "countryName": "France",
+    "lat": 47.4996989,
+    "lng": 1.4611064,
+    "postcardId": "FR_Cheverny_hlikhl",
+    "description": null,
     "sourceFolder": "Countries"
   },
   {
@@ -414,6 +604,27 @@
     "lng": 1.0939658,
     "postcardId": "FR_Rouen_pd41ho",
     "description": "First visited: 2025",
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "fr-strasbourg",
+    "city": "Strasbourg",
+    "countryCode": "FR",
+    "countryName": "France",
+    "lat": 48.5734053,
+    "lng": 7.7521113,
+    "postcardId": null,
+    "description": null
+  },
+  {
+    "id": "fr-versailles",
+    "city": "Versailles",
+    "countryCode": "FR",
+    "countryName": "France",
+    "lat": 48.8035403,
+    "lng": 2.1266886,
+    "postcardId": "FR_Versailles_xttew0",
+    "description": null,
     "sourceFolder": "Countries"
   },
   {
@@ -628,6 +839,72 @@
     "description": null
   },
   {
+    "id": "nl-amsterdam",
+    "city": "Amsterdam",
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "lat": 52.3730796,
+    "lng": 4.8924534,
+    "postcardId": "NL_Amsterdam_dmyiix",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "nl-bussum",
+    "city": "Bussum",
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "lat": 52.2773656,
+    "lng": 5.1630646,
+    "postcardId": "NL_Bussum_zvxcwf",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "nl-den-bosch",
+    "city": "Den Bosch",
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "lat": 51.6889387,
+    "lng": 5.303116,
+    "postcardId": "NL_DenBosch_loup0t",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "nl-groningen",
+    "city": "Groningen",
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "lat": 53.2190652,
+    "lng": 6.5680077,
+    "postcardId": "NL_Groningen_vnwi6g",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "nl-maastricht",
+    "city": "Maastricht",
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "lat": 50.8579855,
+    "lng": 5.6969882,
+    "postcardId": "NL_Maastricht_xciwfw",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "nl-utrecht",
+    "city": "Utrecht",
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "lat": 52.0907006,
+    "lng": 5.1215634,
+    "postcardId": "NL_Utrecht_k9lxjj",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
     "id": "pl-krakow",
     "city": "Krakow",
     "countryCode": "PL",
@@ -717,6 +994,17 @@
     "lat": 55.625578,
     "lng": 37.6063916,
     "postcardId": "RU_Moscow_rwklll",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "ru-nizhny-novgorod",
+    "city": "Nizhny Novgorod",
+    "countryCode": "RU",
+    "countryName": "Russia",
+    "lat": 56.2769292,
+    "lng": 43.9212981,
+    "postcardId": "RU_NizhyNovgorod_kv28zb",
     "description": null,
     "sourceFolder": "Countries"
   },
