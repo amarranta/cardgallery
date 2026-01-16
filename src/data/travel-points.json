@@ -677,8 +677,9 @@
     "countryName": "Italy",
     "lat": 40.5531,
     "lng": 14.2227,
-    "postcardId": null,
-    "description": null
+    "postcardId": "IT_Capri_rlbit8",
+    "description": null,
+    "sourceFolder": "Countries"
   },
   {
     "id": "it-florence",
@@ -723,14 +724,26 @@
     "sourceFolder": "Countries"
   },
   {
-    "id": "it-pompei",
-    "city": "Pompei",
+    "id": "it-naples",
+    "city": "Naples",
+    "countryCode": "IT",
+    "countryName": "Italy",
+    "lat": 40.8518,
+    "lng": 14.2681,
+    "postcardId": "IT_Naples_nmvzly",
+    "description": null,
+    "sourceFolder": "Countries"
+  },
+  {
+    "id": "it-pompeii",
+    "city": "Pompeii",
     "countryCode": "IT",
     "countryName": "Italy",
     "lat": 40.7489,
     "lng": 14.501,
-    "postcardId": null,
-    "description": null
+    "postcardId": "IT_Pompeii_enmae3",
+    "description": null,
+    "sourceFolder": "Countries"
   },
   {
     "id": "it-rome",
