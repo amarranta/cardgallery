@@ -58,6 +58,15 @@ const ogImage = customOgImage || defaultOgImage;
       // For other languages, wait for DOMContentLoaded + localization
     })();
   </script>
+  <script is:inline>
+    // Theme initialization - prevent flash of wrong theme
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light');
+      }
+    })();
+  </script>
   </head>
   <body class={`bg-linen text-primary ${bodyClass}`}>
     <div class="min-h-screen flex flex-col">

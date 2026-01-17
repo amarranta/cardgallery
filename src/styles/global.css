@@ -2,7 +2,96 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== DARK THEME (Deep Forest) - DEFAULT ===== */
 :root {
+  --deep-olive: #9eb589;
+  --sage: #9eb589;
+  --linen: #0f1510;
+  --sand: #3d4a35;
+  --accent: #a8c99b;
+  --accent-light: rgba(158, 181, 137, 0.16);
+  --olive-700: #a8c99b;
+  --text-primary: #e8ece5;
+  --text-muted: #a3ab98;
+  --text-ink-900: #f5f7f4;
+  --text-card: #fdfcf8;
+  --text-card-muted: rgba(253, 252, 248, 0.87);
+  --text-banner: #98b68f;
+  --text-lightbox-base: #f3f9f1;
+  --text-lightbox-heading: #f5f9f3;
+  --text-lightbox-accent: #9fbf92;
+  --text-lightbox-body: #c9d7c4;
+  --text-lightbox-title: #dcf8d6;
+  --text-lightbox-link: #e0f9db;
+  --text-fallback: #7b8e74;
+  --text-toggle: rgba(168, 180, 160, 0.78);
+  --text-toggle-strong: rgba(232, 236, 229, 0.95);
+  --text-toggle-on: #f0f6fe;
+
+  --paper: #0f1510;
+  --surface-card: #1e2a21;
+  --surface-card-grid: #1a231c;
+  --surface-card-tile: rgba(158, 181, 137, 0.15);
+  --surface-sidebar: #151c17;
+  --surface-sidebar-hover: rgba(158, 181, 137, 0.12);
+  --surface-sidebar-active: rgba(158, 181, 137, 0.18);
+  --surface-sidebar-tag: rgba(158, 181, 137, 0.15);
+  --surface-gradient-warm: #121a14;
+  --surface-gradient-warm-soft: rgba(18, 26, 20, 0.8);
+  --surface-gradient-hero-from: rgba(158, 181, 137, 0.06);
+  --surface-gradient-hero-to: rgba(61, 74, 53, 0.2);
+  --surface-banner: rgba(18, 26, 18, 0.92);
+  --surface-tonal: rgba(30, 42, 33, 0.85);
+  --surface-toggle: rgba(30, 42, 33, 0.78);
+  --surface-backdrop: rgba(6, 9, 7, 0.95);
+  --surface-backdrop-strong: rgba(15, 21, 16, 0.95);
+  --surface-backdrop-hover: rgba(32, 40, 30, 0.95);
+  --surface-backdrop-compact: rgba(34, 44, 32, 0.85);
+  --surface-backdrop-compact-hover: rgba(42, 54, 40, 0.96);
+  --surface-tag: rgba(20, 32, 22, 0.85);
+  --surface-tag-hover: rgba(32, 48, 34, 0.96);
+  --surface-fallback: #1a231c;
+  --surface-header: rgba(21, 28, 23, 0.95);
+  --surface-chip: rgba(30, 42, 33, 0.85);
+
+  --overlay-card: rgba(15, 21, 16, 0.85);
+  --overlay-gradient-start: rgba(10, 16, 11, 0);
+  --overlay-gradient-end: rgba(5, 8, 6, 0.95);
+
+  --border-panel: rgba(158, 181, 137, 0.2);
+  --border-card: rgba(158, 181, 137, 0.25);
+  --border-card-strong: rgba(158, 181, 137, 0.35);
+  --border-chip-muted: rgba(158, 181, 137, 0.2);
+  --border-chip-accent: rgba(158, 181, 137, 0.35);
+  --border-lightbox: rgba(112, 154, 108, 0.32);
+  --border-lightbox-strong: rgba(140, 196, 132, 0.5);
+  --border-lightbox-lift: rgba(140, 196, 132, 0.48);
+  --border-banner: rgba(117, 157, 112, 0.35);
+  --border-sidebar: rgba(158, 181, 137, 0.18);
+  --border-sidebar-strong: rgba(158, 181, 137, 0.3);
+  --border-avatar: rgba(158, 181, 137, 0.3);
+  --border-toggle: rgba(158, 181, 137, 0.2);
+  --border-toggle-hover: rgba(158, 181, 137, 0.3);
+  --border-toggle-active: rgba(134, 212, 140, 0.82);
+  --border-tag-pill: rgba(128, 186, 121, 0.75);
+  --border-tag-pill-hover: rgba(153, 221, 145, 0.85);
+  --border-profile: rgba(158, 181, 137, 0.15);
+
+  --shadow-surface: 0 8px 18px rgba(0, 0, 0, 0.4);
+  --shadow-overlay: 0 16px 36px rgba(0, 0, 0, 0.6);
+
+  --state-hover-forest: rgba(158, 181, 137, 0.08);
+  --state-hover-forest-strong: rgba(158, 181, 137, 0.14);
+  --state-hover-forest-tint: rgba(158, 181, 137, 0.2);
+  --state-focus-ring: rgba(158, 181, 137, 0.4);
+  --state-focus-chip: rgba(158, 181, 137, 0.45);
+  --state-focus-toggle: rgba(134, 212, 140, 0.9);
+
+  --brand-toggle: #5b9bd5;
+}
+
+/* ===== LIGHT THEME (Original Linen) ===== */
+html.light {
   --deep-olive: #435339;
   --sage: #9eb589;
   --linen: #ede4d2;
@@ -50,6 +139,8 @@
   --surface-tag: rgba(20, 32, 22, 0.85);
   --surface-tag-hover: rgba(32, 48, 34, 0.96);
   --surface-fallback: #efe7d8;
+  --surface-header: rgba(255, 255, 255, 0.95);
+  --surface-chip: rgba(255, 255, 255, 0.8);
 
   --overlay-card: rgba(23, 30, 22, 0.78);
   --overlay-gradient-start: rgba(10, 16, 11, 0);
@@ -174,7 +265,7 @@
   }
 
   .chip[data-tone='muted'] {
-    @apply border-chip-muted bg-white/80 text-muted;
+    @apply border-chip-muted bg-surface-chip text-muted;
   }
 
   .chip[data-tone='accent'] {

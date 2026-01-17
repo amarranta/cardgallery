@@ -78,7 +78,9 @@ module.exports = {
         fallback: {
           surface: 'var(--surface-fallback)',
           text: 'var(--text-fallback)'
-        }
+        },
+        'surface-header': 'var(--surface-header)',
+        'surface-chip': 'var(--surface-chip)'
       },
       boxShadow: {
         surface: 'var(--shadow-surface)',

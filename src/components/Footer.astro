@@ -1,9 +1,13 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
 ---
 <footer class="border-t border-footer-border py-6 text-sm text-footer-text">
   <div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 text-center">
-    <LanguageSwitcher />
+    <div class="flex items-center gap-4">
+      <ThemeToggle />
+      <LanguageSwitcher />
+    </div>
     <p>
       ✉️ <a class="underline" href="https://www.postcrossing.com/user/amarantha" target="_blank" rel="noopener noreferrer" data-i18n="footer.postcrossingLink">Amarantha on Postcrossing</a>
       · <span data-i18n="footer.bugReport">Spotted a misprint or glitch?</span> <a class="underline" href="mailto:amarrantha@yandex.com?subject=Gallery%20bug%20report" data-i18n="footer.sendNote">Send me a note!</a>
