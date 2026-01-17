@@ -5,8 +5,19 @@ export function localizeStaticText() {
   // Get current locale each time (in case user switched language)
   const locale = getUserLocale();
   
-  // Skip localization for English - use HTML content as-is
+  // For English, only localize tags (to prettify codes like "bluecats" -> "Blue Cats")
   if (locale === 'en') {
+    // Localize tags via data-i18n="tags.*"
+    document.querySelectorAll('[data-i18n^="tags."]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(locale, key);
+        // Only update if translation exists (not returning the key itself)
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
     document.documentElement.classList.add('i18n-ready');
     return;
   }
@@ -15,7 +26,11 @@ export function localizeStaticText() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (key) {
-      el.textContent = t(locale, key);
+      const translated = t(locale, key);
+      // Only update if translation exists (not returning the key itself)
+      if (translated !== key) {
+        el.textContent = translated;
+      }
     }
   });
   

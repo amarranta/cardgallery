@@ -1,4 +1,6 @@
 ---
+import { filterVisibleTags } from '../data/tag-visibility.js';
+
 interface TagItem {
   slug: string;
   label: string;
@@ -10,16 +12,17 @@ interface TagListProps {
 }
 
 const { tags = [], activeTag = null } = Astro.props as TagListProps;
+const visibleTags = filterVisibleTags(tags);
 ---
 <ul class="cluster-shell flex flex-wrap gap-2" data-spacing="stack">
-  {tags.map(tag => (
+  {visibleTags.map(tag => (
     <li>
       <a
         class="chip"
         data-tone={activeTag === tag.slug ? 'accent' : 'muted'}
         data-state={activeTag === tag.slug ? 'active' : undefined}
-  href={`${import.meta.env.BASE_URL}tag/${tag.slug}`}
-        data-tag-label={tag.label}
+        href={`${import.meta.env.BASE_URL}tag/${tag.slug}`}
+        data-i18n={`tags.${tag.label}`}
       >
         {tag.label}
       </a>

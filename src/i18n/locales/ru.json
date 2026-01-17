@@ -90,14 +90,14 @@
     "Meet Up Cards": "Встречные"
   },
   "tags": {
+    "envelope": "В конверте",
     "illustration": "Иллюстрации",
     "bluecats": "Синие коты",
     "Museum": "Из музеев",
     "Boomerang": "Бумеранг",
-    "Free": "Промо",
     "Meetup": "Встречные",
-    "birds": "Птицы",
-    "Dutch-style": "в голландском стиле"
+    "Birds": "Птицы",
+    "Dutch-style": "В голландском стиле"
   },
   "about": {
     "title": "Обо мне",

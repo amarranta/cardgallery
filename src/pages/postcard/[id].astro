@@ -7,6 +7,7 @@ import ImageGrid from '../../components/ImageGrid.astro';
 import LayoutToggle from '../../components/LayoutToggle.astro';
 import TagList from '../../components/TagList.astro';
 import { getAlbums, getTags, getItemById, getItemPaths, getAlbumBySlug, hero, site } from '../../data/gallery.js';
+import { filterVisibleTags } from '../../data/tag-visibility.js';
 
 export function getStaticPaths() {
   return getItemPaths();
@@ -35,6 +36,7 @@ const backLabel = item.albumName ? `Back to ${item.albumName}` : 'Back to all po
 const backHref = item.albumSlug ? `${import.meta.env.BASE_URL}album/${item.albumSlug}` : `${import.meta.env.BASE_URL}postcards`;
 
 const gridId = `postcard-grid-${item.albumSlug || 'single'}`;
+const visibleItemTags = filterVisibleTags(Array.isArray(item.tagDetails) ? item.tagDetails : []);
 
 // Use the postcard's preview image for OG tags
 const ogImageUrl = item.previewUrl || item.gridUrl || item.thumbUrl;
@@ -54,12 +56,12 @@ const ogImageUrl = item.previewUrl || item.gridUrl || item.thumbUrl;
         <LayoutToggle targetId={gridId} />
       </div>
       <ImageGrid items={albumItems} gridId={gridId} />
-      {tags.length > 0 && item.tags && item.tags.length > 0 && (
+      {visibleItemTags.length > 0 && (
         <section class="pb-12">
           <h3 class="px-6 text-sm font-semibold uppercase tracking-[0.3em] text-muted md:px-9">
             Tags on this postcard
           </h3>
-          <TagList tags={item.tagDetails || []} />
+          <TagList tags={visibleItemTags} />
         </section>
       )}
     </main>
