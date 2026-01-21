@@ -8,6 +8,7 @@ const galleryData = rawGallery || {};
 const dataRoot = galleryData.root || '';
 const cloudName = galleryData.cloudName || deriveCloudName(galleryData);
 const cld = cloudName ? new Cloudinary({ cloud: { cloudName } }) : null;
+const hiddenAlbumSlugs = new Set(['envelope']);
 
 function deriveCloudName(data) {
   const folders = Object.values(data.folders || {});
@@ -179,9 +180,27 @@ const getOrderIndex = (id, name) => {
   return null;
 };
 
+function isAlbumHiddenInternal(album) {
+  if (!album) return false;
+  return hiddenAlbumSlugs.has(album.slug) || hiddenAlbumSlugs.has(album.id);
+}
+
+function buildItemList(sourceAlbums) {
+  return sourceAlbums.flatMap(album =>
+    album.items.map((item, index) => ({
+      ...item,
+      albumId: album.id,
+      albumSlug: album.slug,
+      albumName: album.name,
+      albumIndex: index,
+      albumOrderIndex: typeof album.orderIndex === 'number' ? album.orderIndex : Number.POSITIVE_INFINITY
+    }))
+  );
+}
+
 function buildAlbums() {
   const entries = Object.entries(galleryData.folders || {});
-  const albums = entries
+  const allAlbums = entries
     .map(([folder, rawItems]) => {
       const cleanedId = cleanFolderId(folder);
       const items = (rawItems || []).map(item => normaliseItem(item, cleanedId));
@@ -206,29 +225,44 @@ function buildAlbums() {
       return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
     });
 
-  const { map: tagMap, list: tags } = buildTagIndex(albums);
+  const hiddenAlbumIds = new Set(
+    allAlbums.filter(album => isAlbumHiddenInternal(album)).map(album => album.id)
+  );
+  const albums = allAlbums.filter(album => !hiddenAlbumIds.has(album.id));
+  const { map: tagMap, list: tags } = buildTagIndex(allAlbums);
 
   return {
+    allAlbums,
     albums,
     tags,
-    tagMap
+    tagMap,
+    hiddenAlbumIds
   };
 }
 
-const { albums, tags, tagMap } = buildAlbums();
+const { allAlbums, albums, tags, tagMap, hiddenAlbumIds } = buildAlbums();
 
 export function getAlbums() {
   return albums;
 }
 
 export function getAlbumBySlug(slug) {
-  return albums.find(album => album.slug === slug);
+  return allAlbums.find(album => album.slug === slug);
 }
 
 export function getAlbumPaths() {
   return albums.map(album => ({
     params: { album: album.slug }
   }));
+}
+
+export function isAlbumHidden(albumOrSlug) {
+  if (!albumOrSlug) return false;
+  if (typeof albumOrSlug === 'string') {
+    const album = allAlbums.find(entry => entry.slug === albumOrSlug || entry.id === albumOrSlug);
+    return album ? hiddenAlbumIds.has(album.id) : false;
+  }
+  return hiddenAlbumIds.has(albumOrSlug.id);
 }
 
 export function getTags() {
@@ -251,16 +285,11 @@ export function getItemsForTag(code) {
 }
 
 export function getAllItems() {
-  return albums.flatMap(album =>
-    album.items.map((item, index) => ({
-      ...item,
-      albumId: album.id,
-      albumSlug: album.slug,
-      albumName: album.name,
-      albumIndex: index,
-      albumOrderIndex: typeof album.orderIndex === 'number' ? album.orderIndex : Number.POSITIVE_INFINITY
-    }))
-  );
+  return buildItemList(allAlbums);
+}
+
+export function getVisibleItems() {
+  return buildItemList(albums);
 }
 
 export function getItemById(id) {

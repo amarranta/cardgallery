@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WorldMap from '../components/map/WorldMap';
 import travelPoints from '../data/travel-points.json';
-import { getAllItems, site } from '../data/gallery.js';
+import { getVisibleItems, site } from '../data/gallery.js';
 import rawGallery from '../data/gallery.json';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { fill, limitFit } from '@cloudinary/url-gen/actions/resize';
@@ -12,7 +12,7 @@ type TravelPoint = (typeof travelPoints)[number];
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 
-const allItems = getAllItems();
+const allItems = getVisibleItems();
 
 const cloudName = rawGallery?.cloudName || null;
 const cld = cloudName ? new Cloudinary({ cloud: { cloudName } }) : null;

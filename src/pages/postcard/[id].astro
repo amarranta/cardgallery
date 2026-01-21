@@ -6,7 +6,7 @@ import ViewHeader from '../../components/ViewHeader.astro';
 import ImageGrid from '../../components/ImageGrid.astro';
 import LayoutToggle from '../../components/LayoutToggle.astro';
 import TagList from '../../components/TagList.astro';
-import { getAlbums, getTags, getItemById, getItemPaths, getAlbumBySlug, hero, site } from '../../data/gallery.js';
+import { getAlbums, getTags, getItemById, getItemPaths, getAlbumBySlug, isAlbumHidden, hero, site } from '../../data/gallery.js';
 import { filterVisibleTags } from '../../data/tag-visibility.js';
 
 export function getStaticPaths() {
@@ -26,14 +26,18 @@ const tags = getTags();
 // Get the album this item belongs to
 const parentAlbum = getAlbumBySlug(item.albumSlug);
 
+const albumIsHidden = parentAlbum ? isAlbumHidden(parentAlbum) : false;
+
 // Use album items if available, otherwise fallback to just this item
-const albumItems = parentAlbum ? parentAlbum.items : [item];
+const albumItems = parentAlbum && !albumIsHidden ? parentAlbum.items : [item];
 const itemIndex = albumItems.findIndex(i => i.id === id);
 
 const pageTitle = item.metadata?.name || item.title || 'Postcard';
 const pageDescription = item.metadata?.desc || item.description || `View ${pageTitle} on ${site.title}`;
-const backLabel = item.albumName ? `Back to ${item.albumName}` : 'Back to all postcards';
-const backHref = item.albumSlug ? `${import.meta.env.BASE_URL}album/${item.albumSlug}` : `${import.meta.env.BASE_URL}postcards`;
+const backLabel = item.albumName && !albumIsHidden ? `Back to ${item.albumName}` : 'Back to all folders';
+const backHref = !albumIsHidden && item.albumSlug
+  ? `${import.meta.env.BASE_URL}album/${item.albumSlug}`
+  : import.meta.env.BASE_URL;
 
 const gridId = `postcard-grid-${item.albumSlug || 'single'}`;
 const visibleItemTags = filterVisibleTags(Array.isArray(item.tagDetails) ? item.tagDetails : []);

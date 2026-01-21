@@ -6,11 +6,11 @@ import ViewHeader from '../components/ViewHeader.astro';
 import ImageGrid from '../components/ImageGrid.astro';
 import LayoutToggle from '../components/LayoutToggle.astro';
 import TagList from '../components/TagList.astro';
-import { getAlbums, getTags, getAllItems, hero, site } from '../data/gallery.js';
+import { getAlbums, getTags, getVisibleItems, hero, site } from '../data/gallery.js';
 
 const albums = getAlbums();
 const tags = getTags();
-const allItems = getAllItems();
+const allItems = getVisibleItems();
 const sortedItems = allItems
   .slice()
   .sort((a, b) => {
