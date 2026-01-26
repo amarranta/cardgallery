@@ -113,6 +113,38 @@
     "contact": {
       "title": "Get in touch",
       "text": "Interested in my postcards? Feel free to contact me on the Postcrossing forum:"
+    },
+    "library": {
+      "title": "My library",
+      "text": "After moving to another country I left all my books behind. But recently I have started to rebuild my book library."
+    }
+  },
+  "books": {
+    "title": "My Library",
+    "subtitle": "Books I've read and am reading",
+    "table": {
+      "title": "Title",
+      "author": "Author",
+      "year": "Year",
+      "genre": "Genre",
+      "status": "Status"
+    },
+    "status": {
+      "read": "Read",
+      "reading": "Reading",
+      "want": "Want to read"
+    },
+    "count": ["{count} books", "{count} book", "{count} books"],
+    "languages": {
+      "en": "English",
+      "ru": "Russian",
+      "nl": "Dutch",
+      "de": "German",
+      "fr": "French",
+      "es": "Spanish",
+      "it": "Italian",
+      "ja": "Japanese",
+      "zh": "Chinese"
     }
   }
 }

@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/gallery.js';
+import booksData from '../data/books.json';
+
+// Group books by language
+const booksByLanguage = booksData.reduce((acc, book) => {
+  if (!acc[book.language]) {
+    acc[book.language] = [];
+  }
+  acc[book.language].push(book);
+  return acc;
+}, {} as Record<string, typeof booksData>);
+
+// Sort books by author's last name within each language
+Object.keys(booksByLanguage).forEach(lang => {
+  booksByLanguage[lang].sort((a, b) => {
+    const authorA = a.author.split(' ').pop() || a.author;
+    const authorB = b.author.split(' ').pop() || b.author;
+    return authorA.localeCompare(authorB, lang === 'ru' ? 'ru' : 'en');
+  });
+});
+
+// Language display names
+const languageNames: Record<string, { en: string, ru: string }> = {
+  en: { en: 'English', ru: 'Английский' },
+  ru: { en: 'Russian', ru: 'Русский' },
+  nl: { en: 'Dutch', ru: 'Голландский' },
+  de: { en: 'German', ru: 'Немецкий' },
+  fr: { en: 'French', ru: 'Французский' },
+  es: { en: 'Spanish', ru: 'Испанский' },
+  it: { en: 'Italian', ru: 'Итальянский' },
+  ja: { en: 'Japanese', ru: 'Японский' },
+  zh: { en: 'Chinese', ru: 'Китайский' },
+};
+---
+<BaseLayout title={`Books | ${site.title}`} description="My book collection">
+  <div class="flex min-h-screen flex-col">
+    <main class="flex flex-1 flex-col overflow-hidden">
+      <div class="border-b border-sidebar-strong bg-header px-6 py-4 md:px-9 lg:px-12">
+        <nav class="flex items-center gap-2 text-sm text-muted">
+          <a href={`${import.meta.env.BASE_URL}about`} class="transition hover:text-accent" data-i18n="nav.aboutMe">About me</a>
+          <span>/</span>
+          <span class="text-primary" data-i18n="books.title">My Library</span>
+        </nav>
+      </div>
+      <div class="flex-1 overflow-y-auto px-6 py-8 md:px-9 lg:px-12">
+        <div class="max-w-7xl">
+          {Object.entries(booksByLanguage).sort(([a], [b]) => a.localeCompare(b)).map(([lang, books]) => (
+            <section class="mb-12">
+              <h2 class="mb-4 text-2xl font-bold" data-i18n={`books.languages.${lang}`}>
+                {languageNames[lang]?.en || lang.toUpperCase()}
+              </h2>
+              <div class="overflow-x-auto rounded-lg border border-sidebar-strong bg-sidebar shadow-surface">
+                <table class="w-full min-w-[640px]">
+                  <thead>
+                    <tr class="border-b border-sidebar-strong bg-sidebar-hover">
+                      <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider text-muted" data-i18n="books.table.title">Title</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider text-muted" data-i18n="books.table.author">Author</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider text-muted" data-i18n="books.table.year">Year</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider text-muted" data-i18n="books.table.genre">Genre</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {books.map((book, index) => (
+                      <tr class={`transition hover:bg-sidebar-hover ${index !== books.length - 1 ? 'border-b border-sidebar-strong' : ''}`}>
+                        <td class="px-4 py-3 font-medium">{book.title}</td>
+                        <td class="px-4 py-3 text-muted">{book.author}</td>
+                        <td class="px-4 py-3 text-muted">{book.year}</td>
+                        <td class="px-4 py-3 text-sm text-muted">{book.genre}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="mt-2 text-sm text-muted">
+                <span data-i18n="books.count" data-i18n-params={JSON.stringify({ count: books.length })}>
+                  {books.length} {books.length === 1 ? 'book' : 'books'}
+                </span>
+              </p>
+            </section>
+          ))}
+        </div>
+      </div>
+    </main>
+  </div>
+</BaseLayout>

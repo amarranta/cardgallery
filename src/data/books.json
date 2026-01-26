@@ -1,0 +1,497 @@
+[
+  {
+    "id": 1,
+    "title": "The Sandman: Absolute Editions (Vol 1-5)",
+    "author": "Neil Gaiman",
+    "year": 2006,
+    "genre": "Graphic Novel / Fantasy",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 2,
+    "title": "Fragile Things",
+    "author": "Neil Gaiman",
+    "year": 2006,
+    "genre": "Fantasy / Short Stories",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 3,
+    "title": "The Graveyard Book",
+    "author": "Neil Gaiman",
+    "year": 2008,
+    "genre": "Fantasy",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 4,
+    "title": "Norse Mythology",
+    "author": "Neil Gaiman",
+    "year": 2017,
+    "genre": "Mythology",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 5,
+    "title": "Discworld Series (Mort, Reaper Man, Small Gods, etc.)",
+    "author": "Terry Pratchett",
+    "year": 1983,
+    "genre": "Fantasy",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 6,
+    "title": "The Ultimate Hitchhiker's Guide to the Galaxy",
+    "author": "Douglas Adams",
+    "year": 1979,
+    "genre": "Sci-Fi",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 7,
+    "title": "Once & Future (Deluxe Edition)",
+    "author": "Kieron Gillen & Dan Mora",
+    "year": 2019,
+    "genre": "Graphic Novel",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 8,
+    "title": "Strange Planet",
+    "author": "Nathan W. Pyle",
+    "year": 2019,
+    "genre": "Graphic Novel / Humor",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 9,
+    "title": "Persepolis",
+    "author": "Marjane Satrapi",
+    "year": 2000,
+    "genre": "Graphic Novel / Memoir",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 10,
+    "title": "The Casual Vacancy",
+    "author": "J.K. Rowling",
+    "year": 2012,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 11,
+    "title": "Tomorrow, and Tomorrow, and Tomorrow",
+    "author": "Gabrielle Zevin",
+    "year": 2022,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 12,
+    "title": "A Gentleman in Moscow",
+    "author": "Amor Towles",
+    "year": 2016,
+    "genre": "Historical Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 13,
+    "title": "The Midnight Library",
+    "author": "Matt Haig",
+    "year": 2020,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 14,
+    "title": "All the Light We Cannot See",
+    "author": "Anthony Doerr",
+    "year": 2014,
+    "genre": "Historical Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 15,
+    "title": "Room",
+    "author": "Emma Donoghue",
+    "year": 2010,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 16,
+    "title": "Eleanor Oliphant is Completely Fine",
+    "author": "Gail Honeyman",
+    "year": 2017,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 17,
+    "title": "The White Tiger",
+    "author": "Aravind Adiga",
+    "year": 2008,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 18,
+    "title": "The Girl with the Dragon Tattoo",
+    "author": "Stieg Larsson",
+    "year": 2005,
+    "genre": "Thriller",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 19,
+    "title": "Water for Elephants",
+    "author": "Sara Gruen",
+    "year": 2006,
+    "genre": "Historical Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 20,
+    "title": "The Unlikely Pilgrimage of Harold Fry",
+    "author": "Rachel Joyce",
+    "year": 2012,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 21,
+    "title": "If on a Winter's Night a Traveller",
+    "author": "Italo Calvino",
+    "year": 1979,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 22,
+    "title": "Extremely Loud & Incredibly Close",
+    "author": "Jonathan Safran Foer",
+    "year": 2005,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 23,
+    "title": "On the Road",
+    "author": "Jack Kerouac",
+    "year": 1957,
+    "genre": "Classic Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 24,
+    "title": "Lord of the Flies",
+    "author": "William Golding",
+    "year": 1954,
+    "genre": "Classic Fiction",
+    "status": "read",
+    "language": "en"
+  },
+  {
+    "id": 25,
+    "title": "Вино из одуванчиков",
+    "author": "Рэй Брэдбери",
+    "year": 1957,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 26,
+    "title": "Что-то страшное грядёт",
+    "author": "Рэй Брэдбери",
+    "year": 1962,
+    "genre": "Fiction / Horror",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 27,
+    "title": "Марсианские хроники",
+    "author": "Рэй Брэдбери",
+    "year": 1950,
+    "genre": "Sci-Fi",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 28,
+    "title": "451° по Фаренгейту",
+    "author": "Рэй Брэдбери",
+    "year": 1953,
+    "genre": "Sci-Fi",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 29,
+    "title": "Смерть — дело одинокое",
+    "author": "Рэй Брэдбери",
+    "year": 1985,
+    "genre": "Mystery",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 30,
+    "title": "Мы",
+    "author": "Евгений Замятин",
+    "year": 1920,
+    "genre": "Sci-Fi / Dystopia",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 31,
+    "title": "Террор",
+    "author": "Дэн Симмонс",
+    "year": 2007,
+    "genre": "Horror / Historical",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 32,
+    "title": "Зулейха открывает глаза",
+    "author": "Гузель Яхина",
+    "year": 2015,
+    "genre": "Historical Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 33,
+    "title": "Петровы в гриппе и вокруг него",
+    "author": "Алексей Сальников",
+    "year": 2016,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 34,
+    "title": "Ананасная вода для прекрасной дамы",
+    "author": "Виктор Пелевин",
+    "year": 2010,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 35,
+    "title": "Бабушка велела кланяться и передать, что просит прощения",
+    "author": "Фредрик Бакман",
+    "year": 2013,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 36,
+    "title": "Степной волк",
+    "author": "Герман Гессе",
+    "year": 1927,
+    "genre": "Classic Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 37,
+    "title": "Процесс",
+    "author": "Франц Кафка",
+    "year": 1925,
+    "genre": "Classic Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 38,
+    "title": "Маленькие женщины",
+    "author": "Луиза Мэй Олкотт",
+    "year": 1868,
+    "genre": "Classic Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 39,
+    "title": "Хоббит",
+    "author": "Дж. Р. Р. Толкин",
+    "year": 1937,
+    "genre": "Fantasy",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 40,
+    "title": "Ночной администратор",
+    "author": "Джон ле Карре",
+    "year": 1993,
+    "genre": "Thriller",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 41,
+    "title": "Среди овец и козлищ",
+    "author": "Джоанна Кэннон",
+    "year": 2016,
+    "genre": "Mystery",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 42,
+    "title": "Город не принимает",
+    "author": "Лана Лисик",
+    "year": 2019,
+    "genre": "Fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 43,
+    "title": "Хулиномика",
+    "author": "Алексей Марков",
+    "year": 2017,
+    "genre": "Economics / Non-fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 44,
+    "title": "Капитал",
+    "author": "Алексей Марков",
+    "year": 2022,
+    "genre": "Economics / Non-fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 45,
+    "title": "Гладь, люби, хвали",
+    "author": "Анастасия Бобкова, Надежда Пигарева",
+    "year": 2019,
+    "genre": "Non-fiction / Dogs",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 46,
+    "title": "Гладь, люби, хвали 2",
+    "author": "Анастасия Бобкова, Надежда Пигарева",
+    "year": 2021,
+    "genre": "Non-fiction / Dogs",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 47,
+    "title": "К северу от 38-й параллели",
+    "author": "Андрей Ланьков",
+    "year": 2004,
+    "genre": "History / Non-fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 48,
+    "title": "Не только кимчи",
+    "author": "Андрей Ланьков",
+    "year": 2019,
+    "genre": "History / Non-fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 49,
+    "title": "Краткая история Японии",
+    "author": "Александр Мещеряков",
+    "year": 2020,
+    "genre": "History",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 50,
+    "title": "Всем Иран",
+    "author": "Никита Смагин",
+    "year": 2023,
+    "genre": "History / Non-fiction",
+    "status": "read",
+    "language": "ru"
+  },
+  {
+    "id": 51,
+    "title": "Hoe dan?",
+    "author": "Randall Munroe",
+    "year": 2014,
+    "genre": "Science / Humor",
+    "status": "read",
+    "language": "nl"
+  },
+  {
+    "id": 52,
+    "title": "Pogingen iets van het leven te maken",
+    "author": "Hendrik Groen",
+    "year": 2014,
+    "genre": "Fiction / Humor",
+    "status": "read",
+    "language": "nl"
+  },
+  {
+    "id": 53,
+    "title": "Zomerhuis met zwembad",
+    "author": "Herman Koch",
+    "year": 2011,
+    "genre": "Thriller",
+    "status": "read",
+    "language": "nl"
+  },
+  {
+    "id": 54,
+    "title": "De Grot",
+    "author": "Tim Krabbé",
+    "year": 1997,
+    "genre": "Thriller",
+    "status": "read",
+    "language": "nl"
+  },
+  {
+    "id": 55,
+    "title": "Taal is zeg maar echt mijn ding",
+    "author": "Paulien Cornelisse",
+    "year": 2009,
+    "genre": "Non-fiction / Language",
+    "status": "read",
+    "language": "nl"
+  }
+]
