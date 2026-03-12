@@ -376,5 +376,77 @@
     "lng": 1.4611064,
     "city": "Cheverny",
     "countryCode": "FR"
+  },
+  "FR:saint remy de provence": {
+    "lat": 43.7885782,
+    "lng": 4.8317498,
+    "city": "Saint Remy De Provence",
+    "countryCode": "FR"
+  },
+  "FR:pont du gard": {
+    "lat": 43.9470703,
+    "lng": 4.5356005,
+    "city": "Pont Du Gard",
+    "countryCode": "FR"
+  },
+  "FR:gordes": {
+    "lat": 43.9110641,
+    "lng": 5.2002043,
+    "city": "Gordes",
+    "countryCode": "FR"
+  },
+  "FR:cotignac": {
+    "lat": 43.5280531,
+    "lng": 6.1502672,
+    "city": "Cotignac",
+    "countryCode": "FR"
+  },
+  "FR:arles": {
+    "lat": 43.6776223,
+    "lng": 4.6309653,
+    "city": "Arles",
+    "countryCode": "FR"
+  },
+  "FR:gorges du verdon": {
+    "lat": 43.7347,
+    "lng": 6.3292,
+    "city": "Gorges du Verdon",
+    "countryCode": "FR"
+  },
+  "FR:carcassonne": {
+    "lat": 43.2130,
+    "lng": 2.3491,
+    "city": "Carcassonne",
+    "countryCode": "FR"
+  },
+  "IN:munnar": {
+    "lat": 10.0869959,
+    "lng": 77.0600915,
+    "city": "Munnar",
+    "countryCode": "IN"
+  },
+  "DE:speyer": {
+    "lat": 49.3165553,
+    "lng": 8.433615,
+    "city": "Speyer",
+    "countryCode": "DE"
+  },
+  "DE:sinsheim": {
+    "lat": 49.2531222,
+    "lng": 8.8769914,
+    "city": "Sinsheim",
+    "countryCode": "DE"
+  },
+  "DE:heidelberg": {
+    "lat": 49.4093582,
+    "lng": 8.694724,
+    "city": "Heidelberg",
+    "countryCode": "DE"
+  },
+  "UA:uzhgorod": {
+    "lat": 48.6223731,
+    "lng": 22.3022572,
+    "city": "Uzhgorod",
+    "countryCode": "UA"
   }
 }
