@@ -72,6 +72,28 @@ function clampBaseUrl(baseUrl: string) {
   return baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 }
 
+function getMapColors() {
+  if (typeof window === 'undefined') {
+    return {
+      borderColor: 'rgba(158, 181, 137, 0.55)',
+      visitedFill: 'rgba(158, 181, 137, 0.22)'
+    };
+  }
+  const style = getComputedStyle(document.documentElement);
+  const accent = style.getPropertyValue('--accent').trim() || '#a8c99b';
+  // Parse hex to rgba
+  const hexToRgba = (hex: string, alpha: number) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+  return {
+    borderColor: hexToRgba(accent, 0.55),
+    visitedFill: hexToRgba(accent, 0.22)
+  };
+}
+
 function makeMarkerIcon(kind: 'filled' | 'outline') {
   const className = kind === 'filled' ? 'map-marker map-marker--filled' : 'map-marker map-marker--outline';
   return L.divIcon({
@@ -465,15 +487,16 @@ export default function WorldMap(props: Props) {
         countriesLayerRef.current = null;
       }
 
+      const colors = getMapColors();
       const layer = L.geoJSON(geojson, {
         filter: feature => !isAntarcticaFeature(feature),
         style: feature => {
           const visited = isVisitedFeature(feature);
           return {
-            color: 'rgba(67, 83, 57, 0.55)',
+            color: colors.borderColor,
             weight: 1,
             opacity: 1,
-            fillColor: visited ? 'rgba(67, 83, 57, 0.22)' : 'rgba(255, 255, 255, 0)',
+            fillColor: visited ? colors.visitedFill : 'rgba(255, 255, 255, 0)',
             fillOpacity: visited ? 1 : 0
           };
         }
@@ -622,13 +645,14 @@ export default function WorldMap(props: Props) {
   useEffect(() => {
     // Re-style countries if visited countries set changed.
     if (countriesLayerRef.current) {
+      const colors = getMapColors();
       countriesLayerRef.current.setStyle(feature => {
         const visited = isVisitedFeature(feature);
         return {
-          color: 'rgba(67, 83, 57, 0.55)',
+          color: colors.borderColor,
           weight: 1,
           opacity: 1,
-          fillColor: visited ? 'rgba(67, 83, 57, 0.22)' : 'rgba(255, 255, 255, 0)',
+          fillColor: visited ? colors.visitedFill : 'rgba(255, 255, 255, 0)',
           fillOpacity: visited ? 1 : 0
         };
       });
@@ -639,7 +663,7 @@ export default function WorldMap(props: Props) {
     <section className="relative h-full w-full">
       {/* Loading indicator */}
       {countriesStatus === 'loading' && (
-        <div className="absolute inset-0 z-[1300] flex items-center justify-center bg-[rgba(253,251,245,0.8)]">
+        <div className="absolute inset-0 z-[1300] flex items-center justify-center bg-paper/80">
           <div className="flex flex-col items-center gap-3">
             <div className="map-spinner" />
             <span className="text-sm text-muted">{t(locale, 'map.loading')}</span>
@@ -650,7 +674,7 @@ export default function WorldMap(props: Props) {
       {/* Home button - always visible */}
       <a
         href={baseUrl}
-        className="absolute right-4 top-4 z-[1201] flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-panel)] bg-white/90 text-primary backdrop-blur hover:bg-white"
+        className="absolute right-4 top-4 z-[1201] flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-panel)] bg-[var(--surface-header)] text-primary backdrop-blur hover:bg-[var(--surface-tonal)]"
         aria-label={t(locale, 'map.backToSite')}
         title={t(locale, 'map.backToSite')}
       >
@@ -664,7 +688,7 @@ export default function WorldMap(props: Props) {
         <button
           type="button"
           onClick={resetView}
-          className="absolute right-16 top-4 z-[1201] flex h-10 items-center gap-2 rounded-lg border border-[var(--border-panel)] bg-white/90 px-3 text-sm text-primary backdrop-blur hover:bg-white"
+          className="absolute right-16 top-4 z-[1201] flex h-10 items-center gap-2 rounded-lg border border-[var(--border-panel)] bg-[var(--surface-header)] px-3 text-sm text-primary backdrop-blur hover:bg-[var(--surface-tonal)]"
           aria-label={t(locale, 'map.resetView')}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -678,7 +702,7 @@ export default function WorldMap(props: Props) {
       <button
         type="button"
         onClick={() => setPanelOpen(!panelOpen)}
-        className="absolute left-2 top-24 z-[1201] flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-panel)] bg-white/90 text-primary backdrop-blur md:hidden"
+        className="absolute left-2 top-24 z-[1201] flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-panel)] bg-[var(--surface-header)] text-primary backdrop-blur md:hidden"
         aria-label="Toggle filters"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -688,7 +712,7 @@ export default function WorldMap(props: Props) {
 
       {/* Filter panel - responsive, positioned below zoom controls */}
       <div className={`
-        absolute z-[1200] rounded-lg border border-[var(--border-panel)] bg-white/95 text-primary backdrop-blur transition-all
+        absolute z-[1200] rounded-lg border border-[var(--border-panel)] bg-[var(--surface-header)] text-primary backdrop-blur transition-all
         ${panelOpen ? 'left-4 top-36' : '-left-full top-36'}
         w-[calc(100%-2rem)] max-w-[320px] p-3
         md:left-14 md:top-4 md:w-auto md:max-w-[560px] md:p-3
@@ -736,7 +760,7 @@ export default function WorldMap(props: Props) {
           <label className="inline-flex items-center gap-2 md:ml-auto">
             <span className="text-muted">{t(locale, 'map.filters.country')}</span>
             <select
-              className="rounded-md border border-[var(--border-panel)] bg-white/70 px-2 py-1"
+              className="rounded-md border border-[var(--border-panel)] bg-[var(--surface-tonal)] px-2 py-1"
               value={countryFilter}
               onChange={e => setCountryFilter(e.currentTarget.value)}
               disabled={!showVisitedPoints}
@@ -782,7 +806,7 @@ export default function WorldMap(props: Props) {
       <button
         type="button"
         onClick={() => setPlacesListOpen(!placesListOpen)}
-        className="absolute bottom-4 right-4 z-[1201] flex h-10 items-center gap-2 rounded-lg border border-[var(--border-panel)] bg-white/90 px-3 text-sm text-primary backdrop-blur hover:bg-white"
+        className="absolute bottom-4 right-4 z-[1201] flex h-10 items-center gap-2 rounded-lg border border-[var(--border-panel)] bg-[var(--surface-header)] px-3 text-sm text-primary backdrop-blur hover:bg-[var(--surface-tonal)]"
         aria-label={t(locale, 'map.placesList.toggle')}
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -796,7 +820,7 @@ export default function WorldMap(props: Props) {
         absolute z-[1202] transition-all duration-300 ease-in-out
         ${placesListOpen ? 'right-0' : '-right-full'}
         bottom-0 top-0 w-80 max-w-[85vw]
-        border-l border-[var(--border-panel)] bg-white/98 backdrop-blur
+        border-l border-[var(--border-panel)] bg-[var(--surface-sidebar)] backdrop-blur
         flex flex-col shadow-lg
       `}>
         {/* Header */}
@@ -805,7 +829,7 @@ export default function WorldMap(props: Props) {
           <button
             type="button"
             onClick={() => setPlacesListOpen(false)}
-            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-100"
+            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-[var(--surface-sidebar-hover)]"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
@@ -873,14 +897,14 @@ export default function WorldMap(props: Props) {
 
       <style>{`
         .map-canvas {
-          background: linear-gradient(180deg, rgba(253, 251, 245, 0.9), rgba(237, 228, 210, 0.92));
+          background: var(--paper);
         }
 
         .map-spinner {
           width: 32px;
           height: 32px;
-          border: 3px solid rgba(67, 83, 57, 0.2);
-          border-top-color: rgba(67, 83, 57, 0.8);
+          border: 3px solid var(--border-panel);
+          border-top-color: var(--accent);
           border-radius: 50%;
           animation: map-spin 0.8s linear infinite;
         }
@@ -897,19 +921,19 @@ export default function WorldMap(props: Props) {
           box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
         }
         .map-marker--filled {
-          background: rgba(49, 68, 39, 0.95);
-          border: 1px solid rgba(49, 68, 39, 1);
+          background: var(--accent);
+          border: 1px solid var(--accent);
         }
         .map-marker--outline {
-          background: rgba(253, 251, 245, 0.8);
-          border: 2px solid rgba(49, 68, 39, 0.95);
+          background: var(--paper);
+          border: 2px solid var(--accent);
         }
 
         .map-leaflet-popup .leaflet-popup-content-wrapper {
           border-radius: 12px;
-          background: rgba(253, 251, 245, 0.98);
-          border: 1px solid rgba(79, 91, 68, 0.25);
-          box-shadow: 0 10px 22px rgba(23, 30, 22, 0.18);
+          background: var(--surface-header);
+          border: 1px solid var(--border-panel);
+          box-shadow: var(--shadow-surface);
         }
         .map-leaflet-popup .leaflet-popup-content {
           margin: 12px 12px 10px;
@@ -931,8 +955,8 @@ export default function WorldMap(props: Props) {
           height: auto;
           margin-top: 10px;
           border-radius: 10px;
-          border: 1px solid rgba(79, 91, 68, 0.25);
-          background: rgba(255, 255, 255, 0.6);
+          border: 1px solid var(--border-panel);
+          background: var(--surface-tonal);
         }
         .map-popup__desc {
           margin-top: 8px;
@@ -958,10 +982,10 @@ export default function WorldMap(props: Props) {
           display: none !important;
         }
         .map-hover-tooltip {
-          background: rgba(253, 251, 245, 0.98);
-          border: 1px solid rgba(79, 91, 68, 0.25);
+          background: var(--surface-header);
+          border: 1px solid var(--border-panel);
           border-radius: 8px;
-          box-shadow: 0 4px 12px rgba(23, 30, 22, 0.15);
+          box-shadow: var(--shadow-surface);
           padding: 6px;
           text-align: center;
           pointer-events: none;
@@ -983,17 +1007,46 @@ export default function WorldMap(props: Props) {
 
         /* Simple tooltip (no postcard) */
         .map-hover-tooltip-simple {
-          background: rgba(253, 251, 245, 0.98) !important;
-          border: 1px solid rgba(79, 91, 68, 0.25) !important;
+          background: var(--surface-header) !important;
+          border: 1px solid var(--border-panel) !important;
           border-radius: 6px !important;
-          box-shadow: 0 2px 8px rgba(23, 30, 22, 0.12) !important;
+          box-shadow: var(--shadow-surface) !important;
           padding: 4px 8px !important;
           font-size: 11px !important;
           font-weight: 600 !important;
           color: var(--text-primary) !important;
         }
         .map-hover-tooltip-simple::before {
-          border-top-color: rgba(253, 251, 245, 0.98) !important;
+          border-bottom-color: var(--surface-header) !important;
+        }
+
+        /* Leaflet zoom controls */
+        .leaflet-control-zoom {
+          border: 1px solid var(--border-panel) !important;
+          border-radius: 8px !important;
+          overflow: hidden;
+        }
+        .leaflet-control-zoom a {
+          background: var(--surface-header) !important;
+          color: var(--text-primary) !important;
+          border-bottom: 1px solid var(--border-panel) !important;
+        }
+        .leaflet-control-zoom a:hover {
+          background: var(--surface-tonal) !important;
+        }
+        .leaflet-control-zoom a:last-child {
+          border-bottom: none !important;
+        }
+
+        /* Popup close button */
+        .map-leaflet-popup .leaflet-popup-close-button {
+          color: var(--text-muted) !important;
+        }
+        .map-leaflet-popup .leaflet-popup-close-button:hover {
+          color: var(--text-primary) !important;
+        }
+        .map-leaflet-popup .leaflet-popup-tip {
+          background: var(--surface-header) !important;
         }
       `}</style>
     </section>
