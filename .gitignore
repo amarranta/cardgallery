@@ -34,3 +34,4 @@ scripts/*
 !scripts/list-cloudinary-folder.mjs
 !scripts/extract-user-copy.mjs
 !scripts/use-mock.mjs
+!scripts/fetch-travel-postcards.mjs

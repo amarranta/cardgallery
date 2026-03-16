@@ -119,6 +119,10 @@
       "text": "After moving to another country I left all my books behind. But recently I have started to rebuild my book library."
     }
   },
+  "travel": {
+    "title": "Travel Album",
+    "subtitle": "Postcards received through Postcrossing"
+  },
   "books": {
     "title": "My Library",
     "subtitle": "Books I've read and am reading",

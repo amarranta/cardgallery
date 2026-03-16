@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TravelAlbum from '../components/TravelAlbum';
+import { site } from '../data/gallery.js';
+import data from '../data/travel-postcards.json';
+
+const cards = Object.values(data.postcards);
+
+// Group by country_code, sort by count descending
+const grouped: Record<string, typeof cards> = {};
+for (const card of cards) {
+  (grouped[card.country_code] ||= []).push(card);
+}
+
+const countries = Object.entries(grouped)
+  .sort(([, a], [, b]) => b.length - a.length)
+  .map(([code, cards]) => ({
+    code,
+    name: cards[0].country_name,
+    cards
+  }));
+
+// Build unique city markers for the map
+const CITY_COORDS: Record<string, [number, number]> = {
+  'US:New York City': [40.7128, -74.0060],
+  'US:Seattle': [47.6062, -122.3321],
+  'RU:Moscow': [55.7558, 37.6173],
+  'IT:Naples': [40.8518, 14.2681],
+  'IN:Kochi': [9.9312, 76.2673],
+  'GB:London': [51.5074, -0.1278],
+  'FR:Cotignac': [43.5289, 6.1539],
+  'FR:Arles': [43.6767, 4.6278],
+  'FR:Rouen': [49.4432, 1.0999],
+  'DE:Trier': [49.7490, 6.6371],
+  'CA:Victoria': [48.4284, -123.3656],
+};
+
+const cityMap = new Map<string, { city: string; country: string; countryCode: string; lat: number; lng: number; count: number }>();
+for (const card of cards) {
+  const cityName = card.city_sent.split(',')[0].trim();
+  const key = card.country_code + ':' + cityName;
+  if (!cityMap.has(key)) {
+    const coords = CITY_COORDS[key] || [0, 0];
+    cityMap.set(key, {
+      city: cityName,
+      country: card.country_name,
+      countryCode: card.country_code,
+      lat: coords[0],
+      lng: coords[1],
+      count: 0,
+    });
+  }
+  cityMap.get(key)!.count++;
+}
+const mapPoints = [...cityMap.values()].filter(p => p.lat !== 0);
+---
+
+<BaseLayout title={`Travel Album | ${site.title}`} description="Postcards received through Postcrossing">
+  <div class="flex min-h-screen flex-col">
+    <main class="flex flex-1 flex-col overflow-hidden">
+      <div class="border-b border-sidebar-strong bg-header px-6 py-4 md:px-9 lg:px-12">
+        <nav class="flex items-center gap-2 text-sm text-muted">
+          <a href={import.meta.env.BASE_URL} class="transition hover:text-accent" data-i18n="nav.allFolders">All folders</a>
+          <span>/</span>
+          <span class="text-primary" data-i18n="travel.title">Travel Album</span>
+        </nav>
+      </div>
+      <div class="flex-1 overflow-y-auto">
+        <TravelAlbum countries={countries} mapPoints={mapPoints} client:load />
+      </div>
+    </main>
+  </div>
+</BaseLayout>
