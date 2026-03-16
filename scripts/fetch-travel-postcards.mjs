@@ -97,11 +97,6 @@ function parsePostcard(html, id) {
   const recipientCountryEl = receiverBlock?.querySelector('a[itemprop="addressCountry"]')
     || root.querySelectorAll('a[itemprop="addressCountry"]')[1];
   const recipient_country = recipientCountryEl?.text?.trim() || '';
-  const recipient_city = recipientCountryEl?.getAttribute('title')?.trim() || '';
-
-  const recipientUserEl = receiverBlock?.querySelector('a[itemprop="url"]')
-    || root.querySelectorAll('a[itemprop="url"]')[1];
-  const recipient_username = recipientUserEl?.text?.trim() || '';
 
   // --- Dates via <time> elements ---
   const startTimeEl = root.querySelector('time[itemprop="startTime"]');
@@ -128,9 +123,7 @@ function parsePostcard(html, id) {
     days_in_transit,
     distance_km,
     sender_username,
-    recipient_username,
     recipient_country,
-    recipient_city,
     received_date,
     image_url
   };

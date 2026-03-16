@@ -9,9 +9,7 @@ interface PostcardData {
   days_in_transit: number | null;
   distance_km: number | null;
   sender_username: string;
-  recipient_username: string;
   recipient_country: string;
-  recipient_city: string;
   received_date: string;
   image_url: string;
 }
@@ -302,7 +300,7 @@ export default function TravelAlbum({ countries, mapPoints = [] }: Props) {
                     </div>
                     <div className="mt-2 text-xs text-[var(--text-muted)]">
                       <span className="opacity-70">to</span>{' '}
-                      {card.recipient_username}, {card.recipient_country}
+                      {card.recipient_country}
                     </div>
                   </div>
                 </article>
@@ -355,7 +353,7 @@ export default function TravelAlbum({ countries, mapPoints = [] }: Props) {
                   )}
                 </div>
                 <p className="mt-2 text-sm text-[var(--text-muted)]">
-                  To: {lightbox.recipient_username}, {lightbox.recipient_city || lightbox.recipient_country}
+                  To: {lightbox.recipient_country}
                 </p>
               </div>
             </div>
