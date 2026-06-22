@@ -1,0 +1,343 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import states from '../data/loupaper-states.json';
+import statePaths from '../data/us-state-paths.json';
+import { site } from '../data/gallery.js';
+
+type LouPaperState = {
+  code: string;
+  name: string;
+  owned: boolean;
+};
+
+const byCode = new Map((states as LouPaperState[]).map(state => [state.code, state]));
+const mappedStates = statePaths
+  .map(item => ({ ...item, state: byCode.get(item.code) }))
+  .filter((item): item is (typeof statePaths)[number] & { state: LouPaperState } => Boolean(item.state));
+
+const statesIHave = (states as LouPaperState[])
+  .filter(state => state.owned)
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const statesLookingFor = (states as LouPaperState[])
+  .filter(state => !state.owned)
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const progress = Math.round((statesIHave.length / (states as LouPaperState[]).length) * 100);
+---
+
+<BaseLayout title={`LouPaper map - ${site.title}`} description={`LouPaper state postcard tracker - ${site.title}`}>
+  <main class="lou-page">
+    <header class="lou-header">
+      <a class="lou-back" href={import.meta.env.BASE_URL}>
+        <span aria-hidden="true">←</span>
+        <span>Back to postcards</span>
+      </a>
+      <div class="lou-header__row">
+        <div>
+          <p class="lou-eyebrow">LouPaper collection</p>
+          <h1>United States postcard map</h1>
+          <p class="lou-subtitle">States where I already have or arranged LouPaper postcards, and the ones I am still looking for.</p>
+        </div>
+        <div class="lou-progress" aria-label={`${statesIHave.length} of ${(states as LouPaperState[]).length} states collected`}>
+          <strong>{statesIHave.length}</strong>
+          <span>of {(states as LouPaperState[]).length} states</span>
+          <div class="lou-progress__bar" aria-hidden="true">
+            <i style={`width: ${progress}%`}></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="lou-layout" aria-label="LouPaper state collection">
+      <div class="lou-map-panel">
+        <svg class="lou-map" viewBox="-70 0 1040 620" role="img" aria-label="Map of the United States showing LouPaper states I have">
+          <g>
+            {mappedStates.map(({ code, path, state }) => (
+            <path
+              d={path}
+              class="lou-state"
+              data-owned={state.owned ? 'true' : 'false'}
+            >
+              <title>{state.name} ({code})</title>
+            </path>
+            ))}
+          </g>
+        </svg>
+        <div class="lou-legend">
+          <span><i data-kind="have"></i>States I have/Arranged</span>
+          <span><i data-kind="looking"></i>States I am looking for</span>
+        </div>
+      </div>
+
+      <aside class="lou-list-panel">
+        <section class="lou-list-section">
+          <h2>States I have/Arranged</h2>
+          <ul class="lou-state-list" data-kind="have">
+            {statesIHave.map(state => (
+              <li><span>{state.code}</span>{state.name}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="lou-list-section">
+          <h2>States I am looking for</h2>
+          <ul class="lou-state-list" data-kind="looking">
+            {statesLookingFor.map(state => (
+              <li><span>{state.code}</span>{state.name}</li>
+            ))}
+          </ul>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <style>
+    .lou-page {
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--text-primary);
+      padding: 28px;
+    }
+
+    .lou-header,
+    .lou-map-panel,
+    .lou-list-panel {
+      border: 1px solid var(--border-panel);
+      border-radius: 8px;
+      background: var(--surface-header);
+      box-shadow: var(--shadow-surface);
+    }
+
+    .lou-header {
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .lou-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .lou-header__row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 170px;
+      gap: 20px;
+      align-items: end;
+    }
+
+    .lou-eyebrow {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .lou-page h1 {
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 700;
+      line-height: 0.95;
+    }
+
+    .lou-subtitle {
+      max-width: 720px;
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .lou-progress {
+      border: 1px solid var(--border-panel);
+      border-radius: 8px;
+      background: var(--surface-tonal);
+      padding: 12px;
+    }
+
+    .lou-progress strong {
+      display: block;
+      color: var(--accent);
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .lou-progress span {
+      display: block;
+      margin-top: 3px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .lou-progress__bar {
+      height: 7px;
+      margin-top: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--surface-card-tile);
+    }
+
+    .lou-progress__bar i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .lou-layout {
+      display: grid;
+      grid-template-columns: minmax(360px, 1fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .lou-map-panel {
+      padding: 18px;
+    }
+
+    .lou-map {
+      display: block;
+      width: 100%;
+      max-width: 620px;
+      height: auto;
+      margin: 8px auto 18px;
+    }
+
+    .lou-state {
+      fill: var(--surface-tonal);
+      stroke: var(--border-panel);
+      stroke-width: 1.1;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .lou-state[data-owned='true'] {
+      fill: var(--accent);
+      stroke: color-mix(in oklab, var(--accent) 78%, var(--paper));
+    }
+
+    .lou-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-top: 1px solid var(--border-panel);
+      padding-top: 14px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .lou-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .lou-legend i {
+      width: 13px;
+      height: 13px;
+      border: 1px solid var(--border-panel);
+      border-radius: 4px;
+      background: var(--surface-tonal);
+    }
+
+    .lou-legend i[data-kind='have'] {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .lou-list-panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .lou-list-section {
+      min-width: 0;
+    }
+
+    .lou-list-panel h2 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .lou-state-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .lou-state-list li {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border-panel);
+      border-radius: 7px;
+      background: var(--surface-tonal);
+      padding: 8px 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .lou-state-list span {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: var(--surface-card-tile);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .lou-state-list[data-kind='have'] span {
+      background: var(--accent);
+      color: var(--paper);
+    }
+
+    @media (max-width: 1020px) {
+      .lou-page {
+        padding: 16px;
+      }
+
+      .lou-header__row,
+      .lou-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .lou-map-panel {
+        padding: 14px;
+      }
+
+      .lou-map {
+        max-width: 680px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .lou-map-panel {
+        display: none;
+      }
+
+      .lou-list-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .lou-page h1 {
+        font-size: 34px;
+      }
+
+      .lou-progress {
+        max-width: 220px;
+      }
+    }
+  </style>
+</BaseLayout>
