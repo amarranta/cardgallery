@@ -371,7 +371,7 @@
   {
     "id": 42,
     "title": "Город не принимает",
-    "author": "Лана Лисик",
+    "author": "Катя Пицык",
     "year": 2019,
     "genre": "Fiction",
     "status": "read",
@@ -434,7 +434,7 @@
   {
     "id": 49,
     "title": "Краткая история Японии",
-    "author": "Александр Мещеряков",
+    "author": "Александр Ландау",
     "year": 2020,
     "genre": "History",
     "status": "read",
@@ -492,6 +492,366 @@
     "year": 2009,
     "genre": "Non-fiction / Language",
     "status": "read",
+    "language": "nl"
+  },
+  {
+    "id": 56,
+    "title": "De Amsterdamse School",
+    "author": "Maristella Casciato",
+    "year": 1991,
+    "genre": "Architecture",
+    "status": "unknown",
+    "language": "nl"
+  },
+  {
+    "id": 57,
+    "title": "Als de kat van huis is...: 4000 spreekwoorden, gezegden en uitdrukkingen",
+    "author": "Martha Cazemier & Hubert van Marnum",
+    "year": null,
+    "genre": "Non-fiction / Language",
+    "status": "unknown",
+    "language": "nl"
+  },
+  {
+    "id": 58,
+    "title": "Fan-tas-tisch om hier te zijn!",
+    "author": "Christine Liebrecht",
+    "year": 2016,
+    "genre": "Non-fiction / Language",
+    "status": "unknown",
+    "language": "nl"
+  },
+  {
+    "id": 59,
+    "title": "Het Nederlandse kunstboek",
+    "author": "Richard Fernhout & Colin Huizing",
+    "year": 2000,
+    "genre": "Art",
+    "status": "unknown",
+    "language": "nl"
+  },
+  {
+    "id": 60,
+    "title": "Nederlands (Van Dale)",
+    "author": "Van Dale",
+    "year": null,
+    "genre": "Dictionary",
+    "status": "unknown",
+    "language": "nl"
+  },
+  {
+    "id": 61,
+    "title": "J.K. Rowling's Wizarding World: The Dark Arts — A Movie Scrapbook",
+    "author": "Jody Revenson",
+    "year": 2017,
+    "genre": "Non-fiction / Film",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 62,
+    "title": "The Book Thief",
+    "author": "Markus Zusak",
+    "year": 2005,
+    "genre": "Historical Fiction",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 63,
+    "title": "The 7 Habits of Highly Effective People",
+    "author": "Stephen R. Covey",
+    "year": 1989,
+    "genre": "Self-help",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 64,
+    "title": "Как перестать беспокоиться и начать жить",
+    "author": "Дейл Карнеги",
+    "year": 1948,
+    "genre": "Self-help",
+    "status": "unknown",
+    "language": "ru"
+  },
+  {
+    "id": 65,
+    "title": "Как завоёвывать друзей и оказывать влияние на людей",
+    "author": "Дейл Карнеги",
+    "year": 1936,
+    "genre": "Self-help",
+    "status": "unknown",
+    "language": "ru"
+  },
+  {
+    "id": 66,
+    "title": "Kanban and Scrum: Making the Most of Both",
+    "author": "Henrik Kniberg & Mattias Skarin",
+    "year": 2009,
+    "genre": "Non-fiction / Software Development",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 67,
+    "title": "The Papillon and the Phalène: Big hearts in a small size",
+    "author": "Jean-Marie Vanbutsele",
+    "year": null,
+    "genre": "Non-fiction / Dogs",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 68,
+    "title": "Just My Type: A Book About Fonts",
+    "author": "Simon Garfield",
+    "year": 2010,
+    "genre": "Non-fiction / Design",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 69,
+    "title": "Hell of a Book",
+    "author": "Jason Mott",
+    "year": 2021,
+    "genre": "Fiction",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 70,
+    "title": "Inside of a Dog: What Dogs See, Smell, and Know",
+    "author": "Alexandra Horowitz",
+    "year": 2009,
+    "genre": "Non-fiction / Dogs",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 71,
+    "title": "Neverwhere",
+    "author": "Neil Gaiman",
+    "year": 1996,
+    "genre": "Fantasy",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 72,
+    "title": "Bridget Jones: Mad About the Boy",
+    "author": "Helen Fielding",
+    "year": 2013,
+    "genre": "Fiction / Humor",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 73,
+    "title": "A Short History of Nearly Everything",
+    "author": "Bill Bryson",
+    "year": 2003,
+    "genre": "Science / Non-fiction",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 74,
+    "title": "About a Boy",
+    "author": "Nick Hornby",
+    "year": 1998,
+    "genre": "Fiction",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 75,
+    "title": "The Honjin Murders",
+    "author": "Seishi Yokomizo",
+    "year": 1946,
+    "genre": "Mystery",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 76,
+    "title": "La Chartreuse de Parme",
+    "author": "Stendhal",
+    "year": 1839,
+    "genre": "Classic Fiction",
+    "status": "unknown",
+    "language": "fr"
+  },
+  {
+    "id": 77,
+    "title": "Le Dictateur et le Hamac",
+    "author": "Daniel Pennac",
+    "year": 2003,
+    "genre": "Fiction",
+    "status": "unknown",
+    "language": "fr"
+  },
+  {
+    "id": 78,
+    "title": "Central Park",
+    "author": "Guillaume Musso",
+    "year": 2014,
+    "genre": "Thriller",
+    "status": "unknown",
+    "language": "fr"
+  },
+  {
+    "id": 79,
+    "title": "Modern C (Third Edition)",
+    "author": "Jens Gustedt",
+    "year": 2025,
+    "genre": "Non-fiction / Programming",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 80,
+    "title": "Modern Locomotives",
+    "author": "Derek Avery",
+    "year": 1994,
+    "genre": "Non-fiction / Railways",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 81,
+    "title": "Americanah",
+    "author": "Chimamanda Ngozi Adichie",
+    "year": 2013,
+    "genre": "Fiction",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 82,
+    "title": "The Graveyard Book (Graphic Novel)",
+    "author": "Neil Gaiman & P. Craig Russell",
+    "year": 2014,
+    "genre": "Graphic Novel / Fantasy",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 83,
+    "title": "Fables de La Fontaine (édition annotée par A. Gazier)",
+    "author": "Jean de La Fontaine",
+    "year": null,
+    "genre": "Classics / Poetry",
+    "status": "unknown",
+    "language": "fr"
+  },
+  {
+    "id": 84,
+    "title": "A Spot of Bother",
+    "author": "Mark Haddon",
+    "year": 2006,
+    "genre": "Fiction",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 85,
+    "title": "The Thursday Murder Club",
+    "author": "Richard Osman",
+    "year": 2020,
+    "genre": "Mystery",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 86,
+    "title": "The Man Who Died Twice",
+    "author": "Richard Osman",
+    "year": 2021,
+    "genre": "Mystery",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 87,
+    "title": "The Kite Runner",
+    "author": "Khaled Hosseini",
+    "year": 2003,
+    "genre": "Fiction",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 88,
+    "title": "My Grammar and I (Or Should That Be 'Me'?)",
+    "author": "Caroline Taggart & J. A. Wines",
+    "year": 2008,
+    "genre": "Non-fiction / Language",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 89,
+    "title": "Wilde dieren & paddenstoelen in Nederland",
+    "author": "Chris Gibson, Shelley Evans & Geoffrey Kibby",
+    "year": 2025,
+    "genre": "Nature / Reference",
+    "status": "unknown",
+    "language": "nl"
+  },
+  {
+    "id": 90,
+    "title": "Vogels in Nederland",
+    "author": "Jonathan Elphick & John Woodward",
+    "year": 2021,
+    "genre": "Nature / Reference",
+    "status": "unknown",
+    "language": "nl"
+  },
+  {
+    "id": 91,
+    "title": "Gut: The Inside Story of Our Body's Most Underrated Organ",
+    "author": "Giulia Enders",
+    "year": 2014,
+    "genre": "Science / Non-fiction",
+    "status": "unknown",
+    "language": "en"
+  },
+  {
+    "id": 92,
+    "title": "Искры радости. Простая счастливая жизнь в окружении любимых вещей",
+    "author": "Мари Кондо",
+    "year": null,
+    "genre": "Non-fiction / Home",
+    "status": "unknown",
+    "language": "ru"
+  },
+  {
+    "id": 93,
+    "title": "Магическая уборка. Японское искусство наведения порядка дома и в жизни",
+    "author": "Мари Кондо",
+    "year": 2010,
+    "genre": "Non-fiction / Home",
+    "status": "unknown",
+    "language": "ru"
+  },
+  {
+    "id": 94,
+    "title": "Падение дома Ашеров",
+    "author": "Эдгар Аллан По",
+    "year": null,
+    "genre": "Horror / Short Stories",
+    "status": "unknown",
+    "language": "ru"
+  },
+  {
+    "id": 95,
+    "title": "Flip Fiasco: Oeps...",
+    "author": "Stephan Pastis",
+    "year": 2013,
+    "genre": "Children's Fiction / Humor",
+    "status": "unknown",
     "language": "nl"
   }
 ]

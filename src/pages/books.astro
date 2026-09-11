@@ -66,7 +66,7 @@ const languageNames: Record<string, { en: string, ru: string }> = {
                       <tr class={`transition hover:bg-sidebar-hover ${index !== books.length - 1 ? 'border-b border-sidebar-strong' : ''}`}>
                         <td class="px-4 py-3 font-medium">{book.title}</td>
                         <td class="px-4 py-3 text-muted">{book.author}</td>
-                        <td class="px-4 py-3 text-muted">{book.year}</td>
+                        <td class="px-4 py-3 text-muted">{book.year ?? '—'}</td>
                         <td class="px-4 py-3 text-sm text-muted">{book.genre}</td>
                       </tr>
                     ))}
