@@ -35,3 +35,6 @@ scripts/*
 !scripts/extract-user-copy.mjs
 !scripts/use-mock.mjs
 !scripts/fetch-travel-postcards.mjs
+
+# Local working notes
+books-photo-audit.md
